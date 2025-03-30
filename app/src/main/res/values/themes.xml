@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.BookPlayFree" parent="android:Theme.Material.Light.NoActionBar">
+        <!--To disable default splashscreen-->
+        <item name="android:windowIsTranslucent">true</item>
+    </style>
+</resources>
