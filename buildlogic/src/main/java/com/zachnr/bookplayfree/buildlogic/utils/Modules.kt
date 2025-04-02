@@ -9,6 +9,7 @@ object Modules {
         const val DESIGN_SYSTEM = ":core:designsystem"
         const val NAVIGATION = ":core:navigation"
         const val UI_COMPONENT = ":core:uicomponent"
+        const val NETWORK = ":core:network"
     }
 
     object Features {

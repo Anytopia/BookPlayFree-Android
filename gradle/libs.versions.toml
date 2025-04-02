@@ -57,19 +57,25 @@ kotlinxCoroutines = "1.10.1"
 kotlinxDatetime = "0.6.1"
 kotlinxSerializationJson = "1.6.3"
 ksp = "2.1.0-1.0.29"
+ktorClientCio = "2.3.5"
+ktorClientContentNegotiation = "2.3.4"
+ktorClientCore = "2.3.5"
+ktorClientLogging = "2.3.4"
+ktorClientOkhttp = "2.3.4"
+ktorSerializationKotlinxJson = "2.3.4"
+library = "4.1.0"
+libraryNoOp = "4.1.0"
 lifecycle = "2.6.2"
 lifecycleRuntimeKtx = "2.8.5"
 lottieCompose = "6.6.4"
 material = "1.12.0"
 material3Android = "1.3.1"
-materialVersion = "1.7.8"
 moduleGraph = "2.7.1"
 navigation = "2.7.6"
 okhttp = "4.12.0"
 protobuf = "4.26.1"
 protobufPlugin = "0.9.4"
 retrofit = "2.11.0"
-retrofitKotlinxSerializationJson = "1.0.0"
 robolectric = "4.12.2"
 roborazzi = "1.7.0"
 room = "2.6.1"
@@ -78,7 +84,6 @@ truth = "1.4.2"
 turbine = "1.1.0"
 navigationRuntimeKtx = "2.8.8"
 startupRuntime = "1.2.0"
-materialCompose = "1.7.8"
 
 [bundles]
 androidx-compose-ui-test = ["androidx-compose-ui-test", "androidx-compose-ui-testManifest"]
@@ -176,6 +181,14 @@ kotlinx-coroutines-test = { group = "org.jetbrains.kotlinx", name = "kotlinx-cor
 kotlinx-datetime = { group = "org.jetbrains.kotlinx", name = "kotlinx-datetime", version.ref = "kotlinxDatetime" }
 kotlinx-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "kotlinxSerializationJson" }
 ksp-gradlePlugin = { group = "com.google.devtools.ksp", name = "com.google.devtools.ksp.gradle.plugin", version.ref = "ksp" }
+ktor-client-cio = { module = "io.ktor:ktor-client-cio", version.ref = "ktorClientCio" }
+ktor-client-content-negotiation = { module = "io.ktor:ktor-client-content-negotiation", version.ref = "ktorClientContentNegotiation" }
+ktor-client-core = { module = "io.ktor:ktor-client-core", version.ref = "ktorClientCore" }
+ktor-client-logging = { module = "io.ktor:ktor-client-logging", version.ref = "ktorClientLogging" }
+ktor-client-okhttp = { module = "io.ktor:ktor-client-okhttp", version.ref = "ktorClientOkhttp" }
+ktor-serialization-kotlinx-json = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "ktorSerializationKotlinxJson" }
+chucker = { module = "com.github.chuckerteam.chucker:library", version.ref = "library" }
+chucker-no-op = { module = "com.github.chuckerteam.chucker:library-no-op", version.ref = "libraryNoOp" }
 lifecycle-livedata-ktx = { group = "androidx.lifecycle", name = "lifecycle-livedata-ktx", version.ref = "lifecycle" }
 lifecycle-viewmodel-ktx = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-ktx", version.ref = "lifecycle" }
 lint-api = { group = "com.android.tools.lint", name = "lint-api", version.ref = "androidTools" }

@@ -41,6 +41,9 @@ class FeaturePlugin: Plugin<Project> {
             add(implementationConfigName, project(Modules.Core.NAVIGATION))
             add(implementationConfigName, project(Modules.Core.DESIGN_SYSTEM))
             add(implementationConfigName, project(Modules.SHARED))
+            add(implementationConfigName, project(Modules.DATA))
+            add(implementationConfigName, project(Modules.DOMAIN))
+            add(implementationConfigName, project(Modules.Core.NETWORK))
 
             // External libraries
             add(implementationConfigName, libs.findLibrary("androidx-core-ktx").get())

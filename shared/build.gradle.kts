@@ -5,3 +5,7 @@ plugins {
 android {
     namespace = "com.zachnr.bookplayfree.shared"
 }
+
+dependencies {
+    implementation(libs.kotlinx.coroutines.core)
+}
