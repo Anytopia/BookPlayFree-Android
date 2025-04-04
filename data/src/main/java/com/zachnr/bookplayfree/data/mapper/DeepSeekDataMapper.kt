@@ -12,7 +12,7 @@ import com.zachnr.bookplayfree.shared.ext.orZero
 import com.zachnr.bookplayfree.shared.utils.DispatcherProvider
 import kotlinx.coroutines.withContext
 
-class DeepSeekDataMapper(
+internal class DeepSeekDataMapper(
     private val dispatcher: DispatcherProvider
 ) {
     suspend fun mapChatResponseToDomain(

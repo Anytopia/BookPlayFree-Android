@@ -1,4 +1,4 @@
-package com.zachnr.bookplayfree.network.ext
+package com.zachnr.bookplayfree.data.utils
 
 import com.zachnr.bookplayfree.network.model.ResponseWrapper
 import io.ktor.client.HttpClient
@@ -9,7 +9,7 @@ import io.ktor.client.statement.HttpResponse
 import io.ktor.client.statement.bodyAsText
 import io.ktor.util.reflect.typeInfo
 
-suspend inline fun <reified T> HttpResponse.bodyWrapped(): ResponseWrapper<T> {
+internal suspend inline fun <reified T> HttpResponse.bodyWrapped(): ResponseWrapper<T> {
     return try {
         when (status.value) {
             // Success block
@@ -30,7 +30,7 @@ suspend inline fun <reified T> HttpResponse.bodyWrapped(): ResponseWrapper<T> {
     }
 }
 
-suspend inline fun <reified T> HttpClient.safePostWrapped(
+internal suspend inline fun <reified T> HttpClient.safePostWrapped(
     urlString: String,
     block: HttpRequestBuilder.() -> Unit = {}
 ): ResponseWrapper<T> = try {

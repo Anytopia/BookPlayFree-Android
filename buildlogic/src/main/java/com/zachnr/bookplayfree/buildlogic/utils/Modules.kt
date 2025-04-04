@@ -10,6 +10,7 @@ object Modules {
         const val NAVIGATION = ":core:navigation"
         const val UI_COMPONENT = ":core:uicomponent"
         const val NETWORK = ":core:network"
+        const val AI_LOCAL = ":core:ailocal"
     }
 
     object Features {

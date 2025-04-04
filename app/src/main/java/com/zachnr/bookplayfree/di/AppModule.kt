@@ -1,5 +1,6 @@
 package com.zachnr.bookplayfree.di
 
+import com.zachnr.bookplayfree.ailocal.di.mlKitTranslatorModule
 import com.zachnr.bookplayfree.navigation.impl.NavigatorImpl
 import com.zachnr.bookplayfree.navigation.interfaces.Navigator
 import com.zachnr.bookplayfree.navigation.route.Destination
@@ -26,9 +27,13 @@ fun loadAppModule() {
         mockoonClientModule,
         okhttpClientEngineModule
     )
+    val aiLocal = listOf(
+        mlKitTranslatorModule
+    )
     loadKoinModules(
         buildList {
             addAll(networkModules)
+            addAll(aiLocal)
             add(appNavigationModule)
             add(utilsModule)
         }

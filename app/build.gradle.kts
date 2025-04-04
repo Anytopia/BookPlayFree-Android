@@ -16,6 +16,7 @@ dependencies {
     implementation(project(Modules.Features.DASHBOARD))
     implementation(project(Modules.SHARED))
     implementation(project(Modules.Core.NETWORK))
+    implementation(project(Modules.Core.AI_LOCAL))
 
     implementation(libs.koin.core)
     implementation(libs.koin.android)

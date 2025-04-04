@@ -17,6 +17,7 @@ class GetQuoteDeepSeekUseCase(
     }
 
     private fun getPrompt(): String {
-        return "Gives me quote related to reading or book. Quote only without any desc from you!"
+        return "Gives me quote related to reading or book. Quote only without any desc from you!" +
+               "Using this format: \"(Some quote)\" - (Author)"
     }
 }

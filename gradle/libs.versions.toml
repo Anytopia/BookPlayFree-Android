@@ -63,6 +63,7 @@ ktorClientCore = "2.3.5"
 ktorClientLogging = "2.3.4"
 ktorClientOkhttp = "2.3.4"
 ktorSerializationKotlinxJson = "2.3.4"
+languageId = "17.0.6"
 library = "4.1.0"
 libraryNoOp = "4.1.0"
 lifecycle = "2.6.2"
@@ -73,6 +74,7 @@ material3Android = "1.3.1"
 moduleGraph = "2.7.1"
 navigation = "2.7.6"
 okhttp = "4.12.0"
+onnxruntime = "1.21.0"
 protobuf = "4.26.1"
 protobufPlugin = "0.9.4"
 retrofit = "2.11.0"
@@ -80,6 +82,7 @@ robolectric = "4.12.2"
 roborazzi = "1.7.0"
 room = "2.6.1"
 secrets = "2.0.1"
+translate = "17.0.3"
 truth = "1.4.2"
 turbine = "1.1.0"
 navigationRuntimeKtx = "2.8.8"
@@ -189,6 +192,7 @@ ktor-client-okhttp = { module = "io.ktor:ktor-client-okhttp", version.ref = "kto
 ktor-serialization-kotlinx-json = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "ktorSerializationKotlinxJson" }
 chucker = { module = "com.github.chuckerteam.chucker:library", version.ref = "library" }
 chucker-no-op = { module = "com.github.chuckerteam.chucker:library-no-op", version.ref = "libraryNoOp" }
+language-id = { module = "com.google.mlkit:language-id", version.ref = "languageId" }
 lifecycle-livedata-ktx = { group = "androidx.lifecycle", name = "lifecycle-livedata-ktx", version.ref = "lifecycle" }
 lifecycle-viewmodel-ktx = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-ktx", version.ref = "lifecycle" }
 lint-api = { group = "com.android.tools.lint", name = "lint-api", version.ref = "androidTools" }
@@ -199,6 +203,7 @@ material = { group = "com.google.android.material", name = "material", version.r
 navigation-fragment-ktx = { group = "androidx.navigation", name = "navigation-fragment-ktx", version.ref = "navigation" }
 navigation-ui-ktx = { group = "androidx.navigation", name = "navigation-ui-ktx", version.ref = "navigation" }
 okhttp-logging = { group = "com.squareup.okhttp3", name = "logging-interceptor", version.ref = "okhttp" }
+onnxruntime = { module = "com.microsoft.onnxruntime:onnxruntime", version.ref = "onnxruntime" }
 protobuf-kotlin-lite = { group = "com.google.protobuf", name = "protobuf-kotlin-lite", version.ref = "protobuf" }
 protobuf-protoc = { group = "com.google.protobuf", name = "protoc", version.ref = "protobuf" }
 retrofit-core = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit" }
@@ -209,6 +214,7 @@ room-compiler = { group = "androidx.room", name = "room-compiler", version.ref =
 room-gradlePlugin = { group = "androidx.room", name = "room-gradle-plugin", version.ref = "room" }
 room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "room" }
 room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "room" }
+translate = { module = "com.google.mlkit:translate", version.ref = "translate" }
 truth = { group = "com.google.truth", name = "truth", version.ref = "truth" }
 turbine = { group = "app.cash.turbine", name = "turbine", version.ref = "turbine" }
 androidx-navigation-runtime-ktx = { group = "androidx.navigation", name = "navigation-runtime-ktx", version.ref = "navigationRuntimeKtx" }
