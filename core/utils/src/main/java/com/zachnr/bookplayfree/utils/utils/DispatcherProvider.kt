@@ -1,4 +1,4 @@
-package com.zachnr.bookplayfree.shared.utils
+package com.zachnr.bookplayfree.utils.utils
 
 import kotlinx.coroutines.Dispatchers
 

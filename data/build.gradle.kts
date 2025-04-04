@@ -11,7 +11,7 @@ android {
 
 dependencies {
     implementation(project(Modules.DOMAIN))
-    implementation(project(Modules.SHARED))
+    implementation(project(Modules.Core.UTILS))
     implementation(project(Modules.Core.NETWORK))
     implementation(project(Modules.Core.AI_LOCAL))
 

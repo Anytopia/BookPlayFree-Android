@@ -1,4 +1,4 @@
-package com.zachnr.bookplayfree.shared.ext
+package com.zachnr.bookplayfree.utils.ext
 
 fun Int?.orZero(): Int = this ?: 0
 fun Long?.orZero(): Long = this ?: 0L

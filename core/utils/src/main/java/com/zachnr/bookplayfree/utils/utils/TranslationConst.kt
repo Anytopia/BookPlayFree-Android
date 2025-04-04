@@ -1,4 +1,4 @@
-package com.zachnr.bookplayfree.shared.utils
+package com.zachnr.bookplayfree.utils.utils
 
 object TranslationConst {
     const val UNDEFINED_ERROR_CODE = "und"

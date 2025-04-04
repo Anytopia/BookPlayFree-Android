@@ -2,7 +2,7 @@ package com.zachnr.bookplayfree.network.di
 
 import com.chuckerteam.chucker.api.ChuckerInterceptor
 import com.zachnr.bookplayfree.network.BuildConfig
-import com.zachnr.bookplayfree.shared.utils.NetworkConst
+import com.zachnr.bookplayfree.utils.utils.NetworkConst
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.okhttp.OkHttp
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation

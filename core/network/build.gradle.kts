@@ -26,7 +26,8 @@ android {
 
 dependencies {
     implementation(project(Modules.DOMAIN))
-    implementation(project(Modules.SHARED))
+    implementation(project(Modules.Core.UTILS))
+
     implementation(libs.koin.core)
     implementation(libs.koin.android)
     debugImplementation(libs.chucker)

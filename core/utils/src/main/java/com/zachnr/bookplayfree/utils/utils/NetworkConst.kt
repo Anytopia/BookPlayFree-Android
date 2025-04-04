@@ -1,4 +1,4 @@
-package com.zachnr.bookplayfree.shared.utils
+package com.zachnr.bookplayfree.utils.utils
 
 object NetworkConst {
     const val DEEPSEEK_CLIENT_QUALIFIER = "deepseekClientQualifier"

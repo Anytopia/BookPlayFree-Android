@@ -14,10 +14,26 @@ class SplashScreenViewModel(
         return SplashScreenState()
     }
 
+    fun setIsFetchingQuoteFinished(value: Boolean) {
+        updateState {
+            state.value.copy(isFetchingQuoteFinished = value)
+        }
+    }
+
+    fun setIsLottieAnimationFinished(value: Boolean) {
+        updateState {
+            state.value.copy(isLottieAnimationFinished = value)
+        }
+    }
+
     override fun handleEvents(event: SplashScreenEvent) {
         when (event) {
             SplashScreenEvent.NavigateToDashboard -> {
-                navigate(Destination.DashboardScreen)
+                navigate(Destination.DashboardScreen) {
+                    popUpTo<Destination.SplashScreen> {
+                        inclusive = true
+                    }
+                }
             }
         }
     }

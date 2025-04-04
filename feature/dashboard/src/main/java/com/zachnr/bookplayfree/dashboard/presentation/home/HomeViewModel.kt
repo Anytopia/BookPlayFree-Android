@@ -1,19 +1,13 @@
 package com.zachnr.bookplayfree.dashboard.presentation.home
 
-import androidx.lifecycle.viewModelScope
-import com.zachnr.bookplayfree.domain.model.DomainWrapper
-import com.zachnr.bookplayfree.domain.usecase.GetQuoteDeepSeekUseCase
+import com.zachnr.bookplayfree.domain.model.DeepSeekChatDomain
 import com.zachnr.bookplayfree.navigation.interfaces.Navigator
-import com.zachnr.bookplayfree.shared.utils.DispatcherProvider
 import com.zachnr.bookplayfree.uicomponent.base.BaseViewModel
 import com.zachnr.bookplayfree.uicomponent.base.ViewEffect
 import com.zachnr.bookplayfree.uicomponent.base.ViewEvent
-import kotlinx.coroutines.launch
 
 class HomeViewModel(
     navigator: Navigator,
-    private val quoteUseCase: GetQuoteDeepSeekUseCase,
-    private val dispatcher: DispatcherProvider
 ): BaseViewModel<HomeState, ViewEvent, ViewEffect>(navigator) {
     override fun setInitialState(): HomeState {
         return HomeState(
@@ -21,17 +15,11 @@ class HomeViewModel(
         )
     }
 
-    fun getQuote() = viewModelScope.launch(dispatcher.io) {
-        when(val domain = quoteUseCase()) {
-            is DomainWrapper.Success -> {
-                updateState {
-                    state.value.copy(
-                        quote = domain.data.choices.firstOrNull()?.message?.content.orEmpty()
-                    )
-                }
-            }
-            is DomainWrapper.Error -> {
-            }
+    fun updateQuote(domain: DeepSeekChatDomain) {
+        updateState {
+            state.value.copy(
+                quote = domain.choices.firstOrNull()?.message?.content.orEmpty()
+            )
         }
     }
 

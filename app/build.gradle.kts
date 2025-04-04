@@ -10,13 +10,16 @@ android {
 }
 
 dependencies {
-    implementation(project(Modules.Core.NAVIGATION))
-    implementation(project(Modules.Features.SPLASH_SCREEN))
-    implementation(project(Modules.Core.DESIGN_SYSTEM))
-    implementation(project(Modules.Features.DASHBOARD))
     implementation(project(Modules.SHARED))
-    implementation(project(Modules.Core.NETWORK))
+    implementation(project(Modules.DATA))
+    implementation(project(Modules.DOMAIN))
     implementation(project(Modules.Core.AI_LOCAL))
+    implementation(project(Modules.Core.DESIGN_SYSTEM))
+    implementation(project(Modules.Core.NAVIGATION))
+    implementation(project(Modules.Core.NETWORK))
+    implementation(project(Modules.Core.UTILS))
+    implementation(project(Modules.Features.DASHBOARD))
+    implementation(project(Modules.Features.SPLASH_SCREEN))
 
     implementation(libs.koin.core)
     implementation(libs.koin.android)

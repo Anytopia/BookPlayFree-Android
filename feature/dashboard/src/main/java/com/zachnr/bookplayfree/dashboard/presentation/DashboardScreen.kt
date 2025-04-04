@@ -16,12 +16,14 @@ import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.zachnr.bookplayfree.dashboard.navigation.DashboardNavigation
+import com.zachnr.bookplayfree.shared.viewmodel.MainActivitySharedVM
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
 internal fun DashboardScreen(
     modifier: Modifier = Modifier,
-    viewModel: DashboardViewModel = koinViewModel()
+    viewModel: DashboardViewModel = koinViewModel(),
+    mainSharedVM: MainActivitySharedVM
 ) {
     val navController = rememberNavController()
     val state = viewModel.state.collectAsStateWithLifecycle()
@@ -63,6 +65,6 @@ internal fun DashboardScreen(
             }
         }
     ) { _ ->
-        DashboardNavigation(navController = navController)
+        DashboardNavigation(navController = navController, mainSharedVM = mainSharedVM)
     }
 }

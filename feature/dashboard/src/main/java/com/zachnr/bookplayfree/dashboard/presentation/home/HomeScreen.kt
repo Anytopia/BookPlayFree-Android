@@ -23,24 +23,29 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.zachnr.bookplayfree.shared.viewmodel.MainActivitySharedVM
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
 internal fun HomeScreen(
     modifier: Modifier = Modifier,
-    viewModel: HomeViewModel = koinViewModel()
+    viewModel: HomeViewModel = koinViewModel(),
+    mainShareViewModel: MainActivitySharedVM
 ) {
     val state = viewModel.state.collectAsStateWithLifecycle()
+
     LaunchedEffect(Unit) {
-        viewModel.getQuote()
+        mainShareViewModel.quote.collect {
+            viewModel.updateQuote(it)
+        }
     }
+
     HomeScreen(
         modifier = modifier,
         state = state.value,
         onExpandedChange = viewModel::setOnActiveStateSearchChanged,
         onQueryChange = viewModel::setOnQuerySearchChanged
     )
-
 }
 
 @OptIn(ExperimentalMaterial3Api::class)

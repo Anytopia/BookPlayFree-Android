@@ -51,6 +51,7 @@ junit4 = "4.13.2"
 junitVersion = "1.2.1"
 koin = "3.4.3"
 koinAndroidxCompose = "3.5.6"
+koinAndroidxComposeNavigation = "3.5.6"
 kotlin = "2.1.0"
 kotlinVersion = "1.9.21"
 kotlinxCoroutines = "1.10.1"
@@ -87,6 +88,7 @@ truth = "1.4.2"
 turbine = "1.1.0"
 navigationRuntimeKtx = "2.8.8"
 startupRuntime = "1.2.0"
+lifecycleViewmodelAndroid = "2.8.7"
 
 [bundles]
 androidx-compose-ui-test = ["androidx-compose-ui-test", "androidx-compose-ui-testManifest"]
@@ -173,6 +175,7 @@ javax-inject = { module = "javax.inject:javax.inject", version = "1" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 koin-android = { group = "io.insert-koin", name = "koin-android", version.ref = "koin" }
 koin-androidx-compose = { module = "io.insert-koin:koin-androidx-compose", version.ref = "koinAndroidxCompose" }
+koin-androidx-compose-navigation = { module = "io.insert-koin:koin-androidx-compose-navigation", version.ref = "koinAndroidxComposeNavigation" }
 koin-core = { group = "io.insert-koin", name = "koin-core", version.ref = "koin" }
 kotlin-gradlePlugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }
 kotlin-stdlib = { group = "org.jetbrains.kotlin", name = "kotlin-stdlib-jdk8", version.ref = "kotlin" }
@@ -219,6 +222,7 @@ truth = { group = "com.google.truth", name = "truth", version.ref = "truth" }
 turbine = { group = "app.cash.turbine", name = "turbine", version.ref = "turbine" }
 androidx-navigation-runtime-ktx = { group = "androidx.navigation", name = "navigation-runtime-ktx", version.ref = "navigationRuntimeKtx" }
 androidx-startup-runtime = { group = "androidx.startup", name = "startup-runtime", version.ref = "startupRuntime" }
+androidx-lifecycle-viewmodel-android = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-android", version.ref = "lifecycleViewmodelAndroid" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "androidGradlePlugin" }

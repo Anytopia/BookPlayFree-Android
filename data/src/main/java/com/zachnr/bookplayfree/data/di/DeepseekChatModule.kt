@@ -3,7 +3,7 @@ package com.zachnr.bookplayfree.data.di
 import com.zachnr.bookplayfree.data.mapper.DeepSeekDataMapper
 import com.zachnr.bookplayfree.data.repository.DeepSeekRepositoryImpl
 import com.zachnr.bookplayfree.domain.repository.DeepSeekRepository
-import com.zachnr.bookplayfree.shared.utils.NetworkConst.DEEPSEEK_CLIENT_QUALIFIER
+import com.zachnr.bookplayfree.utils.utils.NetworkConst.DEEPSEEK_CLIENT_QUALIFIER
 import org.koin.core.module.Module
 import org.koin.core.module.dsl.factoryOf
 import org.koin.core.qualifier.named

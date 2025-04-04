@@ -8,7 +8,7 @@ import com.google.mlkit.nl.translate.Translator
 import com.google.mlkit.nl.translate.TranslatorOptions
 import com.zachnr.bookplayfree.ailocal.OfflineTranslator
 import com.zachnr.bookplayfree.ailocal.model.AiLocalWrapper
-import com.zachnr.bookplayfree.shared.utils.TranslationConst
+import com.zachnr.bookplayfree.utils.utils.TranslationConst
 import kotlinx.coroutines.suspendCancellableCoroutine
 
 internal class MLKitTranslator: OfflineTranslator {
@@ -85,7 +85,8 @@ internal class MLKitTranslator: OfflineTranslator {
         return suspendCancellableCoroutine { continuation ->
             translator.translate(text)
                 .addOnSuccessListener { translatedText ->
-                    continuation.resume(AiLocalWrapper.Success(translatedText)) { _, _, _ -> }                }
+                    continuation.resume(AiLocalWrapper.Success(translatedText)) { _, _, _ -> }
+                }
                 .addOnFailureListener { exception ->
                     continuation.resume(AiLocalWrapper.Exception(exception)) { _, _, _ -> }
                 }

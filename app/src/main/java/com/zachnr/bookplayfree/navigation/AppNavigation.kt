@@ -8,8 +8,10 @@ import com.zachnr.bookplayfree.dashboard.navigation.dashboardSection
 import com.zachnr.bookplayfree.navigation.interfaces.NavigationAction
 import com.zachnr.bookplayfree.navigation.interfaces.Navigator
 import com.zachnr.bookplayfree.navigation.utils.ObserveAsEvents
+import com.zachnr.bookplayfree.shared.viewmodel.MainActivitySharedVM
 import com.zachnr.bookplayfree.splashscreen.navigation.splashScreenSection
-import com.zachnr.bookplayfree.shared.utils.AppConst
+import com.zachnr.bookplayfree.utils.utils.AppConst
+import org.koin.androidx.compose.koinViewModel
 import org.koin.compose.koinInject
 import org.koin.core.qualifier.named
 
@@ -19,6 +21,7 @@ fun AppNavigation(
 ) {
     val navController = rememberNavController()
     val navigator = koinInject<Navigator>(named(AppConst.APP_LEVEL_NAVIGATOR))
+    val mainActivitySharedVM: MainActivitySharedVM = koinViewModel()
     ObserveAsEvents(flow = navigator.navigationActions) { action ->
         when (action) {
             is NavigationAction.Navigate -> navController.navigate(action.destination) {
@@ -34,7 +37,7 @@ fun AppNavigation(
         modifier = modifier
     ) {
         // Add the list of screen here
-        splashScreenSection()
-        dashboardSection()
+        splashScreenSection(mainActivitySharedVM)
+        dashboardSection(mainActivitySharedVM)
     }
 }

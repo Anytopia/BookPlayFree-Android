@@ -8,5 +8,8 @@ android {
 }
 
 dependencies {
+    implementation(libs.koin.core)
+    implementation(libs.koin.android)
+
     api(libs.ktor.serialization.kotlinx.json)
 }

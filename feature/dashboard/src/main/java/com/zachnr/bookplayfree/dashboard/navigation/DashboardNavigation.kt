@@ -10,6 +10,7 @@ import com.zachnr.bookplayfree.dashboard.di.loadDashboardModule
 import com.zachnr.bookplayfree.dashboard.presentation.DashboardScreen
 import com.zachnr.bookplayfree.navigation.route.DashboardDestinations
 import com.zachnr.bookplayfree.navigation.route.Destination
+import com.zachnr.bookplayfree.shared.viewmodel.MainActivitySharedVM
 
 /**
  *  The Dashboard nav graph.
@@ -17,14 +18,15 @@ import com.zachnr.bookplayfree.navigation.route.Destination
 @Composable
 internal fun DashboardNavigation(
     modifier: Modifier = Modifier,
-    navController: NavHostController
+    navController: NavHostController,
+    mainSharedVM: MainActivitySharedVM
 ) {
     NavHost(
         navController = navController,
         startDestination = DashboardDestinations.HomeScreen,
         modifier = modifier
     ) {
-        homeSection()
+        homeSection(mainSharedVM)
         librarySection()
         settingSection()
     }
@@ -33,9 +35,9 @@ internal fun DashboardNavigation(
 /**
  * Dashboard section
  */
-fun NavGraphBuilder.dashboardSection() {
+fun NavGraphBuilder.dashboardSection(mainSharedVM: MainActivitySharedVM) {
     loadDashboardModule()
     composable<Destination.DashboardScreen> {
-        DashboardScreen()
+        DashboardScreen(mainSharedVM = mainSharedVM)
     }
 }

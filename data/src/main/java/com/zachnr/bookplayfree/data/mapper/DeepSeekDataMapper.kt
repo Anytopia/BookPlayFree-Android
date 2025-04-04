@@ -8,8 +8,8 @@ import com.zachnr.bookplayfree.domain.model.DeepSeekChatDomain
 import com.zachnr.bookplayfree.domain.model.DeepSeekChatMessageDomain
 import com.zachnr.bookplayfree.domain.model.DeepSeekChatPromptTokensDetailsDomain
 import com.zachnr.bookplayfree.domain.model.DeepSeekChatUsageDomain
-import com.zachnr.bookplayfree.shared.ext.orZero
-import com.zachnr.bookplayfree.shared.utils.DispatcherProvider
+import com.zachnr.bookplayfree.utils.ext.orZero
+import com.zachnr.bookplayfree.utils.utils.DispatcherProvider
 import kotlinx.coroutines.withContext
 
 internal class DeepSeekDataMapper(

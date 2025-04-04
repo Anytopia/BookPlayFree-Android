@@ -37,13 +37,14 @@ class FeaturePlugin: Plugin<Project> {
         val implementationConfigName = "implementation"
         dependencies {
             // Modules
-            add(implementationConfigName, project(Modules.Core.UI_COMPONENT))
-            add(implementationConfigName, project(Modules.Core.NAVIGATION))
-            add(implementationConfigName, project(Modules.Core.DESIGN_SYSTEM))
             add(implementationConfigName, project(Modules.SHARED))
             add(implementationConfigName, project(Modules.DATA))
             add(implementationConfigName, project(Modules.DOMAIN))
+            add(implementationConfigName, project(Modules.Core.DESIGN_SYSTEM))
+            add(implementationConfigName, project(Modules.Core.NAVIGATION))
             add(implementationConfigName, project(Modules.Core.NETWORK))
+            add(implementationConfigName, project(Modules.Core.UI_COMPONENT))
+            add(implementationConfigName, project(Modules.Core.UTILS))
 
             // External libraries
             add(implementationConfigName, libs.findLibrary("androidx-core-ktx").get())
@@ -52,6 +53,7 @@ class FeaturePlugin: Plugin<Project> {
             add(implementationConfigName, libs.findLibrary("koin-core").get())
             add(implementationConfigName, libs.findLibrary("koin-android").get())
             add(implementationConfigName, libs.findLibrary("koin-androidx-compose").get())
+            add(implementationConfigName, libs.findLibrary("koin-androidx-compose-navigation").get())
             add(implementationConfigName, libs.findLibrary("kotlinx-coroutines-core").get())
             add(implementationConfigName, libs.findLibrary("kotlinx-coroutines-android").get())
             add(implementationConfigName, libs.findLibrary("lifecycle-viewmodel-ktx").get())
