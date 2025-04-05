@@ -7,6 +7,10 @@ plugins {
 
 android {
     namespace = "com.zachnr.bookplayfree"
+
+    defaultConfig {
+        multiDexEnabled = true
+    }
 }
 
 dependencies {

@@ -20,6 +20,8 @@ dependencyResolutionManagement {
     }
 }
 
+gradle.startParameter.excludedTaskNames.addAll(listOf(":buildlogic:testClasses"))
+
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
 rootProject.name = "BookPlayFree"
@@ -30,6 +32,7 @@ include(":data")
 include(":domain")
 include(":core")
 include(":core:ailocal")
+include(":core:datastore")
 include(":core:designsystem")
 include(":core:navigation")
 include(":core:network")

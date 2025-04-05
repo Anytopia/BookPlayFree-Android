@@ -1,5 +1,6 @@
 package com.zachnr.bookplayfree.dashboard.presentation.home
 
+import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -59,9 +60,12 @@ private fun HomeScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(horizontal = 14.dp)
     ) {
         val colors1 = SearchBarDefaults.colors()
+        val searchBarPadding = animateDpAsState(
+            targetValue = if (state.isSearchActive) 0.dp else 16.dp,
+            label = "Search bar padding"
+        )
         SearchBar(
             inputField = {
                 SearchBarDefaults.InputField(
@@ -74,7 +78,7 @@ private fun HomeScreen(
                     placeholder = { Text("Search") },
                     leadingIcon = { Icon(Icons.Default.Search, contentDescription = "Search") },
                     trailingIcon = null,
-                    interactionSource = null,
+                    interactionSource = null
                 )
             },
             expanded = state.isSearchActive,
@@ -85,22 +89,26 @@ private fun HomeScreen(
             shadowElevation = SearchBarDefaults.ShadowElevation,
             windowInsets = SearchBarDefaults.windowInsets,
             modifier = Modifier
-                .fillMaxWidth()
                 .align(Alignment.CenterHorizontally)
+                .fillMaxWidth()
+                .padding(horizontal = searchBarPadding.value)
+
         ) {
             // TODO: Add search result
         }
         Spacer(modifier = Modifier.height(18.dp))
         Text(
             text = "Welcome",
-            fontSize = 24.sp
+            fontSize = 24.sp,
+            modifier = Modifier.padding(horizontal = 14.dp)
         )
         Spacer(modifier = Modifier.height(12.dp))
         Text(
             text = state.quote,
             fontSize = 16.sp,
             fontWeight = FontWeight.Light,
-            fontStyle = FontStyle.Italic
+            fontStyle = FontStyle.Italic,
+            modifier = Modifier.padding(horizontal = 14.dp)
         )
     }
 

@@ -7,6 +7,7 @@ object Modules {
 
     object Core {
         const val AI_LOCAL = ":core:ailocal"
+        const val DATA_STORE = ":core:datastore"
         const val DESIGN_SYSTEM = ":core:designsystem"
         const val NAVIGATION = ":core:navigation"
         const val NETWORK = ":core:network"
