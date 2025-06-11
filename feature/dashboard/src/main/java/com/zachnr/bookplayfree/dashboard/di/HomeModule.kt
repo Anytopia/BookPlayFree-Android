@@ -1,6 +1,6 @@
 package com.zachnr.bookplayfree.dashboard.di
 
-import com.zachnr.bookplayfree.dashboard.presentation.home.HomeViewModel
+import com.zachnr.bookplayfree.dashboard.presentation.pages.home.HomeViewModel
 import com.zachnr.bookplayfree.data.di.getDeepSeekModule
 import com.zachnr.bookplayfree.domain.usecase.GetQuoteDeepSeekUseCase
 import com.zachnr.bookplayfree.utils.utils.AppConst

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="goal_tracker_page">Page</string>
+    <string name="goal_tracker_book">Book</string>
+    <string name="goal_tracker_minute">Minute</string>
+</resources>

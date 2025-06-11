@@ -1,4 +1,4 @@
-package com.zachnr.bookplayfree.dashboard.presentation.home
+package com.zachnr.bookplayfree.dashboard.presentation.pages.home
 
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.foundation.layout.Column
@@ -111,7 +111,6 @@ private fun HomeScreen(
             modifier = Modifier.padding(horizontal = 14.dp)
         )
     }
-
 }
 
 @Preview(

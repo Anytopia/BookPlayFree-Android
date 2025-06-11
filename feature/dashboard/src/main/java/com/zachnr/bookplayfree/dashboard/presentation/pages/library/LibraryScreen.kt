@@ -1,4 +1,4 @@
-package com.zachnr.bookplayfree.dashboard.presentation.library
+package com.zachnr.bookplayfree.dashboard.presentation.pages.library
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize

@@ -1,4 +1,4 @@
-package com.zachnr.bookplayfree.dashboard.presentation.home
+package com.zachnr.bookplayfree.dashboard.presentation.pages.home
 
 import com.zachnr.bookplayfree.uicomponent.base.ViewState
 

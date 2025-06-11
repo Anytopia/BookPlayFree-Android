@@ -1,4 +1,4 @@
-package com.zachnr.bookplayfree.dashboard.presentation.home
+package com.zachnr.bookplayfree.dashboard.presentation.pages.home
 
 import com.zachnr.bookplayfree.domain.model.DeepSeekChatDomain
 import com.zachnr.bookplayfree.navigation.interfaces.Navigator
