@@ -24,6 +24,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.zachnr.bookplayfree.shared.model.UiWrapper
 import com.zachnr.bookplayfree.shared.viewmodel.MainActivitySharedVM
 import org.koin.androidx.compose.koinViewModel
 
@@ -37,7 +38,13 @@ internal fun HomeScreen(
 
     LaunchedEffect(Unit) {
         mainShareViewModel.quote.collect {
-            viewModel.updateQuote(it)
+            when (it) {
+                is UiWrapper.Success -> {
+                    viewModel.updateQuote(it.data)
+                }
+
+                UiWrapper.Empty -> {}
+            }
         }
     }
 
