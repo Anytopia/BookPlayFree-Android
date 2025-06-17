@@ -94,7 +94,6 @@ fun GoalsTrackerProgress(
                 contentAlignment = Alignment.Center
             ) {
                 data.forEachIndexed { index, item ->
-                    item.type.getTitle(LocalContext.current)
                     GoalTrackerCircularProgress(
                         modifier = Modifier.size(widthDp * (1 - (index * CIRCLE_GAP_PERCENTAGE))),
                         progress = item.currentProgress / item.targetProgress,
