@@ -1,11 +1,10 @@
 package com.zachnr.bookplayfree.dashboard.presentation.pages.home
 
 import androidx.compose.animation.core.animateDpAsState
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
@@ -26,6 +25,7 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.zachnr.bookplayfree.shared.model.UiWrapper
 import com.zachnr.bookplayfree.shared.viewmodel.MainActivitySharedVM
+import com.zachnr.bookplayfree.uicomponent.goalstracker.GoalsTrackerProgress
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
@@ -65,8 +65,8 @@ private fun HomeScreen(
     onExpandedChange: (Boolean) -> Unit = {}
 ) {
     Column(
-        modifier = Modifier
-            .fillMaxSize()
+        modifier = Modifier.fillMaxSize(),
+        verticalArrangement = Arrangement.spacedBy(12.dp)
     ) {
         val colors1 = SearchBarDefaults.colors()
         val searchBarPadding = animateDpAsState(
@@ -103,13 +103,11 @@ private fun HomeScreen(
         ) {
             // TODO: Add search result
         }
-        Spacer(modifier = Modifier.height(18.dp))
         Text(
             text = "Welcome",
             fontSize = 24.sp,
             modifier = Modifier.padding(horizontal = 14.dp)
         )
-        Spacer(modifier = Modifier.height(12.dp))
         Text(
             text = state.quote,
             fontSize = 16.sp,
@@ -117,12 +115,19 @@ private fun HomeScreen(
             fontStyle = FontStyle.Italic,
             modifier = Modifier.padding(horizontal = 14.dp)
         )
+        // TODO: Handle hardcoded text
+        Text(
+            text = "Daily Goals",
+            fontSize = 24.sp,
+            modifier = Modifier.padding(horizontal = 14.dp)
+        )
+        GoalsTrackerProgress(
+            modifier = Modifier.padding(horizontal = 14.dp)
+        )
     }
 }
 
-@Preview(
-    showBackground = true
-)
+@Preview(showBackground = true)
 @Composable
 private fun HomeScreenPreview() {
     HomeScreen(

@@ -6,27 +6,30 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.lazy.grid.GridCells
-import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.geometry.Offset
-import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
+import androidx.constraintlayout.compose.Dimension
 import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.LottieConstants
@@ -38,9 +41,9 @@ import com.zachnr.bookplayfree.designsystem.theme.Grey50
 import com.zachnr.bookplayfree.designsystem.theme.RedCoral
 import com.zachnr.bookplayfree.designsystem.theme.RedCoral15
 import com.zachnr.bookplayfree.uicomponent.R
+import com.zachnr.bookplayfree.uicomponent.goalstracker.GoalTrackerConst.CIRCLE_GAP_PERCENTAGE
 import com.zachnr.bookplayfree.uicomponent.goalstracker.GoalTrackerConst.CIRCULAR_TRACK_TRANSPARENCY
-import com.zachnr.bookplayfree.uicomponent.goalstracker.GoalTrackerConst.INITIAL_CIRCULAR_RADIUS
-import com.zachnr.bookplayfree.uicomponent.goalstracker.GoalTrackerConst.RANGE_EACH_CIRCLE
+import com.zachnr.bookplayfree.uicomponent.goalstracker.GoalTrackerConst.MAX_CIRCLE_SIZE
 import com.zachnr.bookplayfree.utils.ext.pluralize
 
 private val trackerPlaceholder: List<GoalTrackerUI> = listOf(
@@ -70,31 +73,47 @@ fun GoalsTrackerProgress(
     data: List<GoalTrackerUI> = trackerPlaceholder
 ) {
     Row(
-        modifier = modifier.fillMaxWidth()
+        modifier = modifier.fillMaxWidth(),
+        horizontalArrangement = Arrangement.spacedBy(14.dp),
+        verticalAlignment = Alignment.CenterVertically
     ) {
+        var sizePx by remember { mutableStateOf(IntSize.Zero) }
+        val density = LocalDensity.current
+        val widthDp = with(density) { sizePx.width.toDp().coerceIn(0.dp, MAX_CIRCLE_SIZE.dp) }
+
         Box(
-            contentAlignment = Alignment.Center
+            modifier = Modifier
+                .weight(1f)
+                .onSizeChanged {
+                    sizePx = it
+                },
+            contentAlignment = Alignment.CenterEnd
         ) {
-            data.forEachIndexed { index, item ->
-                item.type.getTitle(LocalContext.current)
-                GoalTrackerCircularProgress(
-                    modifier = modifier,
-                    radius = INITIAL_CIRCULAR_RADIUS + (index * RANGE_EACH_CIRCLE),
-                    progress = item.currentProgress / item.targetProgress,
-                    isEnabled = item.isEnabled,
-                    color = item.type.getFillColor(),
-                    trackColor = item.type.getFillColor().copy(alpha = CIRCULAR_TRACK_TRANSPARENCY),
-                    leadingIcon = item.type.getLeadingIcon()
-                )
+            Box(
+                modifier = Modifier,
+                contentAlignment = Alignment.Center
+            ) {
+                data.forEachIndexed { index, item ->
+                    item.type.getTitle(LocalContext.current)
+                    GoalTrackerCircularProgress(
+                        modifier = Modifier.size(widthDp * (1 - (index * CIRCLE_GAP_PERCENTAGE))),
+                        progress = item.currentProgress / item.targetProgress,
+                        isEnabled = item.isEnabled,
+                        color = item.type.getFillColor(),
+                        trackColor = item.type.getFillColor()
+                            .copy(alpha = CIRCULAR_TRACK_TRANSPARENCY),
+                        leadingIcon = item.type.getLeadingIcon()
+                    )
+                }
             }
         }
-        LazyVerticalGrid(
-            columns = GridCells.Fixed(1),
-            horizontalArrangement = Arrangement.spacedBy(8.dp)
+        LazyColumn(
+            verticalArrangement = Arrangement.spacedBy(8.dp),
+            modifier = Modifier.weight(1f),
         ) {
             items(data.size) { index ->
                 GoalTrackerTextProgress(
-                    modifier = modifier,
+                    modifier = Modifier.fillMaxWidth(),
                     item = data[index]
                 )
             }
@@ -105,7 +124,6 @@ fun GoalsTrackerProgress(
 @Composable
 fun GoalTrackerCircularProgress(
     modifier: Modifier = Modifier,
-    radius: Int,
     progress: Float = 0f,
     isEnabled: Boolean = true,
     color: Color = RedCoral,
@@ -121,10 +139,13 @@ fun GoalTrackerCircularProgress(
         CircularProgressIndicator(
             progress = { progress },
             modifier = Modifier
-                .size((radius * 2).dp)
                 .constrainAs(progressCircle) {
                     start.linkTo(parent.start)
                     top.linkTo(parent.top)
+                    end.linkTo(parent.end)
+                    bottom.linkTo(parent.bottom)
+                    width = Dimension.fillToConstraints
+                    height = Dimension.fillToConstraints
                 },
             strokeWidth = 12.dp,
             gapSize = 4.dp,
@@ -146,19 +167,20 @@ fun GoalTrackerCircularProgress(
     }
 }
 
+// TODO: Handle text size for small device
 @Composable
 fun GoalTrackerTextProgress(
     modifier: Modifier = Modifier,
     item: GoalTrackerUI
 ) {
     ConstraintLayout(
-        modifier = modifier
+        modifier = modifier.fillMaxWidth()
     ) {
         val (text, ongoingTarget, target, leadingIcon) = createRefs()
         val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.fire))
         val progress by animateLottieCompositionAsState(
             composition = composition,
-            iterations = LottieConstants. IterateForever
+            iterations = LottieConstants.IterateForever
         )
         val isGoalReached: Boolean = remember { item.targetProgress == item.currentProgress }
         val context = LocalContext.current
@@ -168,7 +190,7 @@ fun GoalTrackerTextProgress(
         val targetText = "/${item.targetProgress} $processedTargetText"
         Box(
             modifier = Modifier
-                .size(32.dp)
+                .size(24.dp)
                 .constrainAs(leadingIcon) {}
         ) {
             if (isGoalReached) {
@@ -176,15 +198,13 @@ fun GoalTrackerTextProgress(
                     composition = composition,
                     progress = { progress },
                     modifier = Modifier
-                        .size(32.dp)
-                        .scale(0.75f)
+                        .scale(0.65f)
                 )
             } else {
-                DualColorCircle(
+                DotLeadingCircle(
                     fillColor = item.type.getFillColor(),
-                    isGoalReached = isGoalReached,
-                    modifier = Modifier
-                        .size(32.dp)
+                    modifier = Modifier.size(24.dp),
+                    size = 10
                 )
             }
         }
@@ -219,37 +239,21 @@ fun GoalTrackerTextProgress(
 }
 
 @Composable
-fun DualColorCircle(
+fun DotLeadingCircle(
     modifier: Modifier = Modifier,
     fillColor: Color,
-    strokeWidth: Dp = 2.dp,
-    isGoalReached: Boolean = true
+    size: Int = 8
 ) {
-    Box(
-        modifier = modifier
-    ) {
-        Canvas(modifier = modifier.size(8.dp)) {
-            val diameter = Size(32f, 32f).minDimension
-            val radius = diameter / 2f
-            val stroke = strokeWidth.toPx()
-            val strokeColor: Color = if (isGoalReached) Color.White else fillColor
-
-            drawCircle(
-                color = strokeColor,
-                radius = radius,
-                center = Offset(this.size.width * 0.5f, this.size.height * 0.5f)
-            )
-
-            drawCircle(
-                color = fillColor,
-                radius = radius - stroke,
-                center = Offset(this.size.width * 0.5f, this.size.height * 0.5f)
-            )
-        }
+    Canvas(modifier = modifier.size(size.dp)) {
+        drawCircle(
+            color = fillColor,
+            radius = size.toFloat(),
+            center = Offset(this.size.width * 0.5f, this.size.height * 0.5f)
+        )
     }
 }
 
-@Preview(showBackground = true)
+@Preview(showBackground = true, device = "spec:width=411dp,height=891dp")
 @Composable
 fun GoalsTrackerProgressPreview() {
     GoalsTrackerProgress()
@@ -267,7 +271,7 @@ fun GoalTrackerTextProgressPreview() {
 }
 
 @Composable
-@Preview
+@Preview(showBackground = true)
 fun DualDotPreview() {
-    DualColorCircle(fillColor = RedCoral)
+    DotLeadingCircle(fillColor = RedCoral)
 }
