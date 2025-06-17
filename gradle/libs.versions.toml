@@ -91,6 +91,7 @@ turbine = "1.1.0"
 navigationRuntimeKtx = "2.8.8"
 startupRuntime = "1.2.0"
 lifecycleViewmodelAndroid = "2.8.7"
+pdfBox = "2.0.27.0"
 
 [bundles]
 androidx-compose-ui-test = ["androidx-compose-ui-test", "androidx-compose-ui-testManifest"]
@@ -227,6 +228,7 @@ turbine = { group = "app.cash.turbine", name = "turbine", version.ref = "turbine
 androidx-navigation-runtime-ktx = { group = "androidx.navigation", name = "navigation-runtime-ktx", version.ref = "navigationRuntimeKtx" }
 androidx-startup-runtime = { group = "androidx.startup", name = "startup-runtime", version.ref = "startupRuntime" }
 androidx-lifecycle-viewmodel-android = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-android", version.ref = "lifecycleViewmodelAndroid" }
+tom-roush = { group = "com.tom-roush", name = "pdfbox-android", version.ref = "pdfBox" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "androidGradlePlugin" }

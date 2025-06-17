@@ -9,4 +9,5 @@ object BpfIcons {
     val libraryOutlined = R.drawable.ic_library_outlined
     val settingFilled = R.drawable.ic_setting_filled
     val settingOutlined = R.drawable.ic_setting_outlined
+    val warning = R.drawable.ic_warning
 }
