@@ -1,0 +1,11 @@
+#!/bin/bash
+
+echo "🔍 Running Detekt..."
+./gradlew detekt
+
+if [ $? -ne 0 ]; then
+  echo "❌ Detekt failed. Fix issues before committing."
+  exit 1
+fi
+
+echo "✅ Detekt passed."
