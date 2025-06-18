@@ -1,6 +1,7 @@
 package com.zachnr.bookplayfree.dashboard.presentation.pages.library
 
 import android.net.Uri
+import android.util.Log
 import androidx.lifecycle.viewModelScope
 import com.zachnr.bookplayfree.dashboard.presentation.pages.library.state.LibraryEvent
 import com.zachnr.bookplayfree.dashboard.presentation.pages.library.state.LibraryState
@@ -40,7 +41,8 @@ class LibraryViewModel(
     }
 
     private fun navigateToDetail(book: BookDomain) {
-        // TODO: navigate()
+        Log.d("TEST", "navigateToDetail: $book")
+        // TODO: navigate
     }
 
     private fun loadPdf(uri: Uri?) = viewModelScope.launch(dispatcher.io) {
@@ -58,7 +60,11 @@ class LibraryViewModel(
 
     private fun loadBooks() = viewModelScope.launch(dispatcher.io) {
         updateState { it.copy(isLoading = true, errorMessage = null) }
-        delay(1000)
+        delay(DUMMY_DELAY)
         updateState { it.copy(isLoading = false, books = emptyList()) }
+    }
+
+    companion object {
+        private const val DUMMY_DELAY = 1000L // Simulate network delay
     }
 }

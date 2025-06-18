@@ -50,6 +50,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.zachnr.bookplayfree.dashboard.presentation.pages.library.state.LibraryEvent
 import com.zachnr.bookplayfree.dashboard.presentation.pages.library.state.LibraryState
 import com.zachnr.bookplayfree.designsystem.icons.BpfIcons
+import com.zachnr.bookplayfree.designsystem.theme.GreenForest
 import com.zachnr.bookplayfree.domain.model.BookDomain
 import org.koin.androidx.compose.koinViewModel
 
@@ -246,7 +247,7 @@ fun BookItemView(
                         .fillMaxWidth()
                         .height(6.dp)
                         .clip(RoundedCornerShape(3.dp)),
-                    color = Color(0xFF388E3C),
+                    color = GreenForest,
                     trackColor = Color.LightGray
                 )
             }
