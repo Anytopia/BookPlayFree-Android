@@ -10,9 +10,9 @@ class HomeViewModel(
     navigator: Navigator,
 ): BaseViewModel<HomeState, ViewEvent, ViewEffect>(navigator) {
     override fun setInitialState(): HomeState {
-        return HomeState(
-            quote = "\"A reader lives a thousand lives before he dies. The man who never reads lives only one.\"— George R.R. Martin"
-        )
+        val defaultMsg = "\"A reader lives a thousand lives before he dies. " +
+                "The man who never reads lives only one.\"— George R.R. Martin"
+        return HomeState(quote = defaultMsg)
     }
 
     fun updateQuote(domain: DeepSeekChatDomain) {

@@ -40,6 +40,7 @@ internal fun DashboardScreen(
         onPermissionGranted = {}
     )
     Scaffold(
+        modifier = modifier,
         bottomBar = {
             NavigationBar {
                 val navBackStackEntry by navController.currentBackStackEntryAsState()

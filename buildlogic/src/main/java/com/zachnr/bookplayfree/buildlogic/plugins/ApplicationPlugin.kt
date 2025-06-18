@@ -1,6 +1,7 @@
 package com.zachnr.bookplayfree.buildlogic.plugins
 
 import com.android.build.api.dsl.ApplicationExtension
+import com.zachnr.bookplayfree.buildlogic.ext.configureDetekt
 import com.zachnr.bookplayfree.buildlogic.ext.configureKotlinAndroid
 import com.zachnr.bookplayfree.buildlogic.utils.AppConfig
 import org.gradle.api.Plugin
@@ -13,10 +14,12 @@ class ApplicationPlugin: Plugin<Project> {
         with(target) {
             apply(plugin = "com.android.application")
             apply(plugin = "org.jetbrains.kotlin.android")
+            apply(plugin = "io.gitlab.arturbosch.detekt")
 
             extensions.configure<ApplicationExtension> {
                 configureKotlinAndroid(this)
                 configureBuildType()
+
                 with(defaultConfig) {
                     targetSdk = AppConfig.TARGET_SDK
                     applicationId = AppConfig.APP_ID
@@ -24,6 +27,7 @@ class ApplicationPlugin: Plugin<Project> {
                     versionName = AppConfig.VERSION_NAME
                 }
             }
+            configureDetekt()
         }
     }
 

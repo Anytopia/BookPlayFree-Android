@@ -91,6 +91,7 @@ turbine = "1.1.0"
 navigationRuntimeKtx = "2.8.8"
 startupRuntime = "1.2.0"
 lifecycleViewmodelAndroid = "2.8.7"
+detekt = "1.23.8"
 pdfBox = "2.0.27.0"
 
 [bundles]
@@ -228,6 +229,8 @@ turbine = { group = "app.cash.turbine", name = "turbine", version.ref = "turbine
 androidx-navigation-runtime-ktx = { group = "androidx.navigation", name = "navigation-runtime-ktx", version.ref = "navigationRuntimeKtx" }
 androidx-startup-runtime = { group = "androidx.startup", name = "startup-runtime", version.ref = "startupRuntime" }
 androidx-lifecycle-viewmodel-android = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-android", version.ref = "lifecycleViewmodelAndroid" }
+detekt-cli = { module = "io.gitlab.arturbosch.detekt:detekt-cli", version.ref = "detekt" }
+detekt-formatting = { group = "io.gitlab.arturbosch.detekt", name = "detekt-formatting", version.ref = "detekt"}
 tom-roush = { group = "com.tom-roush", name = "pdfbox-android", version.ref = "pdfBox" }
 
 [plugins]
@@ -249,6 +252,7 @@ module-graph = { id = "com.jraska.module.graph.assertion", version.ref = "module
 protobuf = { id = "com.google.protobuf", version.ref = "protobufPlugin" }
 room = { id = "androidx.room", version.ref = "room" }
 secrets = { id = "com.google.android.libraries.mapsplatform.secrets-gradle-plugin", version.ref = "secrets" }
+detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt" }
 
 # Plugin defined by this project
 bpf-application = { id = "com.zachnr.bookplayfree.application", version = "unspecified" }
