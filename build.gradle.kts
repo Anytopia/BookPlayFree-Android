@@ -8,4 +8,5 @@ plugins {
     alias(libs.plugins.compose) apply false
     alias(libs.plugins.kotlin.serialization) apply false
     alias(libs.plugins.gms) apply false
+    alias(libs.plugins.detekt)
 }

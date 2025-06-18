@@ -29,6 +29,7 @@ internal fun DashboardScreen(
     val state = viewModel.state.collectAsStateWithLifecycle()
 
     Scaffold(
+        modifier = modifier,
         bottomBar = {
             NavigationBar {
                 val navBackStackEntry by navController.currentBackStackEntryAsState()

@@ -25,6 +25,7 @@ import com.zachnr.bookplayfree.shared.viewmodel.MainActivitySharedVM
 import com.zachnr.bookplayfree.splashscreen.R
 import com.zachnr.bookplayfree.splashscreen.presentation.model.SplashScreenEvent
 import com.zachnr.bookplayfree.splashscreen.presentation.model.SplashScreenState
+import com.zachnr.bookplayfree.splashscreen.presentation.utils.SplashScreenConst.SPLASH_SCREEN_LOTTIE_DURATION
 import org.koin.androidx.compose.koinViewModel
 import kotlin.math.min
 
@@ -43,6 +44,7 @@ fun AnimatedSplashScreen(
     }
 
     AnimatedSplashScreen(
+        modifier = modifier,
         state.value,
         viewModel::sendEvent,
         viewModel::setIsLottieAnimationFinished
@@ -50,23 +52,23 @@ fun AnimatedSplashScreen(
 }
 @Composable
 private fun AnimatedSplashScreen(
+    modifier: Modifier = Modifier,
     state: SplashScreenState,
     event: (SplashScreenEvent) -> Unit = {},
     setLottieFinished: (Boolean) -> Unit = {}
 ) {
     val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.lottie_splashscreen))
     val progress by animateLottieCompositionAsState(composition)
-    val lottieDuration = 0.8f
-    val limitedProgress = remember(progress) { min(progress, lottieDuration) }
+    val limitedProgress = remember(progress) { min(progress, SPLASH_SCREEN_LOTTIE_DURATION) }
     LaunchedEffect(limitedProgress, state) {
-        if (limitedProgress == lottieDuration) { setLottieFinished(true) }
+        if (limitedProgress == SPLASH_SCREEN_LOTTIE_DURATION) { setLottieFinished(true) }
         if (state.isFetchingQuoteFinished && state.isLottieAnimationFinished) {
             event(SplashScreenEvent.NavigateToDashboard)
         }
     }
 
     Box(
-        modifier = Modifier.fillMaxSize()
+        modifier = modifier.fillMaxSize()
     ) {
         LottieAnimation(
             modifier = Modifier

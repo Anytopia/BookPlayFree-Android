@@ -39,10 +39,11 @@ import com.zachnr.bookplayfree.designsystem.theme.Grey
 import com.zachnr.bookplayfree.designsystem.theme.Grey15
 import com.zachnr.bookplayfree.designsystem.theme.Grey50
 import com.zachnr.bookplayfree.designsystem.theme.RedCoral
-import com.zachnr.bookplayfree.designsystem.theme.RedCoral15
 import com.zachnr.bookplayfree.uicomponent.R
+import com.zachnr.bookplayfree.uicomponent.goalstracker.GoalTrackerConst.CENTER_POSITION_CIRCLE_SCALE
 import com.zachnr.bookplayfree.uicomponent.goalstracker.GoalTrackerConst.CIRCLE_GAP_PERCENTAGE
 import com.zachnr.bookplayfree.uicomponent.goalstracker.GoalTrackerConst.CIRCULAR_TRACK_TRANSPARENCY
+import com.zachnr.bookplayfree.uicomponent.goalstracker.GoalTrackerConst.LOTTIE_LEADING_ICON_SCALE
 import com.zachnr.bookplayfree.uicomponent.goalstracker.GoalTrackerConst.MAX_CIRCLE_SIZE
 import com.zachnr.bookplayfree.utils.ext.pluralize
 
@@ -96,12 +97,7 @@ fun GoalsTrackerProgress(
                 data.forEachIndexed { index, item ->
                     GoalTrackerCircularProgress(
                         modifier = Modifier.size(widthDp * (1 - (index * CIRCLE_GAP_PERCENTAGE))),
-                        progress = item.currentProgress / item.targetProgress,
-                        isEnabled = item.isEnabled,
-                        color = item.type.getFillColor(),
-                        trackColor = item.type.getFillColor()
-                            .copy(alpha = CIRCULAR_TRACK_TRANSPARENCY),
-                        leadingIcon = item.type.getLeadingIcon()
+                        item = item
                     )
                 }
             }
@@ -123,18 +119,19 @@ fun GoalsTrackerProgress(
 @Composable
 fun GoalTrackerCircularProgress(
     modifier: Modifier = Modifier,
-    progress: Float = 0f,
-    isEnabled: Boolean = true,
-    color: Color = RedCoral,
-    trackColor: Color = RedCoral15,
-    leadingIcon: Int
+    item: GoalTrackerUI = GoalTrackerUI()
 ) {
     ConstraintLayout(
         modifier = modifier
     ) {
-        val colorState = if (isEnabled) color else Grey50
-        val trackColorState = if (isEnabled) trackColor else Grey15
+        val color = item.type.getFillColor()
+        val colorState = if (item.isEnabled) color else Grey50
         val (progressCircle, icon) = createRefs()
+        val progress = item.currentProgress / item.targetProgress
+        val trackColor = item.type.getFillColor()
+            .copy(alpha = CIRCULAR_TRACK_TRANSPARENCY)
+        val trackColorState = if (item.isEnabled) trackColor else Grey15
+        val leadingIcon = item.type.getLeadingIcon()
         CircularProgressIndicator(
             progress = { progress },
             modifier = Modifier
@@ -197,7 +194,7 @@ fun GoalTrackerTextProgress(
                     composition = composition,
                     progress = { progress },
                     modifier = Modifier
-                        .scale(0.65f)
+                        .scale(LOTTIE_LEADING_ICON_SCALE)
                 )
             } else {
                 DotLeadingCircle(
@@ -247,7 +244,10 @@ fun DotLeadingCircle(
         drawCircle(
             color = fillColor,
             radius = size.toFloat(),
-            center = Offset(this.size.width * 0.5f, this.size.height * 0.5f)
+            center = Offset(
+                this.size.width * CENTER_POSITION_CIRCLE_SCALE,
+                this.size.height * CENTER_POSITION_CIRCLE_SCALE
+            )
         )
     }
 }
