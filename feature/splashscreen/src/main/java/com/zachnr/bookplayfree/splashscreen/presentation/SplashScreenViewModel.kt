@@ -9,7 +9,7 @@ import com.zachnr.bookplayfree.uicomponent.base.ViewEffect
 
 class SplashScreenViewModel(
     navigator: Navigator
-): BaseViewModel<SplashScreenState, SplashScreenEvent, ViewEffect>(navigator) {
+) : BaseViewModel<SplashScreenState, SplashScreenEvent, ViewEffect>(navigator) {
     override fun setInitialState(): SplashScreenState {
         return SplashScreenState()
     }

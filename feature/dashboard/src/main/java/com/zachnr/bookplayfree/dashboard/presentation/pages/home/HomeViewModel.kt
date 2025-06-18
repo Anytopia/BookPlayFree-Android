@@ -8,10 +8,10 @@ import com.zachnr.bookplayfree.uicomponent.base.ViewEvent
 
 class HomeViewModel(
     navigator: Navigator,
-): BaseViewModel<HomeState, ViewEvent, ViewEffect>(navigator) {
+) : BaseViewModel<HomeState, ViewEvent, ViewEffect>(navigator) {
     override fun setInitialState(): HomeState {
         val defaultMsg = "\"A reader lives a thousand lives before he dies. " +
-                "The man who never reads lives only one.\"— George R.R. Martin"
+            "The man who never reads lives only one.\"— George R.R. Martin"
         return HomeState(quote = defaultMsg)
     }
 
@@ -40,5 +40,4 @@ class HomeViewModel(
     }
 
     override fun handleEvents(event: ViewEvent) {}
-
 }
