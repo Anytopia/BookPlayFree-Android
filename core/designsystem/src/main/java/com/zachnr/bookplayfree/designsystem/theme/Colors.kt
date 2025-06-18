@@ -1,3 +1,4 @@
+@file:Suppress("MagicNumber")
 package com.zachnr.bookplayfree.designsystem.theme
 
 import androidx.compose.ui.graphics.Color

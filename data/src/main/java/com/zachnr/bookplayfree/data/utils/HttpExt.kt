@@ -1,5 +1,6 @@
 package com.zachnr.bookplayfree.data.utils
 
+import com.zachnr.bookplayfree.data.utils.ApiConst.STATUS_200
 import com.zachnr.bookplayfree.network.model.ResponseWrapper
 import io.ktor.client.HttpClient
 import io.ktor.client.request.HttpRequestBuilder
@@ -13,7 +14,7 @@ internal suspend inline fun <reified T> HttpResponse.bodyWrapped(): ResponseWrap
     return try {
         when (status.value) {
             // Success block
-            200 -> {
+            STATUS_200 -> {
                 ResponseWrapper.Success(call.bodyNullable(typeInfo<T>()) as T)
             }
             // Not Success block

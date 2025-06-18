@@ -65,7 +65,7 @@ private fun HomeScreen(
     onExpandedChange: (Boolean) -> Unit = {}
 ) {
     Column(
-        modifier = Modifier.fillMaxSize(),
+        modifier = modifier.fillMaxSize(),
         verticalArrangement = Arrangement.spacedBy(12.dp)
     ) {
         val colors1 = SearchBarDefaults.colors()
@@ -130,9 +130,11 @@ private fun HomeScreen(
 @Preview(showBackground = true)
 @Composable
 private fun HomeScreenPreview() {
+    val defaultMsg = "\"A reader lives a thousand lives before he dies. " +
+            "The man who never reads lives only one.\" — George R.R. Martin"
     HomeScreen(
         modifier = Modifier,
-        state = HomeState(quote = "\"A reader lives a thousand lives before he dies. The man who never reads lives only one.\" — George R.R. Martin"),
+        state = HomeState(quote = defaultMsg),
         onQueryChange = {},
         onExpandedChange = {}
     )
