@@ -4,4 +4,4 @@ import com.zachnr.bookplayfree.uicomponent.base.ViewState
 
 data class DashboardState(
     val navItems: List<DashboardNavItem> = emptyList(),
-): ViewState
+) : ViewState
