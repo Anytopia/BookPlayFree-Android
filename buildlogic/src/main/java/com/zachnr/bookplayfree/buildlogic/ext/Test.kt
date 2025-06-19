@@ -14,12 +14,12 @@ internal fun Project.configureUnitTest() {
 }
 
 internal fun Project.configureUITest() {
-    val testImp = "testImplementation"
-    val androidTestImp = "androidTestImplementation"
+    val testImpl = "testImplementation"
+    val androidTestImpl = "androidTestImplementation"
     val debugImpl = "debugImplementation"
     dependencies {
-        add(testImp, libs.findLibrary("robolectric").get())
-        add(androidTestImp, libs.findLibrary("androidx-compose-ui-test").get())
+        add(testImpl, libs.findLibrary("robolectric").get())
+        add(androidTestImpl, libs.findLibrary("androidx-compose-ui-test").get())
         add(debugImpl, libs.findLibrary("androidx-compose-ui-testManifest").get())
     }
 }
