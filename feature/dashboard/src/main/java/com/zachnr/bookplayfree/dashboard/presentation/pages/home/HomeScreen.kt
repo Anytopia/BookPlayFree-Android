@@ -58,7 +58,7 @@ internal fun HomeScreen(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-private fun HomeScreen(
+internal fun HomeScreen(
     modifier: Modifier,
     state: HomeState,
     onQueryChange: (String) -> Unit = {},

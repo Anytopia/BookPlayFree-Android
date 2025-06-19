@@ -11,6 +11,7 @@ object Modules {
         const val DESIGN_SYSTEM = ":core:designsystem"
         const val NAVIGATION = ":core:navigation"
         const val NETWORK = ":core:network"
+        const val TEST = ":core:test"
         const val UI_COMPONENT = ":core:uicomponent"
         const val UTILS = ":core:utils"
     }

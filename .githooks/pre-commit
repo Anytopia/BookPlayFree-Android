@@ -9,3 +9,4 @@ if [ $? -ne 0 ]; then
 fi
 
 echo "✅ Detekt passed."
+git add .
