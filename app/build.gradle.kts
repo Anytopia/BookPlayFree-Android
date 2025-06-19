@@ -1,5 +1,7 @@
 import com.zachnr.bookplayfree.buildlogic.utils.Modules
 
+val setupGitHooksTaskName = "setupGitHooks"
+
 plugins {
     alias(libs.plugins.bpf.application)
     alias(libs.plugins.bpf.compose.app)
@@ -38,13 +40,12 @@ dependencies {
     implementation(libs.androidx.startup.runtime)
 }
 
-
-tasks.register<Exec>("setupGitHooks") {
+tasks.register<Exec>(setupGitHooksTaskName) {
     onlyIf { file("${rootDir}/.git").exists() }
     workingDir = rootDir
     commandLine("git", "config", "core.hooksPath", ".githooks")
 }
 
 afterEvaluate {
-    tasks.findByName("preBuild")?.dependsOn("setupGitHooks")
+    tasks.findByName("preBuild")?.dependsOn(setupGitHooksTaskName)
 }
