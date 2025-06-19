@@ -1,28 +1,23 @@
 #!/bin/bash
 
-echo "🔍 Running Detekt..."
-./gradlew detekt
+# ANSI color codes
+RED="\033[31m"
+GREEN="\033[32m"
+BOLD="\033[1m"
+RESET="\033[0m"
 
-if [ $? -ne 0 ]; then
-  echo "❌ Detekt failed. Fix issues before committing."
-  exit 1
-fi
+# Run all modular pre-commit hooks
+HOOKS_DIR="$(dirname "$0")/hooks"
 
-echo "✅ Detekt passed."
-git add .
+for hook in "$HOOKS_DIR"/pre-commit-*; do
+  echo -e "${CYAN}▶️ ${BOLD}Running $(basename "$hook")${RESET}"
+  bash "$hook"
+  STATUS=$?
+  if [ $STATUS -ne 0 ]; then
+    echo -e "${RED}❌ Hook $(basename "$hook") failed.${RESET}"
+    exit $STATUS
+  fi
+  echo -e ""
+done
 
-# Print heading
-echo "Running unit tests..."
-
-# Run only unit tests (no device required)
-./gradlew testDebugUnitTest --quiet
-
-# Capture exit code
-TEST_RESULT=$?
-
-if [ $TEST_RESULT -ne 0 ]; then
-  echo "❌ Unit tests failed. Commit aborted."
-  exit 1
-else
-  echo "✅ All unit tests passed."
-fi
+echo -e "${GREEN}✅ All pre-commit hooks passed.${RESET}"

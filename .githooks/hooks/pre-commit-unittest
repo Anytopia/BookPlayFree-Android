@@ -1,11 +1,61 @@
 #!/bin/bash
 
-echo "🔍 Running Detekt..."
-./gradlew detekt
+echo "🔍 Detecting relevant unit tests to run..."
 
-if [ $? -ne 0 ]; then
-  echo "❌ Detekt failed. Fix issues before committing."
-  exit 1
+# Get staged changes (cached = only what's being committed)
+CHANGED_FILES=$(git diff --cached --name-only)
+
+TEST_CLASSES=""
+
+# Process test files directly changed
+for file in $CHANGED_FILES; do
+  if [[ "$file" =~ src/test/.+Test\.kt$ ]]; then
+    class_name=$(echo "$file" | sed -E 's|.*/java/||; s|.*/kotlin/||; s|/|.|g; s|\.kt$||')
+    TEST_CLASSES="$TEST_CLASSES --tests $class_name"
+  fi
+done
+
+# Process main files and look for matching test classes
+for file in $CHANGED_FILES; do
+  if [[ "$file" =~ src/main/.+\.kt$ ]]; then
+    base_name=$(basename "$file" .kt)
+
+    # Search for corresponding test file in any module
+    test_file=$(find . -type f -path "*/src/test*/**/${base_name}Test.kt")
+
+    if [ -n "$test_file" ]; then
+      class_name=$(echo "$test_file" | sed -E 's|.*/java/||; s|.*/kotlin/||; s|/|.|g; s|\.kt$||')
+      TEST_CLASSES="$TEST_CLASSES --tests $class_name"
+    fi
+  fi
+done
+
+# Deduplicate classes
+TEST_CLASSES=$(echo "$TEST_CLASSES" | tr ' ' '\n' | sort -u | tr '\n' ' ')
+
+if [ -z "$TEST_CLASSES" ]; then
+  echo "✅ No relevant test classes found. Skipping unit tests."
+  exit 0
 fi
 
-echo "✅ Detekt passed."
+# Convert to safe array
+read -ra TEST_ARGS <<< "$TEST_CLASSES"
+
+# If no tests detected, skip
+if [ ${#TEST_ARGS[@]} -eq 0 ]; then
+  echo "✅ No relevant test classes found. Skipping unit tests."
+  exit 0
+fi
+
+echo "📦 Running test classes:"
+printf '%s\n' "${TEST_ARGS[@]}"
+
+./gradlew testDebugUnitTest "${TEST_ARGS[@]}" --quiet
+RESULT=$?
+
+if [ $RESULT -ne 0 ]; then
+  echo "❌ Some related unit tests failed. Commit aborted."
+  exit 1
+else
+  echo "✅ Relevant unit tests passed."
+fi
