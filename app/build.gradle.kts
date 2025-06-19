@@ -43,9 +43,6 @@ tasks.register<Exec>("setupGitHooks") {
     onlyIf { file("${rootDir}/.git").exists() }
     workingDir = rootDir
     commandLine("git", "config", "core.hooksPath", ".githooks")
-    doLast {
-        println("✅ Git hooks have been set up in the .githooks directory.")
-    }
 }
 
 afterEvaluate {
