@@ -36,8 +36,8 @@ class HomeViewModelTest {
 
     @Test
     fun `initial state has default quote`() {
-        val expectedQuote =
-            "\"A reader lives a thousand lives before he dies. The man who never reads lives only one.\"— George R.R. Martin"
+        val expectedQuote = "\"A reader lives a thousand lives before he dies. " +
+            "The man who never reads lives only one.\"— George R.R. Martin"
         assertEquals(expectedQuote, viewModel.state.value.quote)
     }
 

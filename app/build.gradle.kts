@@ -13,20 +13,6 @@ android {
     }
 }
 
-tasks.register<Exec>("setupGitHooks") {
-    onlyIf { file("${rootDir}/.git").exists() } // ensure path is from root
-    workingDir = rootDir                      // this is important
-    commandLine("git", "config", "core.hooksPath", ".githooks")
-    doLast {
-        println("✅ Git hooks have been set up in the .githooks directory.")
-    }
-}
-
-// defer the dependency until after the project is evaluated
-afterEvaluate {
-    tasks.findByName("build")?.dependsOn("setupGitHooks")
-}
-
 dependencies {
     implementation(project(Modules.SHARED))
     implementation(project(Modules.DATA))
@@ -50,4 +36,18 @@ dependencies {
     implementation(libs.androidx.material3)
     implementation(libs.androidx.navigation.compose)
     implementation(libs.androidx.startup.runtime)
+}
+
+
+tasks.register<Exec>("setupGitHooks") {
+    onlyIf { file("${rootDir}/.git").exists() }
+    workingDir = rootDir
+    commandLine("git", "config", "core.hooksPath", ".githooks")
+    doLast {
+        println("✅ Git hooks have been set up in the .githooks directory.")
+    }
+}
+
+afterEvaluate {
+    tasks.findByName("preBuild")?.dependsOn("setupGitHooks")
 }
