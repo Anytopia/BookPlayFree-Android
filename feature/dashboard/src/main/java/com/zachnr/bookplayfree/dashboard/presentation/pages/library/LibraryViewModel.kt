@@ -26,7 +26,7 @@ class LibraryViewModel(
     }
 
     override fun setInitialState(): LibraryState = LibraryState(isLoading = true)
-    override fun handleEvents(event: LibraryEvent) {
+    public override fun handleEvents(event: LibraryEvent) {
         when (event) {
             is LibraryEvent.ClickDetail -> navigateToDetail(event.book)
             is LibraryEvent.LoadPdf -> loadPdf(event.uri)

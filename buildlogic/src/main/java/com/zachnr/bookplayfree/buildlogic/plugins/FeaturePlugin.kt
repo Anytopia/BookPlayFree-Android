@@ -3,6 +3,7 @@ package com.zachnr.bookplayfree.buildlogic.plugins
 import com.android.build.gradle.LibraryExtension
 import com.zachnr.bookplayfree.buildlogic.ext.configureDetekt
 import com.zachnr.bookplayfree.buildlogic.ext.configureUITest
+import com.zachnr.bookplayfree.buildlogic.ext.configureUnitTest
 import com.zachnr.bookplayfree.buildlogic.ext.libs
 import com.zachnr.bookplayfree.buildlogic.utils.Modules
 import org.gradle.api.Plugin
@@ -19,6 +20,7 @@ class FeaturePlugin: Plugin<Project> {
             configureFeatureDependencies()
             configureDetekt()
             configureUITest()
+            configureUnitTest()
         }
     }
 
