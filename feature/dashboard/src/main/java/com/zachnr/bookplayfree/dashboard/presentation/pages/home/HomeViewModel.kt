@@ -13,7 +13,7 @@ class HomeViewModel(
 ) : BaseViewModel<HomeState, ViewEvent, ViewEffect>(navigator) {
     override fun setInitialState(): HomeState {
         val defaultMsg = "\"A reader lives a thousand lives before he dies. " +
-                "The man who never reads lives only one.\"— George R.R. Martin"
+            "The man who never reads lives only one.\"— George R.R. Martin"
         return HomeState(quote = defaultMsg)
     }
 
