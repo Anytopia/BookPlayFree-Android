@@ -13,6 +13,15 @@ android {
     }
 }
 
+tasks.register<Exec>("setupGitHooks") {
+    onlyIf { file(".git").exists() }
+    commandLine("git", "config", "core.hooksPath", ".githooks")
+}
+
+tasks.named("build") {
+    dependsOn("setupGitHooks")
+}
+
 dependencies {
     implementation(project(Modules.SHARED))
     implementation(project(Modules.DATA))
