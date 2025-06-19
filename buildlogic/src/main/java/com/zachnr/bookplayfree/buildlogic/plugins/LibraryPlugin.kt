@@ -2,6 +2,7 @@ package com.zachnr.bookplayfree.buildlogic.plugins
 
 import com.android.build.gradle.LibraryExtension
 import com.zachnr.bookplayfree.buildlogic.ext.configureKotlinAndroid
+import com.zachnr.bookplayfree.buildlogic.ext.configureUnitTest
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.apply
@@ -16,6 +17,7 @@ class LibraryPlugin: Plugin<Project> {
 
             extensions.configure<LibraryExtension> {
                 configureKotlinAndroid(this)
+                configureUnitTest()
             }
         }
     }

@@ -10,3 +10,19 @@ fi
 
 echo "✅ Detekt passed."
 git add .
+
+# Print heading
+echo "Running unit tests..."
+
+# Run only unit tests (no device required)
+./gradlew testDebugUnitTest --quiet
+
+# Capture exit code
+TEST_RESULT=$?
+
+if [ $TEST_RESULT -ne 0 ]; then
+  echo "❌ Unit tests failed. Commit aborted."
+  exit 1
+else
+  echo "✅ All unit tests passed."
+fi
