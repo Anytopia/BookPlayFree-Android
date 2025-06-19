@@ -2,6 +2,7 @@ package com.zachnr.bookplayfree.buildlogic.plugins
 
 import androidx.room.gradle.RoomExtension
 import com.google.devtools.ksp.gradle.KspExtension
+import com.zachnr.bookplayfree.buildlogic.ext.configureUnitTest
 import com.zachnr.bookplayfree.buildlogic.ext.libs
 import org.gradle.api.Plugin
 import org.gradle.api.Project
@@ -9,7 +10,7 @@ import org.gradle.kotlin.dsl.apply
 import org.gradle.kotlin.dsl.configure
 import org.gradle.kotlin.dsl.dependencies
 
-class RoomPlugin: Plugin<Project> {
+class RoomPlugin : Plugin<Project> {
 
     override fun apply(target: Project) {
         with(target) {
@@ -25,14 +26,18 @@ class RoomPlugin: Plugin<Project> {
                 schemaDirectory("$projectDir/schemas")
             }
             configureRoomDependencies()
+            configureUnitTest()
         }
     }
 
     private fun Project.configureRoomDependencies() {
+        val implementationConfigName = "implementation"
+        val kspConfigName = "ksp"
+
         dependencies {
-            add("implementation", libs.findLibrary("room-runtime").get())
-            add("implementation", libs.findLibrary("room-ktx").get())
-            add("ksp", libs.findLibrary("room-compiler").get())
+            add(implementationConfigName, libs.findLibrary("room-runtime").get())
+            add(implementationConfigName, libs.findLibrary("room-ktx").get())
+            add(kspConfigName, libs.findLibrary("room-compiler").get())
         }
     }
 }

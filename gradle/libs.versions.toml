@@ -91,6 +91,7 @@ navigationRuntimeKtx = "2.8.8"
 startupRuntime = "1.2.0"
 lifecycleViewmodelAndroid = "2.8.7"
 detekt = "1.23.8"
+pdfBox = "2.0.27.0"
 
 [bundles]
 androidx-compose-ui-test = ["androidx-compose-ui-test", "androidx-compose-ui-testManifest"]
@@ -230,6 +231,7 @@ androidx-lifecycle-viewmodel-android = { group = "androidx.lifecycle", name = "l
 detekt-cli = { module = "io.gitlab.arturbosch.detekt:detekt-cli", version.ref = "detekt" }
 detekt-formatting = { group = "io.gitlab.arturbosch.detekt", name = "detekt-formatting", version.ref = "detekt"}
 detekt-gradlePlugin = { group = "io.gitlab.arturbosch.detekt", name = "detekt-gradle-plugin", version.ref = "detekt"}
+tom-roush = { group = "com.tom-roush", name = "pdfbox-android", version.ref = "pdfBox" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "androidGradlePlugin" }

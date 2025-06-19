@@ -1,6 +1,5 @@
 package com.zachnr.bookplayfree.uicomponent.base
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavOptionsBuilder
@@ -15,9 +14,9 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 
-abstract class BaseViewModel<State: ViewState, Event: ViewEvent, Effect: ViewEffect>(
+abstract class BaseViewModel<State : ViewState, Event : ViewEvent, Effect : ViewEffect>(
     private val navigator: Navigator
-): ViewModel() {
+) : ViewModel() {
 
     protected abstract fun setInitialState(): State
     protected abstract fun handleEvents(event: Event)

@@ -18,4 +18,5 @@ dependencies {
 
     implementation(libs.koin.core)
     implementation(libs.koin.android)
+    implementation(libs.tom.roush)
 }
