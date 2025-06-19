@@ -26,7 +26,7 @@ class HomeViewModel(
     }
 
     fun setOnQuerySearchChanged(text: String) = viewModelScope.launch {
-        updateState {
+                    updateState {
             state.value.copy(
                 searchQueryText = text
             )
