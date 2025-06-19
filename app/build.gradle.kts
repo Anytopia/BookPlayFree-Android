@@ -14,12 +14,17 @@ android {
 }
 
 tasks.register<Exec>("setupGitHooks") {
-    onlyIf { file(".git").exists() }
+    onlyIf { file("${rootDir}/.git").exists() } // ensure path is from root
+    workingDir = rootDir                      // this is important
     commandLine("git", "config", "core.hooksPath", ".githooks")
+    doLast {
+        println("✅ Git hooks have been set up in the .githooks directory.")
+    }
 }
 
-tasks.named("build") {
-    dependsOn("setupGitHooks")
+// defer the dependency until after the project is evaluated
+afterEvaluate {
+    tasks.findByName("build")?.dependsOn("setupGitHooks")
 }
 
 dependencies {
