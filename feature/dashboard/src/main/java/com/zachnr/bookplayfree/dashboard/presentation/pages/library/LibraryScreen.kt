@@ -102,6 +102,7 @@ private fun LibraryScreen(
     }
 }
 
+// TODO: Refactor SearchBarComponent to move it to a separate file
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun SearchBarComponent(state: LibraryState, event: (LibraryEvent) -> Unit) {
@@ -142,6 +143,7 @@ private fun SearchBarComponent(state: LibraryState, event: (LibraryEvent) -> Uni
     Spacer(modifier = Modifier.height(18.dp))
 }
 
+// TODO: Refactor Loading, Error, Empty, and Content composables to move them to a separate file
 @Composable
 private fun Loading(modifier: Modifier = Modifier) {
     Box(

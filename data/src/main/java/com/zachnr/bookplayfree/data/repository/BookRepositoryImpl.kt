@@ -7,13 +7,14 @@ import android.graphics.pdf.PdfRenderer
 import android.net.Uri
 import android.provider.DocumentsContract
 import android.provider.MediaStore
-import android.util.Log
 import androidx.core.graphics.createBitmap
 import com.tom_roush.pdfbox.pdmodel.PDDocument
 import com.zachnr.bookplayfree.domain.model.BookDomain
 import com.zachnr.bookplayfree.domain.model.DomainWrapper
 import com.zachnr.bookplayfree.domain.repository.BookRepository
+import com.zachnr.bookplayfree.utils.ext.orZero
 import com.zachnr.bookplayfree.utils.utils.DispatcherProvider
+import com.zachnr.bookplayfree.utils.utils.tryCatchAndReturn
 import kotlinx.coroutines.async
 import kotlinx.coroutines.withContext
 
@@ -59,7 +60,6 @@ class BookRepositoryImpl(
             val docIdIndex = it.getColumnIndex(DocumentsContract.Document.COLUMN_DOCUMENT_ID)
             val nameIndex = it.getColumnIndex(DocumentsContract.Document.COLUMN_DISPLAY_NAME)
 
-            Log.d("TEST", "scanPdfFilesFromFolder: ${it.count}")
             while (it.moveToNext()) {
                 val documentId = it.getString(docIdIndex)
                 val fileUri = DocumentsContract.buildDocumentUriUsingTree(treeUri, documentId)
@@ -108,7 +108,6 @@ class BookRepositoryImpl(
             val idColumn = it.getColumnIndexOrThrow(MediaStore.Files.FileColumns._ID)
             val nameColumn = it.getColumnIndexOrThrow(MediaStore.Files.FileColumns.DISPLAY_NAME)
 
-            Log.d("TEST", "scanPdfFiles: ${it.count}")
             while (it.moveToNext()) {
                 val id = it.getLong(idColumn)
                 val name = it.getString(nameColumn)
@@ -140,7 +139,7 @@ class BookRepositoryImpl(
     private suspend fun generatePdfThumbnail(
         pdfUri: Uri
     ): Bitmap? = withContext(dispatcher.default) {
-        return@withContext try {
+        return@withContext tryCatchAndReturn(null) {
             val fileDescriptor =
                 context.contentResolver.openFileDescriptor(pdfUri, "r") ?: return@withContext null
             val renderer = PdfRenderer(fileDescriptor)
@@ -152,38 +151,30 @@ class BookRepositoryImpl(
             renderer.close()
 
             bitmap
-        } catch (e: Exception) {
-            e.printStackTrace()
-            null
         }
     }
 
     private suspend fun extractPdfAuthor(
         uri: Uri
     ): String? = withContext(dispatcher.io) {
-        return@withContext try {
+        return@withContext tryCatchAndReturn(null) {
             val inputStream = context.contentResolver.openInputStream(uri)
             val doc = PDDocument.load(inputStream)
             val info = doc.documentInformation
             val author = info.author
             doc.close()
+
             author
-        } catch (e: Exception) {
-            e.printStackTrace()
-            null
         }
     }
 
     private suspend fun getPdfPageCount(pdfUri: Uri): Int = withContext(dispatcher.io) {
-        return@withContext try {
+        return@withContext tryCatchAndReturn(0) {
             context.contentResolver.openInputStream(pdfUri)?.use { inputStream ->
                 PDDocument.load(inputStream).use { doc ->
                     doc.numberOfPages
                 }
-            } ?: 0
-        } catch (e: Exception) {
-            e.printStackTrace()
-            0
+            }.orZero()
         }
     }
 

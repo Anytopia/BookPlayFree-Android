@@ -1,7 +1,9 @@
 package com.zachnr.bookplayfree.dashboard.presentation
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.content.pm.PackageManager
+import android.os.Build
 import android.widget.Toast
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
@@ -36,9 +38,7 @@ internal fun DashboardScreen(
     val navController = rememberNavController()
     val state = viewModel.state.collectAsStateWithLifecycle()
 
-    PdfPermissionHandler(
-        onPermissionGranted = {}
-    )
+    PdfPermissionHandler()
     Scaffold(
         modifier = modifier,
         bottomBar = {
@@ -81,32 +81,26 @@ internal fun DashboardScreen(
     }
 }
 
+@SuppressLint("ObsoleteSdkInt")
 @Composable
-fun PdfPermissionHandler(
-    onPermissionGranted: () -> Unit
-) {
-    val context = LocalContext.current
-    val permission = Manifest.permission.READ_EXTERNAL_STORAGE
+fun PdfPermissionHandler() {
+    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) {
+        val context = LocalContext.current
+        val permission = Manifest.permission.READ_EXTERNAL_STORAGE
 
-    val permissionLauncher = rememberLauncherForActivityResult(
-        contract = ActivityResultContracts.RequestPermission()
-    ) { isGranted ->
-        if (isGranted) {
-            onPermissionGranted()
-        } else {
-            Toast.makeText(context, "Permission denied", Toast.LENGTH_SHORT).show()
-        }
-    }
-
-    LaunchedEffect(Unit) {
-        when (PackageManager.PERMISSION_GRANTED) {
-            ContextCompat.checkSelfPermission(context, permission) -> {
-                // Permission already granted
-                onPermissionGranted()
+        val permissionLauncher = rememberLauncherForActivityResult(
+            contract = ActivityResultContracts.RequestPermission()
+        ) { isGranted ->
+            if (!isGranted) {
+                // TODO: Hardcode a string for now, but should be localized
+                Toast.makeText(context, "Permission denied", Toast.LENGTH_SHORT).show()
             }
+        }
 
-            else -> {
-                // Request permission
+        LaunchedEffect(Unit) {
+            if (ContextCompat.checkSelfPermission(context, permission)
+                != PackageManager.PERMISSION_GRANTED
+            ) {
                 permissionLauncher.launch(permission)
             }
         }
