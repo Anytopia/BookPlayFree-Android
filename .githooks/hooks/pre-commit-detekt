@@ -1,0 +1,25 @@
+#!/bin/bash
+
+echo "🔍 Checking for changed Kotlin files..."
+
+# Get changed .kt files across all modules
+CHANGED_KT_FILES=$(git diff --cached --name-only --diff-filter=ACM | grep -E 'src/.+\.kt$')
+
+if [ -z "$CHANGED_KT_FILES" ]; then
+  echo "✅ No Kotlin source files changed. Skipping Detekt."
+  exit 0
+fi
+
+echo "📦 Running Detekt on changed files:"
+echo "$CHANGED_KT_FILES"
+
+# Run Detekt only on changed files
+./gradlew detekt -Pdetekt.input="$CHANGED_KT_FILES"
+RESULT=$?
+
+if [ $RESULT -ne 0 ]; then
+  echo "❌ Detekt failed on changed files. Fix issues before committing."
+  exit 1
+else
+  echo "✅ Detekt passed on changed files."
+fi

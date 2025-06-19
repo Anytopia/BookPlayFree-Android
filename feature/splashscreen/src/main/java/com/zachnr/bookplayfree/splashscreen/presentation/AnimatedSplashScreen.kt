@@ -50,6 +50,7 @@ fun AnimatedSplashScreen(
         viewModel::setIsLottieAnimationFinished
     )
 }
+
 @Composable
 private fun AnimatedSplashScreen(
     modifier: Modifier = Modifier,

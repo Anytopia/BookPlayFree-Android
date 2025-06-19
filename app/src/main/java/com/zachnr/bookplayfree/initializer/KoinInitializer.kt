@@ -3,7 +3,6 @@ package com.zachnr.bookplayfree.initializer
 import android.content.Context
 import androidx.startup.Initializer
 import com.zachnr.bookplayfree.di.loadAppModule
-import com.zachnr.bookplayfree.splashscreen.di.loadSplashscreenModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin

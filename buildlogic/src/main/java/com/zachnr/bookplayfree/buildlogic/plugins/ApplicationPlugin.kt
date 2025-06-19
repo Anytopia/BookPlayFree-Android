@@ -3,6 +3,7 @@ package com.zachnr.bookplayfree.buildlogic.plugins
 import com.android.build.api.dsl.ApplicationExtension
 import com.zachnr.bookplayfree.buildlogic.ext.configureDetekt
 import com.zachnr.bookplayfree.buildlogic.ext.configureKotlinAndroid
+import com.zachnr.bookplayfree.buildlogic.ext.configureUnitTest
 import com.zachnr.bookplayfree.buildlogic.utils.AppConfig
 import org.gradle.api.Plugin
 import org.gradle.api.Project
@@ -19,6 +20,7 @@ class ApplicationPlugin: Plugin<Project> {
             extensions.configure<ApplicationExtension> {
                 configureKotlinAndroid(this)
                 configureBuildType()
+                configureUnitTest()
 
                 with(defaultConfig) {
                     targetSdk = AppConfig.TARGET_SDK

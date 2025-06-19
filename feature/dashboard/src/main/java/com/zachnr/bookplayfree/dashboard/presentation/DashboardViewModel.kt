@@ -1,6 +1,5 @@
 package com.zachnr.bookplayfree.dashboard.presentation
 
-import com.zachnr.bookplayfree.dashboard.R
 import com.zachnr.bookplayfree.dashboard.presentation.model.DashboardNavItem
 import com.zachnr.bookplayfree.dashboard.presentation.model.DashboardState
 import com.zachnr.bookplayfree.designsystem.icons.BpfIcons
@@ -12,7 +11,7 @@ import com.zachnr.bookplayfree.uicomponent.base.ViewEvent
 
 internal class DashboardViewModel(
     navigator: Navigator
-): BaseViewModel<DashboardState, ViewEvent, ViewEffect>(navigator) {
+) : BaseViewModel<DashboardState, ViewEvent, ViewEffect>(navigator) {
     override fun setInitialState(): DashboardState {
         // Create nav items
         val navItems = listOf(
@@ -41,6 +40,5 @@ internal class DashboardViewModel(
     }
 
     override fun handleEvents(event: ViewEvent) {
-
     }
 }

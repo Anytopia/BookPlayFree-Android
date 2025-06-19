@@ -151,7 +151,6 @@ private fun Loading(modifier: Modifier = Modifier) {
     }
 }
 
-
 @Composable
 private fun Error(modifier: Modifier = Modifier, message: String) {
     Box(
@@ -179,7 +178,6 @@ private fun Empty(modifier: Modifier = Modifier, pickerLauncher: () -> Unit) {
                 Text(text = "Scan Book Folder")
             }
         }
-
     }
 }
 

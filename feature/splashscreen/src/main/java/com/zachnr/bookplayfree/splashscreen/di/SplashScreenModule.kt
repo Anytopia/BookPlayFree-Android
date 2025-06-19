@@ -15,7 +15,8 @@ fun loadSplashscreenModule() {
 
 private val splashScreenVMModule = module {
     viewModel {
-        SplashScreenViewModel(get(named(AppConst.APP_LEVEL_NAVIGATOR))
+        SplashScreenViewModel(
+            get(named(AppConst.APP_LEVEL_NAVIGATOR))
         )
     }
 }

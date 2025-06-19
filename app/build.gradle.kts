@@ -1,4 +1,7 @@
 import com.zachnr.bookplayfree.buildlogic.utils.Modules
+import io.gitlab.arturbosch.detekt.Detekt
+
+val setupGitHooksTaskName = "setupGitHooks"
 
 plugins {
     alias(libs.plugins.bpf.application)
@@ -36,7 +39,32 @@ dependencies {
     implementation(libs.androidx.material3)
     implementation(libs.androidx.navigation.compose)
     implementation(libs.androidx.startup.runtime)
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
+}
+
+tasks.withType<Detekt>().configureEach {
+    val inputParam = project.findProperty("detekt.input") as String?
+    setSource(
+        if (!inputParam.isNullOrBlank()) {
+            inputParam.split(",").map { file(it.trim()) }
+        } else {
+            listOf(
+                "src/main/java",
+                "src/main/kotlin",
+                "src/test/java",
+                "src/test/kotlin",
+                "src/androidTest/java",
+                "src/androidTest/kotlin"
+            ).map { file(it) }
+        }
+    )
+}
+
+tasks.register<Exec>(setupGitHooksTaskName) {
+    onlyIf { file("${rootDir}/.git").exists() }
+    workingDir = rootDir
+    commandLine("git", "config", "core.hooksPath", ".githooks")
+}
+
+afterEvaluate {
+    tasks.findByName("preBuild")?.dependsOn(setupGitHooksTaskName)
 }

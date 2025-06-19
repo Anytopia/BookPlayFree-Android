@@ -6,4 +6,4 @@ data class HomeState(
     val quote: String = "",
     val searchQueryText: String = "",
     val isSearchActive: Boolean = false
-): ViewState
+) : ViewState

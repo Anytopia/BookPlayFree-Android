@@ -58,7 +58,7 @@ internal fun HomeScreen(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-private fun HomeScreen(
+internal fun HomeScreen(
     modifier: Modifier,
     state: HomeState,
     onQueryChange: (String) -> Unit = {},
@@ -131,7 +131,7 @@ private fun HomeScreen(
 @Composable
 private fun HomeScreenPreview() {
     val defaultMsg = "\"A reader lives a thousand lives before he dies. " +
-            "The man who never reads lives only one.\" — George R.R. Martin"
+        "The man who never reads lives only one.\" — George R.R. Martin"
     HomeScreen(
         modifier = Modifier,
         state = HomeState(quote = defaultMsg),
