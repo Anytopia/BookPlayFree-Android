@@ -1,7 +1,6 @@
 import com.zachnr.bookplayfree.buildlogic.utils.Modules
 import io.gitlab.arturbosch.detekt.Detekt
-
-val setupGitHooksTaskName = "setupGitHooks"
+import java.time.Instant
 
 plugins {
     alias(libs.plugins.bpf.application)
@@ -13,6 +12,10 @@ android {
 
     defaultConfig {
         multiDexEnabled = true
+        ndk {
+            // Include only arm64-v8a, exclude x86, x86_64, armeabi-v7a, etc.
+            abiFilters.addAll(listOf("arm64-v8a"))
+        }
     }
 }
 
@@ -59,12 +62,26 @@ tasks.withType<Detekt>().configureEach {
     )
 }
 
+// =========== GIT HOOKS SET-UP ===========
+private val setupGitHooksTaskName = "setupGitHooks"
+val markerFile = file("${buildDir}/gitHooksSetupDone.marker")
 tasks.register<Exec>(setupGitHooksTaskName) {
-    onlyIf { file("${rootDir}/.git").exists() }
+    // Only run if .git folder exists and marker file does NOT exist
+    onlyIf {
+        file("${rootDir}/.git").exists() && !markerFile.exists()
+    }
+
     workingDir = rootDir
-    commandLine("git", "config", "core.hooksPath", ".githooks")
+    commandLine("sh", "-c", "git config --local --unset core.hooksPath || true && git config --local core.hooksPath .githooks")
+
+    // After successful execution, create the marker file to mark completion
+    doLast {
+        markerFile.parentFile.mkdirs() // ensure directory exists
+        markerFile.writeText("Git hooks setup completed at ${Instant.now()}")
+    }
 }
 
 afterEvaluate {
     tasks.findByName("preBuild")?.dependsOn(setupGitHooksTaskName)
 }
+// =========== END GIT HOOKS SET-UP ===========
