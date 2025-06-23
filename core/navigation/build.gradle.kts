@@ -11,4 +11,5 @@ android {
 dependencies {
     implementation(libs.kotlinx.serialization.json)
     implementation(libs.androidx.navigation.runtime.ktx)
+    implementation(libs.androidx.lifecycle.runtimeCompose)
 }
