@@ -72,7 +72,19 @@ tasks.register<Exec>(setupGitHooksTaskName) {
     }
 
     workingDir = rootDir
-    commandLine("sh", "-c", "git config --local --unset core.hooksPath || true && git config --local core.hooksPath .githooks")
+    if (System.getProperty("os.name").startsWith("Windows")) {
+        commandLine(
+            "cmd",
+            "/c",
+            "git config --local --unset core.hooksPath || exit 0 && git config --local core.hooksPath .githooks"
+        )
+    } else {
+        commandLine(
+            "sh",
+            "-c",
+            "git config --local --unset core.hooksPath || true && git config --local core.hooksPath .githooks"
+        )
+    }
 
     // After successful execution, create the marker file to mark completion
     doLast {
