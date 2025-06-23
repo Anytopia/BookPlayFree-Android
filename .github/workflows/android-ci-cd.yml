@@ -31,8 +31,12 @@ jobs:
           ./gradlew assembleRelease
           ./gradlew test
 
+      - name: Locate APK file
+        id: retrieve-path
+        run: echo "path=$(find app/build/outputs/apk/ -type f -name '*.apk' | head -n 1)" >> $GITHUB_OUTPUT
+
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
           name: app-release
-          path: app/build/outputs/apk/release/app-release.apk
+          path: ${{ steps.retrieve-path.outputs.path }}
