@@ -21,6 +21,10 @@ jobs:
           distribution: 'adopt'
           java-version: '21'
 
+      - name: Create local.properties file
+        run: |
+          echo "sdk.dir=$ANDROID_SDK_ROOT" > local.properties
+
       - name: Build and test
         run: |
           chmod +x gradlew
