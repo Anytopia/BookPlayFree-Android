@@ -39,7 +39,7 @@ firebaseBom = "33.10.0"
 firebaseCrashlyticsPlugin = "2.9.9"
 firebasePerfPlugin = "1.4.2"
 fragment = "1.6.2"
-gmsPlugin = "4.4.1"
+gmsPlugin = "4.4.2"
 googleOss = "17.1.0"
 googleOssPlugin = "0.10.6"
 gson = "2.10.1"
@@ -49,6 +49,7 @@ jacoco = "0.8.7"
 junit = "4.13.2"
 junit4 = "4.13.2"
 junitVersion = "1.2.1"
+leakcanaryAndroid = "2.14"
 mockk = "1.13.10"
 koin = "3.4.3"
 koinAndroidxCompose = "3.5.6"
@@ -177,6 +178,7 @@ hilt-ext-compiler = { group = "androidx.hilt", name = "hilt-compiler", version.r
 hilt-ext-work = { group = "androidx.hilt", name = "hilt-work", version.ref = "hiltExt" }
 javax-inject = { module = "javax.inject:javax.inject", version = "1" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
+leakcanary-android = { module = "com.squareup.leakcanary:leakcanary-android", version.ref = "leakcanaryAndroid" }
 mockk = { group = "io.mockk", name = "mockk", version.ref = "mockk" }
 koin-android = { group = "io.insert-koin", name = "koin-android", version.ref = "koin" }
 koin-androidx-compose = { module = "io.insert-koin:koin-androidx-compose", version.ref = "koinAndroidxCompose" }

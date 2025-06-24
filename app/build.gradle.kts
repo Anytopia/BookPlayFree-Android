@@ -1,3 +1,4 @@
+import com.android.build.api.dsl.ApplicationDefaultConfig
 import com.zachnr.bookplayfree.buildlogic.utils.Modules
 import io.gitlab.arturbosch.detekt.Detekt
 import java.time.Instant
@@ -5,6 +6,8 @@ import java.time.Instant
 plugins {
     alias(libs.plugins.bpf.application)
     alias(libs.plugins.bpf.compose.app)
+    alias(libs.plugins.gms)
+    alias(libs.plugins.firebase.crashlytics)
 }
 
 android {
@@ -12,8 +15,22 @@ android {
 
     defaultConfig {
         multiDexEnabled = true
-        ndk {
-            // Include only arm64-v8a, exclude x86, x86_64, armeabi-v7a, etc.
+    }
+    buildTypes {
+        getByName("release") {
+            signingConfig = signingConfigs.getByName("debug")
+        }
+    }
+}
+
+/**
+ * This function is to configure filtering abi
+ */
+private fun ApplicationDefaultConfig.configureNdkFilter() {
+    val isBuildForPlayStore =
+        project.hasProperty("playStore") && project.property("playStore") == "true"
+    ndk {
+        if (isBuildForPlayStore) {
             abiFilters.addAll(listOf("arm64-v8a"))
         }
     }
@@ -28,6 +45,7 @@ dependencies {
     implementation(project(Modules.Core.NAVIGATION))
     implementation(project(Modules.Core.NETWORK))
     implementation(project(Modules.Core.UTILS))
+    implementation(project(Modules.Core.TEST))
     implementation(project(Modules.Features.DASHBOARD))
     implementation(project(Modules.Features.SPLASH_SCREEN))
 
@@ -42,8 +60,11 @@ dependencies {
     implementation(libs.androidx.material3)
     implementation(libs.androidx.navigation.compose)
     implementation(libs.androidx.startup.runtime)
+    implementation(libs.firebase.crashlytics)
+    debugImplementation(libs.leakcanary.android)
 }
 
+// =========== DETEKT SET-UP  ===========
 tasks.withType<Detekt>().configureEach {
     val inputParam = project.findProperty("detekt.input") as String?
     setSource(
@@ -61,6 +82,7 @@ tasks.withType<Detekt>().configureEach {
         }
     )
 }
+// =========== END DETEKT SET-UP ===========
 
 // =========== GIT HOOKS SET-UP ===========
 private val setupGitHooksTaskName = "setupGitHooks"

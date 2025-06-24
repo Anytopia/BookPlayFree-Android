@@ -1,3 +1,5 @@
+import com.zachnr.bookplayfree.buildlogic.utils.Modules
+
 plugins {
     alias(libs.plugins.bpf.library)
     alias(libs.plugins.protobuf)
@@ -35,6 +37,8 @@ androidComponents.beforeVariants {
 }
 
 dependencies {
+    implementation(project(Modules.Core.TEST))
+
     implementation(libs.androidx.dataStore.core)
     implementation(libs.koin.core)
     implementation(libs.koin.android)

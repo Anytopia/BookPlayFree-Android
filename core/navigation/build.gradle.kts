@@ -1,3 +1,5 @@
+import com.zachnr.bookplayfree.buildlogic.utils.Modules
+
 plugins {
     alias(libs.plugins.bpf.library)
     alias(libs.plugins.kotlin.serialization)
@@ -9,6 +11,8 @@ android {
 }
 
 dependencies {
+    implementation(project(Modules.Core.TEST))
+
     implementation(libs.kotlinx.serialization.json)
     implementation(libs.androidx.navigation.runtime.ktx)
     implementation(libs.androidx.lifecycle.runtimeCompose)
