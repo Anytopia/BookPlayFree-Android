@@ -3,6 +3,7 @@ package com.zachnr.bookplayfree.buildlogic.ext
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.dependencies
 
+// TODO: Make test convention plugin
 internal fun Project.configureUnitTest() {
     val testImpl = "testImplementation"
     dependencies {

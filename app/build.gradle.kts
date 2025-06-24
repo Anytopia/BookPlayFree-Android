@@ -1,10 +1,12 @@
-import com.zachnr.bookplayfree.buildlogic.utils.Modules
+import com.android.build.api.dsl.ApplicationDefaultConfig
 import io.gitlab.arturbosch.detekt.Detekt
 import java.time.Instant
 
 plugins {
     alias(libs.plugins.bpf.application)
     alias(libs.plugins.bpf.compose.app)
+    alias(libs.plugins.gms)
+    alias(libs.plugins.firebase.crashlytics)
 }
 
 android {
@@ -12,38 +14,29 @@ android {
 
     defaultConfig {
         multiDexEnabled = true
-        ndk {
-            // Include only arm64-v8a, exclude x86, x86_64, armeabi-v7a, etc.
+    }
+    buildTypes {
+        getByName("release") {
+            signingConfig = signingConfigs.getByName("debug")
+        }
+    }
+}
+
+/**
+ * This function is to configure filtering abi
+ * TODO: To be implemented
+ */
+private fun ApplicationDefaultConfig.configureNdkFilter() {
+    val isBuildForPlayStore =
+        project.hasProperty("playStore") && project.property("playStore") == "true"
+    ndk {
+        if (isBuildForPlayStore) {
             abiFilters.addAll(listOf("arm64-v8a"))
         }
     }
 }
 
-dependencies {
-    implementation(project(Modules.SHARED))
-    implementation(project(Modules.DATA))
-    implementation(project(Modules.DOMAIN))
-    implementation(project(Modules.Core.AI_LOCAL))
-    implementation(project(Modules.Core.DESIGN_SYSTEM))
-    implementation(project(Modules.Core.NAVIGATION))
-    implementation(project(Modules.Core.NETWORK))
-    implementation(project(Modules.Core.UTILS))
-    implementation(project(Modules.Features.DASHBOARD))
-    implementation(project(Modules.Features.SPLASH_SCREEN))
-
-    implementation(libs.koin.core)
-    implementation(libs.koin.android)
-    implementation(libs.koin.androidx.compose)
-
-    implementation(libs.androidx.activity)
-    implementation(libs.androidx.activity.compose)
-    implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.lifecycle)
-    implementation(libs.androidx.material3)
-    implementation(libs.androidx.navigation.compose)
-    implementation(libs.androidx.startup.runtime)
-}
-
+// =========== DETEKT SET-UP  ===========
 tasks.withType<Detekt>().configureEach {
     val inputParam = project.findProperty("detekt.input") as String?
     setSource(
@@ -61,6 +54,7 @@ tasks.withType<Detekt>().configureEach {
         }
     )
 }
+// =========== END DETEKT SET-UP ===========
 
 // =========== GIT HOOKS SET-UP ===========
 private val setupGitHooksTaskName = "setupGitHooks"

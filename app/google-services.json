@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "84728286710",
+    "project_id": "book-play-free",
+    "storage_bucket": "book-play-free.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:84728286710:android:eb1af4436f5d08fc894bd7",
+        "android_client_info": {
+          "package_name": "com.zachnr.bookplayfree"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC8j_f_kyzMPO1hIYYrjVyjU0qAfBACLbc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

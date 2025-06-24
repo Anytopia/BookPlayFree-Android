@@ -13,6 +13,7 @@ dependencies {
     implementation(project(Modules.Core.NAVIGATION))
     implementation(project(Modules.Core.DESIGN_SYSTEM))
     implementation(project(Modules.Core.UTILS))
+    implementation(project(Modules.Core.TEST))
 
     implementation(libs.androidx.compose.ui.tooling.preview)
     implementation(libs.androidx.material3)
