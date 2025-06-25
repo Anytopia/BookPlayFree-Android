@@ -22,7 +22,8 @@ gradlePlugin {
         }
         create("bpfComposeApplicationPlugin") {
             id = libs.plugins.bpf.compose.app.get().pluginId
-            implementationClass = "com.zachnr.bookplayfree.buildlogic.plugins.ComposeApplicationPlugin"
+            implementationClass =
+                "com.zachnr.bookplayfree.buildlogic.plugins.ComposeApplicationPlugin"
         }
         create("bpfComposeLibraryPlugin") {
             id = libs.plugins.bpf.compose.lib.get().pluginId
@@ -39,6 +40,11 @@ gradlePlugin {
         create("bpfRoomPlugin") {
             id = libs.plugins.bpf.room.get().pluginId
             implementationClass = "com.zachnr.bookplayfree.buildlogic.plugins.RoomPlugin"
+        }
+        create("bpfJacocoPlugin") {
+            id = libs.plugins.bpf.jacoco.get().pluginId
+            implementationClass =
+                "com.zachnr.bookplayfree.buildlogic.plugins.JacocoConventionPlugin"
         }
     }
 }

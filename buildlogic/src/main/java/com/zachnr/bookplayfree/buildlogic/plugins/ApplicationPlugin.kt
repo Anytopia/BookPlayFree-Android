@@ -2,6 +2,7 @@ package com.zachnr.bookplayfree.buildlogic.plugins
 
 import com.android.build.api.dsl.ApplicationExtension
 import com.zachnr.bookplayfree.buildlogic.ext.configureDetekt
+import com.zachnr.bookplayfree.buildlogic.ext.configureJacocoTask
 import com.zachnr.bookplayfree.buildlogic.ext.configureKotlinAndroid
 import com.zachnr.bookplayfree.buildlogic.ext.configureUnitTest
 import com.zachnr.bookplayfree.buildlogic.utils.AppConfig
@@ -16,11 +17,14 @@ class ApplicationPlugin: Plugin<Project> {
             apply(plugin = "com.android.application")
             apply(plugin = "org.jetbrains.kotlin.android")
             apply(plugin = "io.gitlab.arturbosch.detekt")
+            apply<JacocoConventionPlugin>()
 
             extensions.configure<ApplicationExtension> {
                 configureKotlinAndroid(this)
                 configureBuildType()
+                configureTestOptions()
                 configureUnitTest()
+                configureJacocoTask(this)
 
                 with(defaultConfig) {
                     targetSdk = AppConfig.TARGET_SDK
@@ -37,7 +41,8 @@ class ApplicationPlugin: Plugin<Project> {
         buildTypes {
             // Configure the build type here
             debug {
-
+                enableUnitTestCoverage = true
+                enableAndroidTestCoverage = true
             }
 
             release {
@@ -47,6 +52,15 @@ class ApplicationPlugin: Plugin<Project> {
                     getDefaultProguardFile("proguard-android-optimize.txt"),
                     "proguard-rules.pro"
                 )
+            }
+        }
+    }
+
+    private fun ApplicationExtension.configureTestOptions() {
+        testOptions {
+            unitTests {
+                isIncludeAndroidResources = true
+                isReturnDefaultValues = true
             }
         }
     }

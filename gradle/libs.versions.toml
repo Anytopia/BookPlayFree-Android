@@ -45,7 +45,7 @@ googleOssPlugin = "0.10.6"
 gson = "2.10.1"
 hilt = "2.52"
 hiltExt = "1.2.0"
-jacoco = "0.8.7"
+jacoco = "0.8.13"
 junit = "4.13.2"
 junit4 = "4.13.2"
 junitVersion = "1.2.1"
@@ -253,6 +253,7 @@ protobuf = { id = "com.google.protobuf", version.ref = "protobufPlugin" }
 room = { id = "androidx.room", version.ref = "room" }
 secrets = { id = "com.google.android.libraries.mapsplatform.secrets-gradle-plugin", version.ref = "secrets" }
 detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt" }
+jacoco = { id = "jacoco", version.ref = "jacoco" }
 
 # Plugin defined by this project
 bpf-application = { id = "com.zachnr.bookplayfree.application", version = "unspecified" }
@@ -261,3 +262,4 @@ bpf-feature = { id = "com.zachnr.bookplayfree.feature", version = "unspecified" 
 bpf-compose-lib = { id = "com.zachnr.bookplayfree.library.compose", version = "unspecified" }
 bpf-library = { id = "com.zachnr.bookplayfree.library", version = "unspecified" }
 bpf-room = { id = "com.zachnr.bookplayfree.room", version = "unspecified" }
+bpf-jacoco = { id = "com.zachnr.bookplayfree.jacoco", version = "unspecified" }
