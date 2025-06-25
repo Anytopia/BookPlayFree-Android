@@ -15,11 +15,6 @@ android {
     defaultConfig {
         multiDexEnabled = true
     }
-    buildTypes {
-        getByName("release") {
-            signingConfig = signingConfigs.getByName("debug")
-        }
-    }
 }
 
 /**
@@ -58,7 +53,7 @@ tasks.withType<Detekt>().configureEach {
 
 // =========== GIT HOOKS SET-UP ===========
 private val setupGitHooksTaskName = "setupGitHooks"
-val markerFile = file("${buildDir}/gitHooksSetupDone.marker")
+val markerFile = file("${rootDir}/gitHooksSetupDone.marker")
 tasks.register<Exec>(setupGitHooksTaskName) {
     // Only run if .git folder exists and marker file does NOT exist
     onlyIf {
