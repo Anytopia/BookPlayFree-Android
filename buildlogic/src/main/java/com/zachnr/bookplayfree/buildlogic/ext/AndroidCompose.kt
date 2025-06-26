@@ -27,6 +27,7 @@ internal fun Project.configureAndroidCompose(
             val androidTestImpl = "debugImplementation"
             add(impl, platform(bom))
             add(androidTestImpl, platform(bom))
+            add(impl, libs.findLibrary("androidx.navigation.compose").get())
             add(impl, libs.findLibrary("androidx-compose-ui-tooling-preview").get())
             add(debugImpl, libs.findLibrary("androidx-compose-ui-tooling").get())
         }

@@ -1,43 +1,55 @@
 package com.zachnr.bookplayfree.navigation.utils
 
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.compose.LocalLifecycleOwner
-import androidx.lifecycle.repeatOnLifecycle
+import androidx.compose.ui.Modifier
+import androidx.navigation.NavGraphBuilder
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.NavHost
+import com.zachnr.bookplayfree.navigation.interfaces.NavigationAction
+import com.zachnr.bookplayfree.navigation.interfaces.Navigator
 import com.zachnr.bookplayfree.navigation.utils.DeepLinkConstant.DEEP_LINK_SCHEME_AND_HOST
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.withContext
+import com.zachnr.bookplayfree.utils.ext.ObserveAsEvents
+import org.koin.compose.koinInject
+import org.koin.core.qualifier.named
 
 object NavHelper {
-    fun String.toDeeplinkBasePath() : String {
+    fun String.toDeeplinkBasePath(): String {
         return "$DEEP_LINK_SCHEME_AND_HOST/$this"
     }
 }
 
-/**
- * This function is collected observable flow for single live event
- * Single live event in flow can use ChannelFlow or SharedFlow
- *
- * @param flow The Flow to be observed.
- * @param key1 Optional recomposition key to restart collection when changed.
- * @param key2 Another optional recomposition key.
- * @param onEvent Callback function triggered for each emitted value.
- */
 @Composable
-fun <T> ObserveAsEvents(
-    flow: Flow<T>,
-    key1: Any? = null,
-    key2: Any? = null,
-    onEvent: (T) -> Unit
+fun BindNavigatorHost(
+    modifier: Modifier = Modifier,
+    navController: NavHostController,
+    navigatorLevelName: String,
+    builder: (NavGraphBuilder.() -> Unit)?
 ) {
-    val lifecycleOwner = LocalLifecycleOwner.current
-    LaunchedEffect(key1 = lifecycleOwner.lifecycle, key1, key2) {
-        lifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-            withContext(Dispatchers.Main.immediate) {
-                flow.collect(onEvent)
+    val navigator = koinInject<Navigator>(named(navigatorLevelName))
+    BindNavigatorHost(modifier, navController, navigator, builder)
+}
+
+@Composable
+fun BindNavigatorHost(
+    modifier: Modifier = Modifier,
+    navController: NavHostController,
+    navigator: Navigator,
+    builder: (NavGraphBuilder.() -> Unit)?
+) {
+    ObserveAsEvents(flow = navigator.navigationActions) { action ->
+        when (action) {
+            is NavigationAction.Navigate -> navController.navigate(action.destination) {
+                action.navOptions(this)
             }
+
+            NavigationAction.NavigateUp -> navController.navigateUp()
         }
+    }
+    if (builder != null) {
+        NavHost(
+            navController = navController,
+            startDestination = navigator.startDestination,
+            modifier = modifier
+        ) { builder() }
     }
 }

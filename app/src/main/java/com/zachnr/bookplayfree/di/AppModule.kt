@@ -5,13 +5,14 @@ import com.zachnr.bookplayfree.data.di.getDeepSeekModule
 import com.zachnr.bookplayfree.domain.usecase.GetQuoteDeepSeekUseCase
 import com.zachnr.bookplayfree.navigation.impl.NavigatorImpl
 import com.zachnr.bookplayfree.navigation.interfaces.Navigator
+import com.zachnr.bookplayfree.navigation.route.DashboardDestinations
 import com.zachnr.bookplayfree.navigation.route.Destination
 import com.zachnr.bookplayfree.network.di.deepseekClientModule
 import com.zachnr.bookplayfree.network.di.mockoonClientModule
 import com.zachnr.bookplayfree.network.di.okhttpClientEngineModule
 import com.zachnr.bookplayfree.shared.viewmodel.MainActivitySharedVM
-import com.zachnr.bookplayfree.utils.utils.AppConst
 import com.zachnr.bookplayfree.utils.utils.DispatcherProvider
+import com.zachnr.bookplayfree.utils.utils.NavConst
 import org.koin.androidx.viewmodel.dsl.viewModelOf
 import org.koin.core.context.loadKoinModules
 import org.koin.core.module.dsl.factoryOf
@@ -29,8 +30,11 @@ fun loadAppModule() {
         getDeepSeekModule()
     )
     val appNavigationModule = module {
-        single<Navigator>(named(AppConst.APP_LEVEL_NAVIGATOR)) {
+        single<Navigator>(named(NavConst.APP_LEVEL_NAVIGATOR)) {
             NavigatorImpl(startDestination = Destination.SplashScreen)
+        }
+        single<Navigator>(named(NavConst.DASHBOARD_LEVEL_NAVIGATOR)) {
+            NavigatorImpl(startDestination = DashboardDestinations.HomeScreen)
         }
     }
     val utilsModule = module {

@@ -12,8 +12,12 @@ android {
 
 dependencies {
     implementation(project(Modules.Core.TEST))
+    implementation(project(Modules.Core.UTILS))
 
     implementation(libs.kotlinx.serialization.json)
     implementation(libs.androidx.navigation.runtime.ktx)
     implementation(libs.androidx.lifecycle.runtimeCompose)
+    implementation(libs.koin.core)
+    implementation(libs.koin.android)
+    implementation(libs.koin.androidx.compose)
 }

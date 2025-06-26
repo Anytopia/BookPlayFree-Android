@@ -7,6 +7,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -97,7 +98,7 @@ private fun LibraryScreen(
             state.isLoading -> Loading(modifier)
             state.errorMessage != null -> Error(modifier, state.errorMessage)
             state.books.isEmpty() -> Empty(modifier, pickerLauncher)
-            else -> Content(modifier, state.books)
+            else -> Content(modifier, state.books, event)
         }
     }
 }
@@ -184,12 +185,16 @@ private fun Empty(modifier: Modifier = Modifier, pickerLauncher: () -> Unit) {
 }
 
 @Composable
-private fun Content(modifier: Modifier = Modifier, books: List<BookDomain>) {
+private fun Content(
+    modifier: Modifier = Modifier,
+    books: List<BookDomain>,
+    event: (LibraryEvent) -> Unit = {}
+) {
     LazyColumn(
         modifier = modifier.fillMaxSize()
     ) {
         items(books) { book ->
-            BookItemView(book = book, modifier = Modifier.fillMaxWidth())
+            BookItemView(book = book, modifier = Modifier.fillMaxWidth(), event = event)
         }
     }
 }
@@ -197,12 +202,14 @@ private fun Content(modifier: Modifier = Modifier, books: List<BookDomain>) {
 @Composable
 fun BookItemView(
     book: BookDomain,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    event: (LibraryEvent) -> Unit = {}
 ) {
     Row(
         modifier = modifier
             .padding(8.dp)
             .fillMaxWidth()
+            .clickable { event(LibraryEvent.ClickReadBook(book.uri)) },
     ) {
         Image(
             painter = book.thumbnail?.asImageBitmap()?.let { BitmapPainter(it) }

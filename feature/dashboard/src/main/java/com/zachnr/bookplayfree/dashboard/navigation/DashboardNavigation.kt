@@ -4,13 +4,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
-import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.zachnr.bookplayfree.dashboard.di.loadDashboardModule
 import com.zachnr.bookplayfree.dashboard.presentation.DashboardScreen
-import com.zachnr.bookplayfree.navigation.route.DashboardDestinations
 import com.zachnr.bookplayfree.navigation.route.Destination
+import com.zachnr.bookplayfree.navigation.utils.BindNavigatorHost
 import com.zachnr.bookplayfree.shared.viewmodel.MainActivitySharedVM
+import com.zachnr.bookplayfree.utils.utils.NavConst
 
 /**
  *  The Dashboard nav graph.
@@ -21,14 +21,15 @@ internal fun DashboardNavigation(
     navController: NavHostController,
     mainSharedVM: MainActivitySharedVM
 ) {
-    NavHost(
+    BindNavigatorHost(
         navController = navController,
-        startDestination = DashboardDestinations.HomeScreen,
-        modifier = modifier
+        modifier = modifier,
+        navigatorLevelName = NavConst.DASHBOARD_LEVEL_NAVIGATOR
     ) {
         homeSection(mainSharedVM)
         librarySection()
         settingSection()
+        readingBookSection()
     }
 }
 

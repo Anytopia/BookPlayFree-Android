@@ -1,14 +1,13 @@
 package com.zachnr.bookplayfree.dashboard.presentation.pages.library
 
 import android.net.Uri
-import android.util.Log
 import androidx.lifecycle.viewModelScope
 import com.zachnr.bookplayfree.dashboard.presentation.pages.library.state.LibraryEvent
 import com.zachnr.bookplayfree.dashboard.presentation.pages.library.state.LibraryState
-import com.zachnr.bookplayfree.domain.model.BookDomain
 import com.zachnr.bookplayfree.domain.model.DomainWrapper
 import com.zachnr.bookplayfree.domain.repository.BookRepository
 import com.zachnr.bookplayfree.navigation.interfaces.Navigator
+import com.zachnr.bookplayfree.navigation.route.DashboardDestinations
 import com.zachnr.bookplayfree.uicomponent.base.BaseViewModel
 import com.zachnr.bookplayfree.uicomponent.base.ViewEffect
 import com.zachnr.bookplayfree.utils.utils.DispatcherProvider
@@ -28,7 +27,7 @@ class LibraryViewModel(
     override fun setInitialState(): LibraryState = LibraryState(isLoading = true)
     public override fun handleEvents(event: LibraryEvent) {
         when (event) {
-            is LibraryEvent.ClickDetail -> navigateToDetail(event.book)
+            is LibraryEvent.ClickReadBook -> navigateToDetail(event.uri)
             is LibraryEvent.LoadPdf -> loadPdf(event.uri)
             is LibraryEvent.SearchExpandedChanged -> updateState {
                 it.copy(isSearchActive = event.isExpanded)
@@ -40,9 +39,8 @@ class LibraryViewModel(
         }
     }
 
-    private fun navigateToDetail(book: BookDomain) {
-        Log.d("TEST", "navigateToDetail: $book")
-        // TODO: navigate
+    private fun navigateToDetail(bookUri: Uri) {
+        navigate(DashboardDestinations.ReadingBookScreen(uri = bookUri.toString()))
     }
 
     private fun loadPdf(uri: Uri?) = viewModelScope.launch(dispatcher.io) {

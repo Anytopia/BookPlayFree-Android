@@ -1,7 +1,7 @@
 package com.zachnr.bookplayfree.splashscreen.di
 
 import com.zachnr.bookplayfree.splashscreen.presentation.SplashScreenViewModel
-import com.zachnr.bookplayfree.utils.utils.AppConst
+import com.zachnr.bookplayfree.utils.utils.NavConst
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.context.loadKoinModules
 import org.koin.core.qualifier.named
@@ -16,7 +16,7 @@ fun loadSplashscreenModule() {
 private val splashScreenVMModule = module {
     viewModel {
         SplashScreenViewModel(
-            get(named(AppConst.APP_LEVEL_NAVIGATOR))
+            get(named(NavConst.APP_LEVEL_NAVIGATOR))
         )
     }
 }
