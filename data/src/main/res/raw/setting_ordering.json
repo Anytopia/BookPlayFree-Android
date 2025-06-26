@@ -1,0 +1,17 @@
+[
+  {
+    "groupTitle": "General",
+    "menus": [
+      "file_sync",
+      "read_book_when_launch",
+      "set_goals"
+    ]
+  },
+  {
+    "groupTitle": "Reading",
+    "menus": [
+      "3d_effect",
+      "shake_to_next"
+    ]
+  }
+]

@@ -12,6 +12,7 @@ internal fun SettingScreen() {
     Box(
         modifier = Modifier.fillMaxSize()
     ) {
+        // TODO: To be implemented
         Text(text = "This is setting screen", modifier = Modifier.align(Alignment.Center))
     }
 }
