@@ -10,6 +10,7 @@ import android.util.Log
  * @param block The lambda to execute.
  * @return The result of the block, or `onErrorReturn` if an exception occurs.
  */
+// TODO: Assign e.message to onErrorReturn
 inline fun <T> tryCatchAndReturn(
     onErrorReturn: T,
     block: () -> T
@@ -17,7 +18,7 @@ inline fun <T> tryCatchAndReturn(
     return try {
         block()
     } catch (e: Exception) {
-        Log.e("TryCatch", "Error occurred", e)
+        Log.e("tryCatchAndReturn", "Error occurred", e)
         onErrorReturn
     }
 }

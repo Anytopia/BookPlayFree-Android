@@ -6,13 +6,14 @@ plugins {
 }
 
 android {
-    namespace = "com.zachnr.bookplayfree.utils"
+    namespace = "com.zachnr.bookplayfree.firebase"
 }
 
 dependencies {
+    implementation(project(Modules.Core.UTILS))
     implementation(project(Modules.Core.TEST))
 
-    implementation(libs.kotlinx.coroutines.core)
-    implementation(libs.kotlinx.coroutines.android)
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.firebase.config)
     implementation(libs.kotlinx.serialization.json)
 }
