@@ -17,7 +17,6 @@ import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import kotlinx.serialization.KSerializer
 
-//TODO: Add remote config default value
 class RemoteConfigDataSourceImpl(
     private val remoteConfig: FirebaseRemoteConfig,
     dispatcher: DispatcherProvider
@@ -28,7 +27,7 @@ class RemoteConfigDataSourceImpl(
     private var registration: ConfigUpdateListenerRegistration? = null
     // This variable is to store the RC key that has been retrieved. The key then used again
     // to notify the presentation layer and selectively hit only the updated keys.
-    private val executedActions = mutableListOf<String>()
+    private val executedKeys = mutableSetOf<String>()
     private val scope = CoroutineScope(SupervisorJob() + dispatcher.io)
 
     override suspend fun <T> getObject(
@@ -38,13 +37,13 @@ class RemoteConfigDataSourceImpl(
     ): T = tryCatchAndReturn(default) {
         val objString = remoteConfig.getString(key)
         parseJson(objString, serializer).also {
-            executedActions.add(key)
+            executedKeys.add(key)
         }
     }
 
     override suspend fun getBoolean(key: String): Boolean = tryCatchAndReturn(false) {
         remoteConfig.getBoolean(key).also {
-            executedActions.add(key)
+            executedKeys.add(key)
         }
     }
 
@@ -65,7 +64,7 @@ class RemoteConfigDataSourceImpl(
 
     private fun emitEffectFromUpdatedKeys(keys: Set<String>) {
         scope.launch {
-            executedActions.forEach {
+            executedKeys.forEach {
                 if (keys.contains(it)) {
                     _effects.send(FirebaseEffect.OnConfigUpdate(it))
                 }

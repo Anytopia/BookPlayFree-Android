@@ -43,7 +43,7 @@ internal fun HomeScreen(
                     viewModel.updateQuote(it.data)
                 }
 
-                UiWrapper.Empty -> {}
+                else -> {}
             }
         }
     }

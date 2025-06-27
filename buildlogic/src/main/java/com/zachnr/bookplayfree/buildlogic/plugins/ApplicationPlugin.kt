@@ -51,6 +51,7 @@ class ApplicationPlugin: Plugin<Project> {
             add(impl, project(Modules.Core.NETWORK))
             add(impl, project(Modules.Core.UTILS))
             add(impl, project(Modules.Core.TEST))
+            add(impl, project(Modules.Core.FIREBASE))
             add(impl, project(Modules.Features.DASHBOARD))
             add(impl, project(Modules.Features.SPLASH_SCREEN))
 

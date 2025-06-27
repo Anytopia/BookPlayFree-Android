@@ -4,6 +4,6 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class SettingOrderingDomain(
-    val groupTitle: String = "",
+    val groupId: String = "",
     val menus: List<String> = emptyList()
 )
