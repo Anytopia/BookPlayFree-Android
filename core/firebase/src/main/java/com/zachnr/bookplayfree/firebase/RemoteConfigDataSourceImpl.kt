@@ -10,21 +10,26 @@ import com.zachnr.bookplayfree.utils.utils.DispatcherProvider
 import com.zachnr.bookplayfree.utils.utils.parseJson
 import com.zachnr.bookplayfree.utils.utils.tryCatchAndReturn
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.cancel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import kotlinx.serialization.KSerializer
 
 //TODO: Add remote config default value
-class RemoteConfigRepositoryImpl(
+class RemoteConfigDataSourceImpl(
     private val remoteConfig: FirebaseRemoteConfig,
-    private val dispatcher: DispatcherProvider
-) : RemoteConfigRepository {
+    dispatcher: DispatcherProvider
+) : RemoteConfigDataSource {
 
     private val _effects = Channel<FirebaseEffect>()
     override val effect = _effects.receiveAsFlow()
     private var registration: ConfigUpdateListenerRegistration? = null
+    // This variable is to store the RC key that has been retrieved. The key then used again
+    // to notify the presentation layer and selectively hit only the updated keys.
     private val executedActions = mutableListOf<String>()
+    private val scope = CoroutineScope(SupervisorJob() + dispatcher.io)
 
     override suspend fun <T> getObject(
         key: String,
@@ -32,14 +37,16 @@ class RemoteConfigRepositoryImpl(
         default: T
     ): T = tryCatchAndReturn(default) {
         val objString = remoteConfig.getString(key)
-        parseJson(objString, serializer)
+        parseJson(objString, serializer).also {
+            executedActions.add(key)
+        }
     }
-
 
     override suspend fun getBoolean(key: String): Boolean = tryCatchAndReturn(false) {
-        remoteConfig.getBoolean(key)
+        remoteConfig.getBoolean(key).also {
+            executedActions.add(key)
+        }
     }
-
 
     override suspend fun registerConfigUpdateListener() {
         // Make sure only initiated once
@@ -57,8 +64,7 @@ class RemoteConfigRepositoryImpl(
     }
 
     private fun emitEffectFromUpdatedKeys(keys: Set<String>) {
-        // TODO: Review te, ini best practice nya gmn ya ???
-        CoroutineScope(dispatcher.io).launch {
+        scope.launch {
             executedActions.forEach {
                 if (keys.contains(it)) {
                     _effects.send(FirebaseEffect.OnConfigUpdate(it))
@@ -68,12 +74,14 @@ class RemoteConfigRepositoryImpl(
     }
 
     private fun emitEffectError(message: String?) {
-        CoroutineScope(dispatcher.io).launch {
+        scope.launch {
             _effects.send(FirebaseEffect.OnConfigError(message))
         }
     }
 
     override suspend fun unregisterConfigUpdateListener() {
         registration?.remove()
+        registration = null
+        scope.cancel()
     }
 }

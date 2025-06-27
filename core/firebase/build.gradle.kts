@@ -11,6 +11,7 @@ android {
 
 dependencies {
     implementation(project(Modules.Core.UTILS))
+    implementation(project(Modules.Core.TEST))
 
     implementation(platform(libs.firebase.bom))
     implementation(libs.firebase.config)

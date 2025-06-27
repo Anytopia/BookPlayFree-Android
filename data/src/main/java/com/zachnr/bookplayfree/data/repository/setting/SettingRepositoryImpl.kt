@@ -4,13 +4,13 @@ import com.zachnr.bookplayfree.domain.model.DomainWrapper
 import com.zachnr.bookplayfree.domain.model.setting.SettingOrderingDomain
 import com.zachnr.bookplayfree.domain.repository.firebase.IFirebaseConfigUpdate
 import com.zachnr.bookplayfree.domain.repository.setting.SettingRepository
-import com.zachnr.bookplayfree.firebase.RemoteConfigRepository
+import com.zachnr.bookplayfree.firebase.RemoteConfigDataSource
 import com.zachnr.bookplayfree.utils.model.FirebaseEffect
 import com.zachnr.bookplayfree.utils.utils.tryCatchAndReturn
 import kotlinx.coroutines.flow.Flow
 
 class SettingRepositoryImpl(
-    private val remoteConfigRepo: RemoteConfigRepository
+    private val remoteConfigRepo: RemoteConfigDataSource
 ): SettingRepository, IFirebaseConfigUpdate {
 
     override val firebaseRcEffect: Flow<FirebaseEffect> = remoteConfigRepo.effect

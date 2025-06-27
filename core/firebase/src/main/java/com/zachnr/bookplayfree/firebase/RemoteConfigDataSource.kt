@@ -8,7 +8,7 @@ import kotlinx.serialization.KSerializer
  * Interface to retrieve and observe remote configuration data.
  * Provides methods to fetch config values and listen for updates in real-time.
  */
-interface RemoteConfigRepository {
+interface RemoteConfigDataSource {
 
     /**
      * A [Flow] emitting the current state of remote config effects.
