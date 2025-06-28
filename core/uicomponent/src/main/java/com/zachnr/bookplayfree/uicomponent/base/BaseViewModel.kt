@@ -67,7 +67,7 @@ abstract class BaseViewModel<State : ViewState, Event : ViewEvent, Effect : View
      * @param updates Logic operation that manage how to update the new state.
      * @param effect Optional effect after the new state has been updated
      */
-    fun updateState(effect: Effect? = null, updates: (State) -> State) = viewModelScope.launch {
+    fun updateState(effect: Effect? = null, updates: suspend (State) -> State) = viewModelScope.launch {
         val newState = updates(state.value)
         _state.emit(newState)
         effect?.let { sendEffect(it) }

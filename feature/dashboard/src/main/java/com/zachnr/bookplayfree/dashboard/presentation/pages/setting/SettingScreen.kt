@@ -8,6 +8,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.zachnr.bookplayfree.dashboard.presentation.pages.setting.model.SettingOrderingState
 import com.zachnr.bookplayfree.dashboard.presentation.pages.setting.model.SettingState
 import com.zachnr.bookplayfree.utils.model.FirebaseEffect
 import org.koin.androidx.compose.koinViewModel
@@ -43,9 +44,10 @@ internal fun SettingScreen(
     Box(
         modifier = modifier.fillMaxSize()
     ) {
-        when (state) {
-            is SettingState.Success -> {
+        when (val ordering = state.settingOrdering) {
+            is SettingOrderingState.Success -> {
                 // TODO: To be implemented
+                ordering.data
             }
 
             else -> Unit

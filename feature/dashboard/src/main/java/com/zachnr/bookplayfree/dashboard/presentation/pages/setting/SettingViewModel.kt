@@ -2,6 +2,7 @@ package com.zachnr.bookplayfree.dashboard.presentation.pages.setting
 
 import androidx.lifecycle.viewModelScope
 import com.zachnr.bookplayfree.dashboard.presentation.pages.setting.mapper.SettingMapper
+import com.zachnr.bookplayfree.dashboard.presentation.pages.setting.model.SettingOrderingState
 import com.zachnr.bookplayfree.dashboard.presentation.pages.setting.model.SettingState
 import com.zachnr.bookplayfree.domain.model.DomainWrapper
 import com.zachnr.bookplayfree.domain.repository.setting.SettingRepository
@@ -20,9 +21,7 @@ class SettingViewModel(
     private val dispatcher: DispatcherProvider,
     private val settingRepository: SettingRepository,
     private val settingMapper: SettingMapper
-) : BaseViewModel<SettingState, ViewEvent, ViewEffect>(
-    navigator
-) {
+) : BaseViewModel<SettingState, ViewEvent, ViewEffect>(navigator) {
 
     val firebaseEffect = settingRepository.firebaseRcEffect.stateIn(
         scope = viewModelScope,
@@ -37,7 +36,7 @@ class SettingViewModel(
         }
     }
 
-    override fun setInitialState(): SettingState = SettingState.Loading
+    override fun setInitialState(): SettingState = SettingState()
 
     override fun handleEvents(event: ViewEvent) {}
 
@@ -46,19 +45,13 @@ class SettingViewModel(
             is DomainWrapper.Success -> {
                 val orderingUi = settingMapper.mapSettingOrderingDomainToUI(orderingDomain.data)
                 updateState {
-                    if (it is SettingState.Success) {
-                        it.copy(settingOrder = orderingUi)
-                    } else {
-                        SettingState.Success(orderingUi)
-                    }
+                    it.copy(
+                        settingOrdering = SettingOrderingState.Success(orderingUi)
+                    )
                 }
             }
 
-            is DomainWrapper.Error -> {
-                updateState {
-                    SettingState.Error()
-                }
-            }
+            is DomainWrapper.Error -> {}
         }
     }
 
