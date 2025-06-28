@@ -3,4 +3,11 @@
     <string name="goal_tracker_page">Halaman</string>
     <string name="goal_tracker_book">Buku</string>
     <string name="goal_tracker_minute">Menit</string>
+    <string name="setting_general">Umum</string>
+    <string name="setting_file_sync">Sinkronisasi file</string>
+    <string name="setting_read_book_when_launch">Baca buku saat aplikasi dibuka</string>
+    <string name="setting_set_goals">Atur Goals</string>
+    <string name="setting_reading">Membaca</string>
+    <string name="setting_3d_effect">Aktifkan efek geser 3D</string>
+    <string name="setting_shake_to_next">Goyangkan perangkat untuk ke halaman berikutnya</string>
 </resources>

@@ -5,6 +5,7 @@ data class SettingOrderingGroupUI(
     val groupTitle: String = "",
     val menus: List<SettingOrderingItemUI> = emptyList()
 )
+
 data class SettingOrderingItemUI(
     val itemId: String = "",
     val itemTitle: String = ""

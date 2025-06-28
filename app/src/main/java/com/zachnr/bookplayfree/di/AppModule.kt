@@ -3,6 +3,7 @@ package com.zachnr.bookplayfree.di
 import com.zachnr.bookplayfree.ailocal.di.mlKitTranslatorModule
 import com.zachnr.bookplayfree.data.di.getDeepSeekModule
 import com.zachnr.bookplayfree.domain.usecase.GetQuoteDeepSeekUseCase
+import com.zachnr.bookplayfree.firebase.getFirebaseModule
 import com.zachnr.bookplayfree.navigation.impl.NavigatorImpl
 import com.zachnr.bookplayfree.navigation.interfaces.Navigator
 import com.zachnr.bookplayfree.navigation.route.Destination
@@ -50,6 +51,7 @@ fun loadAppModule() {
             add(useCaseModule)
             add(utilsModule)
             add(viewModelModule)
+            add(getFirebaseModule())
             addAll(aiLocal)
             addAll(dataModule)
             addAll(networkModules)

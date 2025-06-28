@@ -3,4 +3,11 @@
     <string name="goal_tracker_page">Page</string>
     <string name="goal_tracker_book">Book</string>
     <string name="goal_tracker_minute">Minute</string>
+    <string name="setting_general">General</string>
+    <string name="setting_file_sync">File sync</string>
+    <string name="setting_read_book_when_launch">Read book when launch</string>
+    <string name="setting_set_goals">Set goals</string>
+    <string name="setting_reading">Reading</string>
+    <string name="setting_3d_effect">Enable 3D swiping effect</string>
+    <string name="setting_shake_to_next">Shake device to next the page</string>
 </resources>

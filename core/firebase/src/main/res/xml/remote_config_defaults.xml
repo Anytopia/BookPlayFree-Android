@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<defaultsMap>
+    <entry>
+        <key>setting_ordering</key>
+        <value>
+            [
+            {
+            "groupId": "setting_general",
+            "menus": [
+            "setting_file_sync",
+            "setting_read_book_when_launch",
+            "setting_set_goals"
+            ]
+            },
+            {
+            "groupId": "setting_reading",
+            "menus": [
+            "setting_3d_effect",
+            "setting_shake_to_next"
+            ]
+            }
+            ]
+        </value>
+    </entry>
+</defaultsMap>
