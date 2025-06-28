@@ -10,4 +10,6 @@
     <string name="setting_reading">Membaca</string>
     <string name="setting_3d_effect">Aktifkan efek geser 3D</string>
     <string name="setting_shake_to_next">Goyangkan perangkat untuk ke halaman berikutnya</string>
+    <string name="search">Cari</string>
+    <string name="setting_search">Cari pengaturan</string>
 </resources>

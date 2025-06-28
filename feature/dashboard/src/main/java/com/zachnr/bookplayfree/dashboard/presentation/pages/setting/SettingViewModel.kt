@@ -4,7 +4,6 @@ import androidx.lifecycle.viewModelScope
 import com.zachnr.bookplayfree.dashboard.presentation.pages.setting.mapper.SettingMapper
 import com.zachnr.bookplayfree.dashboard.presentation.pages.setting.model.SettingOrderingState
 import com.zachnr.bookplayfree.dashboard.presentation.pages.setting.model.SettingState
-import com.zachnr.bookplayfree.domain.model.DomainWrapper
 import com.zachnr.bookplayfree.domain.repository.setting.SettingRepository
 import com.zachnr.bookplayfree.navigation.interfaces.Navigator
 import com.zachnr.bookplayfree.uicomponent.base.BaseViewModel
@@ -41,17 +40,12 @@ class SettingViewModel(
     override fun handleEvents(event: ViewEvent) {}
 
     fun getSettingOrdering() = viewModelScope.launch(dispatcher.io) {
-        when (val orderingDomain = settingRepository.getSettingMenuOrdering()) {
-            is DomainWrapper.Success -> {
-                val orderingUi = settingMapper.mapSettingOrderingDomainToUI(orderingDomain.data)
-                updateState {
-                    it.copy(
-                        settingOrdering = SettingOrderingState.Success(orderingUi)
-                    )
-                }
-            }
-
-            is DomainWrapper.Error -> {}
+        val domain = settingRepository.getSettingMenuOrdering()
+        val ui = settingMapper.mapSettingOrderingDomainToUI(domain)
+        updateState {
+            it.copy(
+                settingOrdering = SettingOrderingState.Success(ui)
+            )
         }
     }
 

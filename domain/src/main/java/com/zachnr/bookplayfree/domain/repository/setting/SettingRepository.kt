@@ -1,6 +1,5 @@
 package com.zachnr.bookplayfree.domain.repository.setting
 
-import com.zachnr.bookplayfree.domain.model.DomainWrapper
 import com.zachnr.bookplayfree.domain.model.setting.SettingOrderingDomain
 import com.zachnr.bookplayfree.utils.model.FirebaseEffect
 import kotlinx.coroutines.flow.Flow
@@ -41,7 +40,7 @@ interface SettingRepository {
     /**
      * Handle get ordering setting from remote config or local json
      *
-     * @return [DomainWrapper<SettingOrderingDomain>]
+     * @return [List<SettingOrderingDomain>]
      */
-    suspend fun getSettingMenuOrdering(): DomainWrapper<List<SettingOrderingDomain>>
+    suspend fun getSettingMenuOrdering(): List<SettingOrderingDomain>
 }

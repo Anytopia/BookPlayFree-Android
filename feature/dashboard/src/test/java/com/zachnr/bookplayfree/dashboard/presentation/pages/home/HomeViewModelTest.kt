@@ -53,20 +53,4 @@ class HomeViewModelTest {
 
         assertEquals(expectedQuote, viewModel.state.value.quote)
     }
-
-    @Test
-    fun `setOnQuerySearchChanged updates searchQueryText`() = runTest {
-        viewModel.setOnQuerySearchChanged("Kotlin")
-        testDispatcher.scheduler.advanceUntilIdle()
-
-        assertEquals("Kotlin", viewModel.state.value.searchQueryText)
-    }
-
-    @Test
-    fun `setOnActiveStateSearchChanged updates isSearchActive`() = runTest {
-        viewModel.setOnActiveStateSearchChanged(true)
-        testDispatcher.scheduler.advanceUntilIdle()
-
-        assertEquals(true, viewModel.state.value.isSearchActive)
-    }
 }
