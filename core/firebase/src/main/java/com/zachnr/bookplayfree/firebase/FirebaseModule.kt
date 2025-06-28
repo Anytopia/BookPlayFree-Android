@@ -8,7 +8,7 @@ import com.zachnr.bookplayfree.utils.utils.FirebaseConst.MINIMUM_FETCH_INTERVAL
 import org.koin.core.module.Module
 import org.koin.dsl.module
 
-fun loadFirebaseModule() : Module = module {
+fun getFirebaseModule() : Module = module {
     single<FirebaseRemoteConfig> {
         val configSettings = remoteConfigSettings {
             minimumFetchIntervalInSeconds = MINIMUM_FETCH_INTERVAL
@@ -20,7 +20,7 @@ fun loadFirebaseModule() : Module = module {
     }
 }
 
-fun loadFirebaseRemoteConfig() : Module = module {
+fun getFirebaseRemoteConfig() : Module = module {
     factory<RemoteConfigDataSource> {
         RemoteConfigDataSourceImpl(get(), get())
     }
