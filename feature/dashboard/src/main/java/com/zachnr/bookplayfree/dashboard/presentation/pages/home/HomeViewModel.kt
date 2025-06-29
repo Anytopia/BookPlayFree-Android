@@ -11,11 +11,14 @@ import kotlinx.coroutines.launch
 class HomeViewModel(
     navigator: Navigator,
 ) : BaseViewModel<HomeState, ViewEvent, ViewEffect>(navigator) {
+
     override fun setInitialState(): HomeState {
         val defaultMsg = "\"A reader lives a thousand lives before he dies. " +
             "The man who never reads lives only one.\"— George R.R. Martin"
         return HomeState(quote = defaultMsg)
     }
+
+    override fun handleEvents(event: ViewEvent) {}
 
     fun updateQuote(domain: DeepSeekChatDomain) = viewModelScope.launch {
         updateState {
@@ -24,22 +27,4 @@ class HomeViewModel(
             )
         }
     }
-
-    fun setOnQuerySearchChanged(text: String) = viewModelScope.launch {
-        updateState {
-            state.value.copy(
-                searchQueryText = text
-            )
-        }
-    }
-
-    fun setOnActiveStateSearchChanged(isActive: Boolean) = viewModelScope.launch {
-        updateState {
-            state.value.copy(
-                isSearchActive = isActive
-            )
-        }
-    }
-
-    override fun handleEvents(event: ViewEvent) {}
 }

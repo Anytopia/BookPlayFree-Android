@@ -9,11 +9,10 @@ import com.zachnr.bookplayfree.uicomponent.R
  */
 internal val dynamicTextMap = mapOf(
     "setting_general" to R.string.setting_general,
-    "setting_file_sync" to R.string.setting_file_sync,
-    "setting_read_book_when_launch" to R.string.setting_read_book_when_launch,
-    "setting_read_book_when_launch" to R.string.setting_read_book_when_launch,
-    "setting_set_goals" to R.string.setting_set_goals,
+    SettingMenu.FILE_SYNC to R.string.setting_file_sync,
+    SettingMenu.READ_BOOK_WHEN_LAUNCH to R.string.setting_read_book_when_launch,
+    SettingMenu.SET_GOALS to R.string.setting_set_goals,
     "setting_reading" to R.string.setting_reading,
-    "setting_3d_effect" to R.string.setting_3d_effect,
-    "setting_shake_to_next" to R.string.setting_shake_to_next,
+    SettingMenu.EFFECT_3D to R.string.setting_3d_effect,
+    SettingMenu.SHAKE_TO_NEXT to R.string.setting_shake_to_next,
 )

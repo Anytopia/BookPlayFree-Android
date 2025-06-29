@@ -10,4 +10,6 @@
     <string name="setting_reading">Reading</string>
     <string name="setting_3d_effect">Enable 3D swiping effect</string>
     <string name="setting_shake_to_next">Shake device to next the page</string>
+    <string name="search">Search</string>
+    <string name="setting_search">Search setting</string>
 </resources>

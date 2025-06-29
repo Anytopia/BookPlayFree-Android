@@ -1,6 +1,5 @@
 package com.zachnr.bookplayfree.data.repository.setting
 
-import com.zachnr.bookplayfree.domain.model.DomainWrapper
 import com.zachnr.bookplayfree.domain.model.setting.SettingOrderingDomain
 import com.zachnr.bookplayfree.domain.repository.setting.SettingRepository
 import com.zachnr.bookplayfree.firebase.RemoteConfigDataSource
@@ -16,15 +15,14 @@ class SettingRepositoryImpl(
 
     override val firebaseRcEffect: Flow<FirebaseEffect> = remoteConfigRepo.effect
 
-    override suspend fun getSettingMenuOrdering(): DomainWrapper<List<SettingOrderingDomain>> {
-        // TODO: Handle error message to be delivered, not using empty
-        return tryCatchAndReturn(DomainWrapper.Error()) {
+    override suspend fun getSettingMenuOrdering(): List<SettingOrderingDomain> {
+        return tryCatchAndReturn(emptyList()) {
             val orderingRc = remoteConfigRepo.getObject(
                 KEY_SETTING_ORDERING,
                 ListSerializer(SettingOrderingDomain.serializer()),
                 emptyList()
             )
-            return@tryCatchAndReturn DomainWrapper.Success(orderingRc)
+            return@tryCatchAndReturn orderingRc
         }
     }
 

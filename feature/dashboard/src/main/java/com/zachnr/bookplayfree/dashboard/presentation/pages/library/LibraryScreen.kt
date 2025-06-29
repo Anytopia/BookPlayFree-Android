@@ -4,7 +4,6 @@ import android.content.Intent
 import android.net.Uri
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -21,15 +20,9 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.Button
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.SearchBar
-import androidx.compose.material3.SearchBarDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -52,6 +45,7 @@ import com.zachnr.bookplayfree.dashboard.presentation.pages.library.state.Librar
 import com.zachnr.bookplayfree.designsystem.icons.BpfIcons
 import com.zachnr.bookplayfree.designsystem.theme.GreenForest
 import com.zachnr.bookplayfree.domain.model.BookDomain
+import com.zachnr.bookplayfree.uicomponent.searchbar.SearchBarDashboard
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
@@ -77,7 +71,7 @@ internal fun LibraryScreen(
     LibraryScreen(
         modifier = modifier,
         state = state.value,
-        event = viewModel::sendEvent,
+//        event = viewModel::sendEvent,
         pickerLauncher = { folderPickerLauncher.launch(null) }
     )
 }
@@ -86,13 +80,13 @@ internal fun LibraryScreen(
 private fun LibraryScreen(
     modifier: Modifier = Modifier,
     state: LibraryState,
-    event: (LibraryEvent) -> Unit = {},
+//    event: (LibraryEvent) -> Unit = {},
     pickerLauncher: () -> Unit = {}
 ) {
     Column(
         modifier = modifier.fillMaxSize()
     ) {
-        SearchBarComponent(state, event)
+        SearchBarDashboard()
         when {
             state.isLoading -> Loading(modifier)
             state.errorMessage != null -> Error(modifier, state.errorMessage)
@@ -100,47 +94,6 @@ private fun LibraryScreen(
             else -> Content(modifier, state.books)
         }
     }
-}
-
-// TODO: Refactor SearchBarComponent to move it to a separate file
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-private fun SearchBarComponent(state: LibraryState, event: (LibraryEvent) -> Unit) {
-    val colors1 = SearchBarDefaults.colors()
-    val searchBarPadding = animateDpAsState(
-        targetValue = if (state.isSearchActive) 0.dp else 16.dp,
-        label = "Search bar padding"
-    )
-    SearchBar(
-        inputField = {
-            SearchBarDefaults.InputField(
-                query = state.searchQueryText,
-                onQueryChange = { event(LibraryEvent.SearchQueryTextChanged(it)) },
-                onSearch = { /* Handle search */ },
-                expanded = state.isSearchActive,
-                onExpandedChange = { event(LibraryEvent.SearchExpandedChanged(it)) },
-                enabled = true,
-                placeholder = { Text("Search") },
-                leadingIcon = { Icon(Icons.Default.Search, contentDescription = "Search") },
-                trailingIcon = null,
-                interactionSource = null
-            )
-        },
-        expanded = state.isSearchActive,
-        onExpandedChange = { event(LibraryEvent.SearchExpandedChanged(it)) },
-        shape = SearchBarDefaults.inputFieldShape,
-        colors = colors1,
-        tonalElevation = SearchBarDefaults.TonalElevation,
-        shadowElevation = SearchBarDefaults.ShadowElevation,
-        windowInsets = SearchBarDefaults.windowInsets,
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = searchBarPadding.value)
-
-    ) {
-        // TODO: Add search result
-    }
-    Spacer(modifier = Modifier.height(18.dp))
 }
 
 // TODO: Refactor Loading, Error, Empty, and Content composables to move them to a separate file
