@@ -38,6 +38,7 @@ import com.zachnr.bookplayfree.uicomponent.R
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SearchBarDashboard(
+    modifier: Modifier = Modifier,
     placeholder: String = stringResource(R.string.search),
     onSearch: (String) -> Unit = {},
     searchResultContent: @Composable () -> Unit = {},
@@ -70,10 +71,9 @@ fun SearchBarDashboard(
         tonalElevation = SearchBarDefaults.TonalElevation,
         shadowElevation = SearchBarDefaults.ShadowElevation,
         windowInsets = SearchBarDefaults.windowInsets,
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
             .padding(horizontal = searchBarPadding.value)
-
     ) {
         searchResultContent()
     }

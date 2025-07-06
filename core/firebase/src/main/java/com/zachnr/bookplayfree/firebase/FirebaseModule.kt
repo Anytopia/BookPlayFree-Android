@@ -15,7 +15,6 @@ fun getFirebaseModule() : Module = module {
         }
         Firebase.remoteConfig.apply {
             setConfigSettingsAsync(configSettings)
-            fetchAndActivate()
         }
     }
 }

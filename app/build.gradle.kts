@@ -1,6 +1,6 @@
 import com.android.build.api.dsl.ApplicationDefaultConfig
+import com.zachnr.bookplayfree.buildlogic.utils.Modules
 import io.gitlab.arturbosch.detekt.Detekt
-import java.time.Instant
 
 plugins {
     alias(libs.plugins.bpf.application)
@@ -17,9 +17,47 @@ android {
     }
 }
 
+dependencies {
+    implementation(project(Modules.SHARED))
+    implementation(project(Modules.DATA))
+    implementation(project(Modules.DOMAIN))
+
+    implementation(project(Modules.Core.AI_LOCAL))
+    implementation(project(Modules.Core.DESIGN_SYSTEM))
+    implementation(project(Modules.Core.NAVIGATION))
+    implementation(project(Modules.Core.NETWORK))
+    implementation(project(Modules.Core.UTILS))
+    implementation(project(Modules.Core.TEST))
+    implementation(project(Modules.Core.FIREBASE))
+
+    implementation(project(Modules.Features.DASHBOARD))
+    implementation(project(Modules.Features.SPLASH_SCREEN))
+
+    implementation(libs.androidx.activity)
+    implementation(libs.androidx.activity.compose)
+    implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.lifecycle)
+    implementation(libs.androidx.material3)
+    implementation(libs.androidx.navigation.compose)
+    implementation(libs.androidx.startup.runtime)
+
+    // Koin
+    implementation(libs.koin.core)
+    implementation(libs.koin.android)
+    implementation(libs.koin.androidx.compose)
+
+    // Firebase
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.firebase.crashlytics)
+    implementation(libs.firebase.config)
+
+    // Leak canary
+    debugImplementation(libs.leakcanary.android)
+}
+
 /**
  * This function is to configure filtering abi
- * TODO: To be implemented
+ * TODO: To be researched
  */
 private fun ApplicationDefaultConfig.configureNdkFilter() {
     val isBuildForPlayStore =
@@ -52,16 +90,19 @@ tasks.withType<Detekt>().configureEach {
 // =========== END DETEKT SET-UP ===========
 
 // =========== GIT HOOKS SET-UP ===========
-private val setupGitHooksTaskName = "setupGitHooks"
-val markerFile = file("${rootDir}/gitHooksSetupDone.marker")
+val setupGitHooksTaskName = "setupGitHooks"
 tasks.register<Exec>(setupGitHooksTaskName) {
-    // Only run if .git folder exists and marker file does NOT exist
+    val gitDir = layout.projectDirectory.dir(".git")
+    val markerFile = layout.projectDirectory.file("gitHooksSetupDone.marker")
+
     onlyIf {
-        file("${rootDir}/.git").exists() && !markerFile.exists()
+        gitDir.asFile.exists() && !markerFile.asFile.exists()
     }
 
     workingDir = rootDir
-    if (System.getProperty("os.name").startsWith("Windows")) {
+
+    val isWindows = System.getProperty("os.name").startsWith("Windows")
+    if (isWindows) {
         commandLine(
             "cmd",
             "/c",
@@ -75,10 +116,10 @@ tasks.register<Exec>(setupGitHooksTaskName) {
         )
     }
 
-    // After successful execution, create the marker file to mark completion
     doLast {
-        markerFile.parentFile.mkdirs() // ensure directory exists
-        markerFile.writeText("Git hooks setup completed at ${Instant.now()}")
+        val marker = markerFile.asFile
+        marker.parentFile.mkdirs()
+        marker.writeText("Git hooks setup completed.")
     }
 }
 
