@@ -70,6 +70,8 @@ class FeaturePlugin: Plugin<Project> {
             add(impl, libs.findLibrary("androidx-navigation-compose").get())
             add(impl, libs.findLibrary("firebase-bom").get())
             add(impl, libs.findLibrary("androidx-compose-material3").get())
+            add(impl, libs.findLibrary("androidx.constraintlayout.compose").get())
+            add(impl, libs.findLibrary("androidx.constraintlayout.core").get())
         }
     }
 }
