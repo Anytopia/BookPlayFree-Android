@@ -17,7 +17,5 @@ dependencies {
     implementation(project(Modules.Core.UTILS))
     implementation(project(Modules.Core.FIREBASE))
 
-    implementation(libs.koin.core)
-    implementation(libs.koin.android)
     implementation(libs.tom.roush)
 }

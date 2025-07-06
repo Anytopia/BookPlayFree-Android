@@ -38,9 +38,8 @@ androidComponents.beforeVariants {
 
 dependencies {
     implementation(project(Modules.Core.TEST))
+    implementation(project(Modules.Core.UTILS))
 
     implementation(libs.androidx.dataStore.core)
-    implementation(libs.koin.core)
-    implementation(libs.koin.android)
     api(libs.protobuf.kotlin.lite)
 }

@@ -58,8 +58,6 @@ class FeaturePlugin: Plugin<Project> {
             add(impl, libs.findLibrary("androidx-core-ktx").get())
             add(impl, libs.findLibrary("androidx-appcompat").get())
             add(impl, libs.findLibrary("androidx-material3-android").get())
-            add(impl, libs.findLibrary("koin-core").get())
-            add(impl, libs.findLibrary("koin-android").get())
             add(impl, libs.findLibrary("koin-androidx-compose").get())
             add(impl, libs.findLibrary("koin-androidx-compose-navigation").get())
             add(impl, libs.findLibrary("kotlinx-coroutines-core").get())

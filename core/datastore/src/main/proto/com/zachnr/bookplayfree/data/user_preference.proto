@@ -1,10 +1,24 @@
 syntax = "proto3";
 
-import "com/zachnr/bookplayfree/data/reading_preference.proto";
-
 option java_package = "com.zachnr.bookplayfree.datastore";
 option java_multiple_files = true;
 
-message UserPreference {
-  ReadingPreference reading_preferences = 1;
+message UserDataPrefProto {
+  UserSettingPrefProto setting_data = 1;
+  bool is_show_dashboard_coach_mark = 2;
+  bool is_show_reading_coach_mark = 3;
+  UserGoalPrefProto user_goal = 4;
+}
+
+message UserSettingPrefProto {
+  string lang_target_translation = 1;
+  bool is_effect_3d = 2;
+  bool is_shake_to_next = 3;
+  bool is_read_when_launch = 4;
+}
+
+message UserGoalPrefProto {
+  int32 reading_time = 1;
+  int32 page = 2;
+  int32 book = 3;
 }

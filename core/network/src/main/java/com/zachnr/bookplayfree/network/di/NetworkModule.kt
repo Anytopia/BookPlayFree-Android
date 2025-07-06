@@ -16,7 +16,7 @@ import org.koin.android.ext.koin.androidContext
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
 
-val deepseekClientModule  = module {
+private val deepseekClientModule  = module {
     single(named(NetworkConst.DEEPSEEK_CLIENT_QUALIFIER)) {
         val jsonConfig = Json {
             ignoreUnknownKeys = true
@@ -35,7 +35,7 @@ val deepseekClientModule  = module {
     }
 }
 
-val mockoonClientModule  = module {
+private val mockoonClientModule  = module {
     single(named(NetworkConst.MOCKOON_CLIENT_QUALIFIER)) {
         val jsonConfig = Json {
             ignoreUnknownKeys = true
@@ -53,10 +53,16 @@ val mockoonClientModule  = module {
     }
 }
 
-val okhttpClientEngineModule = module {
+private val okhttpClientEngineModule = module {
     single {
         OkHttp.create {
             addInterceptor(ChuckerInterceptor(androidContext()))
         }
     }
 }
+
+val networkModules = listOf(
+    deepseekClientModule,
+    mockoonClientModule,
+    okhttpClientEngineModule
+)

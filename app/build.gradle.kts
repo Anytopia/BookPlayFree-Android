@@ -29,6 +29,7 @@ dependencies {
     implementation(project(Modules.Core.UTILS))
     implementation(project(Modules.Core.TEST))
     implementation(project(Modules.Core.FIREBASE))
+    implementation(project(Modules.Core.DATA_STORE))
 
     implementation(project(Modules.Features.DASHBOARD))
     implementation(project(Modules.Features.SPLASH_SCREEN))
