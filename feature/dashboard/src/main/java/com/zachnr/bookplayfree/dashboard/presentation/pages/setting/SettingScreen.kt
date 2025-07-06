@@ -83,7 +83,7 @@ internal fun SettingScreen(
             }
         )
         LazyColumn(
-            modifier = modifier
+            modifier = Modifier
                 .fillMaxSize()
                 .constrainAs(lcSetting) {
                     top.linkTo(sbSetting.bottom, margin = 14.dp)

@@ -1,6 +1,7 @@
 package com.zachnr.bookplayfree
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -32,6 +33,14 @@ class MainActivity : ComponentActivity() {
      * Note: Move this function to data layer or view model later
      */
     private fun fetchFirebaseConfig() = lifecycleScope.launch(Dispatchers.IO) {
-        remoteConfig.fetchAndActivate()
+        try {
+            remoteConfig.fetchAndActivate()
+        } catch (e: Exception) {
+            Log.e(TAG, "Remote config fetch failed", e)
+        }
+    }
+
+    companion object {
+        private const val TAG = "MainActivity"
     }
 }
