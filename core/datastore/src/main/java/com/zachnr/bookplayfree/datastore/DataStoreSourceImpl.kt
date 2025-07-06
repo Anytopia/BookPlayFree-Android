@@ -162,7 +162,7 @@ internal class DataStoreSourceImpl(
                     .build()
             }
         } catch (ioException: IOException) {
-            Log.e(TAG, "Failed to update user goal pages", ioException)
+            Log.e(TAG, "Failed to update user goal book", ioException)
         }
     }
 
