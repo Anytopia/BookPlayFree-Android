@@ -2,58 +2,26 @@ package com.zachnr.bookplayfree.di
 
 import com.zachnr.bookplayfree.ailocal.di.mlKitTranslatorModule
 import com.zachnr.bookplayfree.data.di.getDeepSeekModule
-import com.zachnr.bookplayfree.domain.usecase.GetQuoteDeepSeekUseCase
+import com.zachnr.bookplayfree.datastore.di.dataStoreModule
+import com.zachnr.bookplayfree.domain.di.deepSeekQuoteUseCaseModule
 import com.zachnr.bookplayfree.firebase.getFirebaseModule
-import com.zachnr.bookplayfree.navigation.impl.NavigatorImpl
-import com.zachnr.bookplayfree.navigation.interfaces.Navigator
-import com.zachnr.bookplayfree.navigation.route.Destination
-import com.zachnr.bookplayfree.network.di.deepseekClientModule
-import com.zachnr.bookplayfree.network.di.mockoonClientModule
-import com.zachnr.bookplayfree.network.di.okhttpClientEngineModule
-import com.zachnr.bookplayfree.shared.viewmodel.MainActivitySharedVM
-import com.zachnr.bookplayfree.utils.utils.AppConst
-import com.zachnr.bookplayfree.utils.utils.DispatcherProvider
-import org.koin.androidx.viewmodel.dsl.viewModelOf
+import com.zachnr.bookplayfree.navigation.di.appNavigationModule
+import com.zachnr.bookplayfree.network.di.networkModules
+import com.zachnr.bookplayfree.shared.di.sharedModule
+import com.zachnr.bookplayfree.utils.di.dispatcherModule
 import org.koin.core.context.loadKoinModules
-import org.koin.core.module.dsl.factoryOf
-import org.koin.core.qualifier.named
-import org.koin.dsl.module
 
 fun loadAppModule() {
-    val viewModelModule = module {
-        viewModelOf(::MainActivitySharedVM)
-    }
-    val useCaseModule = module {
-        factoryOf(::GetQuoteDeepSeekUseCase)
-    }
-    val dataModule = listOf(
-        getDeepSeekModule()
-    )
-    val appNavigationModule = module {
-        single<Navigator>(named(AppConst.APP_LEVEL_NAVIGATOR)) {
-            NavigatorImpl(startDestination = Destination.SplashScreen)
-        }
-    }
-    val utilsModule = module {
-        single { DispatcherProvider() }
-    }
-    val networkModules = listOf(
-        deepseekClientModule,
-        mockoonClientModule,
-        okhttpClientEngineModule
-    )
-    val aiLocal = listOf(
-        mlKitTranslatorModule
-    )
     loadKoinModules(
         buildList {
             add(appNavigationModule)
-            add(useCaseModule)
-            add(utilsModule)
-            add(viewModelModule)
+            add(deepSeekQuoteUseCaseModule)
+            add(dispatcherModule)
+            add(sharedModule)
             add(getFirebaseModule())
-            addAll(aiLocal)
-            addAll(dataModule)
+            add(dataStoreModule)
+            add(mlKitTranslatorModule)
+            add(getDeepSeekModule())
             addAll(networkModules)
         }
     )

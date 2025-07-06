@@ -29,8 +29,6 @@ dependencies {
     implementation(project(Modules.Core.UTILS))
     implementation(project(Modules.Core.TEST))
 
-    implementation(libs.koin.core)
-    implementation(libs.koin.android)
     debugImplementation(libs.chucker)
     releaseImplementation(libs.chucker.no.op)
 

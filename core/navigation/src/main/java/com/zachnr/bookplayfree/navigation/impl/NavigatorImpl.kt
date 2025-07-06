@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.receiveAsFlow
 /**
  * A global navigation that starts from pre-login graph
  */
-class NavigatorImpl(
+internal class NavigatorImpl(
     override val startDestination: Destination
 ) : Navigator {
     private val _navigationActions = Channel<NavigationAction>()

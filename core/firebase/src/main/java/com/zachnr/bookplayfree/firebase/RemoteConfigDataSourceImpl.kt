@@ -17,7 +17,7 @@ import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import kotlinx.serialization.KSerializer
 
-class RemoteConfigDataSourceImpl(
+internal class RemoteConfigDataSourceImpl(
     private val remoteConfig: FirebaseRemoteConfig,
     dispatcher: DispatcherProvider
 ) : RemoteConfigDataSource {
