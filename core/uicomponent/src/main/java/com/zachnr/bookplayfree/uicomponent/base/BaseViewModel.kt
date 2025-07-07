@@ -19,7 +19,9 @@ abstract class BaseViewModel<State : ViewState, Event : ViewEvent, Effect : View
 ) : ViewModel() {
 
     protected abstract fun setInitialState(): State
-    open fun handleEvents(event: Event) {}
+    open fun handleEvents(event: Event) {
+        // Implemented in subclasses if needed
+    }
 
     private val initialState: State by lazy { setInitialState() }
     private val _state: MutableStateFlow<State> = MutableStateFlow(initialState)
