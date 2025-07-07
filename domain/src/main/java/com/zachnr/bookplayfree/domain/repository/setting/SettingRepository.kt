@@ -1,46 +1,30 @@
 package com.zachnr.bookplayfree.domain.repository.setting
 
 import com.zachnr.bookplayfree.domain.model.setting.SettingOrderingDomain
-import com.zachnr.bookplayfree.utils.model.FirebaseEffect
 import kotlinx.coroutines.flow.Flow
 
 interface SettingRepository {
+    /**
+     * Retrieves a flow of lists containing setting ordering data.
+     * This flow will emit a new list whenever the underlying setting data changes.
+     */
+    val settingData: Flow<List<SettingOrderingDomain>>
 
     /**
-     * Returns a [Flow] emitting [FirebaseEffect] representing the state of Remote Config updates.
-     *
-     * This flow emits events whenever Remote Config parameters are updated in real-time,
-     * enabling the app to react accordingly, such as activating new values or updating UI.
-     *
-     * @return a flow of [FirebaseEffect] reflecting Remote Config update states.
+     * Sets the preference for whether to read the book when the application launches.
+     * @param value True to read the book on launch, false otherwise.
      */
-    val firebaseRcEffect: Flow<FirebaseEffect>
+    suspend fun setIsReadBookWhenLaunch(value: Boolean)
 
     /**
-     * Initializes and registers a listener for Remote Config update events.
-     *
-     * This method starts listening for real-time Remote Config changes from the Firebase backend.
-     * When a new Remote Config version is published, the listener fetches the updated values
-     * and triggers the update flow.
-     *
-     * Typically called once during app startup or when Remote Config updates are needed.
+     * Sets the preference for enabling or disabling 3D effects.
+     * @param value True to enable 3D effects, false to disable.
      */
-    suspend fun initRCConfigUpdateListener()
+    suspend fun setIsEffect3d(value: Boolean)
 
     /**
-     * Removes the Remote Config update listener and stops receiving real-time updates.
-     *
-     * This method unregisters the listener registered by [initRCConfigUpdateListener],
-     * closing the connection to the Remote Config backend if no other listeners exist.
-     *
-     * Call this to clean up resources or when real-time updates are no longer required.
+     * Sets the preference for enabling or disabling the shake-to-next feature.
+     * @param value True to enable shake-to-next, false to disable.
      */
-    suspend fun removeRCConfigUpdateListener()
-
-    /**
-     * Handle get ordering setting from remote config or local json
-     *
-     * @return [List<SettingOrderingDomain>]
-     */
-    suspend fun getSettingMenuOrdering(): List<SettingOrderingDomain>
+    suspend fun setIsShakeToNext(value: Boolean)
 }

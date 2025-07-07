@@ -25,3 +25,7 @@ val GreenEmerald15 = Color(0x2662EA74)
 val BlueIndigo = Color(0xFF7B74FF)
 val BlueIndigo15 = Color(0x267B74FF)
 val GreenForest = Color(0xFF388E3C)
+
+val CheckboxUncheckedGray = Color(0xFFBDBDBD)
+val CheckboxDisabledLightGray = Color(0xFFE0E0E0)
+val CheckboxDisabledUncheckedBorder = Color(0x61000000)

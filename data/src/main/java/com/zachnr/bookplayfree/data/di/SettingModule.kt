@@ -7,6 +7,6 @@ import org.koin.dsl.module
 
 fun loadSettingRepoModule(): Module = module {
     factory<SettingRepository> {
-        SettingRepositoryImpl(get())
+        SettingRepositoryImpl(get(), get())
     }
 }

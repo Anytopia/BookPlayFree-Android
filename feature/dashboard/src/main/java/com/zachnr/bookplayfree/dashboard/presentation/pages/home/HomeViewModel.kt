@@ -18,8 +18,6 @@ class HomeViewModel(
         return HomeState(quote = defaultMsg)
     }
 
-    override fun handleEvents(event: ViewEvent) {}
-
     fun updateQuote(domain: DeepSeekChatDomain) = viewModelScope.launch {
         updateState {
             state.value.copy(

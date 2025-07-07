@@ -19,7 +19,7 @@ abstract class BaseViewModel<State : ViewState, Event : ViewEvent, Effect : View
 ) : ViewModel() {
 
     protected abstract fun setInitialState(): State
-    protected abstract fun handleEvents(event: Event)
+    open fun handleEvents(event: Event) {}
 
     private val initialState: State by lazy { setInitialState() }
     private val _state: MutableStateFlow<State> = MutableStateFlow(initialState)
@@ -67,9 +67,10 @@ abstract class BaseViewModel<State : ViewState, Event : ViewEvent, Effect : View
      * @param updates Logic operation that manage how to update the new state.
      * @param effect Optional effect after the new state has been updated
      */
-    fun updateState(effect: Effect? = null, updates: suspend (State) -> State) = viewModelScope.launch {
-        val newState = updates(state.value)
-        _state.emit(newState)
-        effect?.let { sendEffect(it) }
-    }
+    fun updateState(effect: Effect? = null, updates: suspend (State) -> State) =
+        viewModelScope.launch {
+            val newState = updates(state.value)
+            _state.emit(newState)
+            effect?.let { sendEffect(it) }
+        }
 }

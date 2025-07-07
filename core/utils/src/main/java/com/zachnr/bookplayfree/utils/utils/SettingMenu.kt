@@ -1,6 +1,8 @@
-package com.zachnr.bookplayfree.uicomponent.utils
+package com.zachnr.bookplayfree.utils.utils
 
 object SettingMenu {
+    const val GENERAL = "setting_general"
+    const val READING = "setting_reading"
     const val FILE_SYNC = "setting_file_sync"
     const val READ_BOOK_WHEN_LAUNCH = "setting_read_book_when_launch"
     const val SET_GOALS = "setting_set_goals"

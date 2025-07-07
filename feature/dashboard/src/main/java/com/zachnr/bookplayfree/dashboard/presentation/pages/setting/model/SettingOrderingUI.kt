@@ -12,5 +12,6 @@ data class SettingOrderingGroupUI(
 data class SettingOrderingItemUI(
     val itemId: String = "",
     val itemTitle: String = "",
-    @DrawableRes val itemIconId: Int = R.drawable.ic_file_sync
+    @DrawableRes val itemIconId: Int = R.drawable.ic_file_sync,
+    val isActive: Boolean? = null
 )

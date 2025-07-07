@@ -38,7 +38,4 @@ internal class DashboardViewModel(
             navItems = navItems
         )
     }
-
-    override fun handleEvents(event: ViewEvent) {
-    }
 }

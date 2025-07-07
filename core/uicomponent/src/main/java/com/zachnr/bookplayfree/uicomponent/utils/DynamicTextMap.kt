@@ -1,6 +1,7 @@
 package com.zachnr.bookplayfree.uicomponent.utils
 
 import com.zachnr.bookplayfree.uicomponent.R
+import com.zachnr.bookplayfree.utils.utils.SettingMenu
 
 /**
  * Beside adding the resource in strings.xml, bound the "key" to the id here.
