@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.selection.toggleable
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
@@ -20,6 +21,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -168,8 +170,12 @@ private fun SettingItemOrderingCheckBox(
     Row(
         modifier = modifier
             .fillMaxWidth()
-            .clickable { onChecked(!data.isActive.orFalse()) }
-            .height(MENU_HEIGHT.dp),
+            .height(MENU_HEIGHT.dp)
+            .toggleable(
+                value = data.isActive.orFalse(),
+                onValueChange = onChecked,
+                role = Role.Checkbox
+            ),
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
@@ -177,7 +183,7 @@ private fun SettingItemOrderingCheckBox(
         Checkbox(
             modifier = Modifier.padding(end = 10.dp),
             checked = data.isActive.orFalse(),
-            onCheckedChange = { onChecked(!data.isActive.orFalse()) },
+            onCheckedChange = null,
             colors = checkBoxGreenColors()
         )
     }
