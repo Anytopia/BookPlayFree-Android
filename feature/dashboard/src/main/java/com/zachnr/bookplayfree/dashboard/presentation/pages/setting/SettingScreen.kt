@@ -11,17 +11,17 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.selection.toggleable
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.DisposableEffect
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -32,11 +32,12 @@ import com.zachnr.bookplayfree.dashboard.presentation.pages.setting.model.Settin
 import com.zachnr.bookplayfree.dashboard.presentation.pages.setting.model.SettingOrderingState
 import com.zachnr.bookplayfree.dashboard.presentation.pages.setting.model.SettingState
 import com.zachnr.bookplayfree.dashboard.presentation.pages.setting.utils.SettingConst.MENU_HEIGHT
+import com.zachnr.bookplayfree.designsystem.checkbox.checkBoxGreenColors
 import com.zachnr.bookplayfree.designsystem.theme.GreenForest
 import com.zachnr.bookplayfree.uicomponent.R
 import com.zachnr.bookplayfree.uicomponent.searchbar.SearchBarDashboard
-import com.zachnr.bookplayfree.uicomponent.utils.SettingMenu
-import com.zachnr.bookplayfree.utils.model.FirebaseEffect
+import com.zachnr.bookplayfree.utils.ext.orFalse
+import com.zachnr.bookplayfree.utils.utils.SettingMenu
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
@@ -45,28 +46,22 @@ internal fun SettingScreen(
     viewModel: SettingViewModel = koinViewModel(),
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
-    val fbEffect by viewModel.firebaseEffect.collectAsStateWithLifecycle()
-    // TODO: Remove fb config from setting
-    LaunchedEffect(fbEffect) {
-        if (fbEffect is FirebaseEffect.OnConfigUpdate) {
-            viewModel.getSettingOrdering()
-        }
-    }
-    DisposableEffect(Unit) {
-        onDispose {
-            viewModel.removeFirebaseListener()
-        }
-    }
     SettingScreen(
         state = state,
-        modifier = modifier
+        modifier = modifier,
+        setIsReadBookWhenLaunch = viewModel::setIsReadBookWhenLaunch,
+        setIsShakeToNext = viewModel::setIsShakeToNext,
+        setIsEffect3D = viewModel::setIsEffect3d
     )
 }
 
 @Composable
 internal fun SettingScreen(
     modifier: Modifier = Modifier,
-    state: SettingState
+    state: SettingState,
+    setIsReadBookWhenLaunch: (Boolean) -> Unit = {},
+    setIsShakeToNext: (Boolean) -> Unit = {},
+    setIsEffect3D: (Boolean) -> Unit = {},
 ) {
     ConstraintLayout(
         modifier = modifier
@@ -106,6 +101,7 @@ internal fun SettingScreen(
                         // Displays the grouped menu
                         items(items = group.menus) { item ->
                             when (item.itemId) {
+                                // TODO: Separate the action no dedicated action
                                 SettingMenu.FILE_SYNC,
                                 SettingMenu.SET_GOALS -> {
                                     SettingItemOrderingBasic(
@@ -114,11 +110,27 @@ internal fun SettingScreen(
                                     )
                                 }
 
-                                SettingMenu.EFFECT_3D, SettingMenu.SHAKE_TO_NEXT,
+                                SettingMenu.EFFECT_3D -> {
+                                    SettingItemOrderingCheckBox(
+                                        modifier = Modifier.padding(horizontal = 14.dp),
+                                        data = item,
+                                        onChecked = setIsEffect3D
+                                    )
+                                }
+
+                                SettingMenu.SHAKE_TO_NEXT -> {
+                                    SettingItemOrderingCheckBox(
+                                        modifier = Modifier.padding(horizontal = 14.dp),
+                                        data = item,
+                                        onChecked = setIsShakeToNext
+                                    )
+                                }
+
                                 SettingMenu.READ_BOOK_WHEN_LAUNCH -> {
                                     SettingItemOrderingCheckBox(
                                         modifier = Modifier.padding(horizontal = 14.dp),
-                                        data = item
+                                        data = item,
+                                        onChecked = setIsReadBookWhenLaunch
                                     )
                                 }
                             }
@@ -153,23 +165,26 @@ private fun SettingItemOrderingBasic(
 private fun SettingItemOrderingCheckBox(
     modifier: Modifier = Modifier,
     data: SettingOrderingItemUI,
-    onChecked: () -> Unit = {}
+    onChecked: (Boolean) -> Unit = {}
 ) {
-    // TODO: Bound the checkbox state with the datastore
     Row(
         modifier = modifier
             .fillMaxWidth()
-            .clickable { onChecked() }
-            .height(MENU_HEIGHT.dp),
+            .height(MENU_HEIGHT.dp)
+            .toggleable(
+                value = data.isActive.orFalse(),
+                onValueChange = onChecked,
+                role = Role.Checkbox
+            ),
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
         SettingMenuItemCommon(data = data)
-        // TODO: Change the checkbox color
         Checkbox(
             modifier = Modifier.padding(end = 10.dp),
-            checked = true,
-            onCheckedChange = null
+            checked = data.isActive.orFalse(),
+            onCheckedChange = null,
+            colors = checkBoxGreenColors()
         )
     }
 }
@@ -248,7 +263,8 @@ private fun SettingItemOrderingCheckBoxPreview() {
         data = SettingOrderingItemUI(
             itemId = "",
             itemTitle = "File sync",
-            itemIconId = R.drawable.ic_file_sync
+            itemIconId = R.drawable.ic_file_sync,
+            isActive = true
         )
     )
 }

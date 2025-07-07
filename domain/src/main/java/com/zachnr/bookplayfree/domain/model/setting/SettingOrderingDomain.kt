@@ -5,5 +5,11 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class SettingOrderingDomain(
     val groupId: String = "",
-    val menus: List<String> = emptyList()
+    val menus: List<SettingOrderingMenuDomain> = emptyList()
+)
+
+@Serializable
+data class SettingOrderingMenuDomain(
+    val menuId: String = "",
+    val isActive: Boolean? = null,
 )
