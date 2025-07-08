@@ -101,11 +101,12 @@ tasks.register<Exec>(setupGitHooksTaskName) {
     }
 
     val isWindows = System.getProperty("os.name").startsWith("Windows")
+    val flag = if (isWindows) "/c" else "-c"
     val command = if (isWindows) "cmd" else "sh"
     val gitHooksCmd =
         "git config --local --unset core.hooksPath || exit 0 && git config --local core.hooksPath .githooks"
-    commandLine(command, "/c", gitHooksCmd)
-    commandLine(command, "-c", "chmod +x ../.githooks/pre-commit")
+    commandLine(command, flag, gitHooksCmd)
+    commandLine(command, flag, "chmod +x ../.githooks/pre-commit")
 
     doLast {
         markerFile.parentFile.mkdirs()
