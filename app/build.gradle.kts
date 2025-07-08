@@ -93,34 +93,24 @@ tasks.withType<Detekt>().configureEach {
 // =========== GIT HOOKS SET-UP ===========
 val setupGitHooksTaskName = "setupGitHooks"
 tasks.register<Exec>(setupGitHooksTaskName) {
-    val gitDir = layout.projectDirectory.dir(".git")
-    val markerFile = layout.projectDirectory.file("gitHooksSetupDone.marker")
+    val gitDir = rootDir.resolve(".git")
+    val markerFile = rootDir.resolve(".githooks/gitHooksSetup.marker")
 
     onlyIf {
-        gitDir.asFile.exists() && !markerFile.asFile.exists()
+        gitDir.exists() && !markerFile.exists()
     }
-
-    workingDir = rootDir
 
     val isWindows = System.getProperty("os.name").startsWith("Windows")
-    if (isWindows) {
-        commandLine(
-            "cmd",
-            "/c",
-            "git config --local --unset core.hooksPath || exit 0 && git config --local core.hooksPath .githooks"
-        )
-    } else {
-        commandLine(
-            "sh",
-            "-c",
-            "git config --local --unset core.hooksPath || true && git config --local core.hooksPath .githooks"
-        )
-    }
+    val flag = if (isWindows) "/c" else "-c"
+    val command = if (isWindows) "cmd" else "sh"
+    val gitHooksCmd =
+        "git config --local --unset core.hooksPath || exit 0 && git config --local core.hooksPath .githooks"
+    commandLine(command, flag, gitHooksCmd)
+    commandLine(command, flag, "chmod +x ../.githooks/pre-commit")
 
     doLast {
-        val marker = markerFile.asFile
-        marker.parentFile.mkdirs()
-        marker.writeText("Git hooks setup completed.")
+        markerFile.parentFile.mkdirs()
+        markerFile.writeText("Git hooks setup completed.")
     }
 }
 
