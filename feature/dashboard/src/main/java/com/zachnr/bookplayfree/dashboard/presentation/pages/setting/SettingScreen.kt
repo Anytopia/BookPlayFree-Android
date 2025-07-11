@@ -64,7 +64,7 @@ internal fun SettingScreen(
     setIsEffect3D: (Boolean) -> Unit = {},
 ) {
     ConstraintLayout(
-        modifier = modifier
+        modifier = modifier.fillMaxSize()
     ) {
         val (sbSetting, lcSetting) = createRefs()
         SearchBarDashboard(
@@ -79,7 +79,7 @@ internal fun SettingScreen(
         )
         LazyColumn(
             modifier = Modifier
-                .fillMaxSize()
+                .fillMaxWidth()
                 .constrainAs(lcSetting) {
                     top.linkTo(sbSetting.bottom, margin = 14.dp)
                 }

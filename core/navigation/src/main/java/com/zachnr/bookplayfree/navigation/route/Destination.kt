@@ -16,4 +16,5 @@ import kotlinx.serialization.Serializable
 sealed interface Destination {
     @Serializable data object SplashScreen : Destination
     @Serializable data object DashboardScreen : Destination
+    @Serializable data object SetGoalScreen : Destination
 }

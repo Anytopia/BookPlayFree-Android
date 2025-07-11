@@ -8,6 +8,7 @@ import com.zachnr.bookplayfree.dashboard.navigation.dashboardSection
 import com.zachnr.bookplayfree.navigation.interfaces.NavigationAction
 import com.zachnr.bookplayfree.navigation.interfaces.Navigator
 import com.zachnr.bookplayfree.navigation.utils.ObserveAsEvents
+import com.zachnr.bookplayfree.setgoal.navigation.setGoalSection
 import com.zachnr.bookplayfree.shared.viewmodel.MainActivitySharedVM
 import com.zachnr.bookplayfree.splashscreen.navigation.splashScreenSection
 import com.zachnr.bookplayfree.utils.utils.AppConst
@@ -39,5 +40,6 @@ fun AppNavigation(
         // Add the list of screen here
         splashScreenSection(mainActivitySharedVM)
         dashboardSection(mainActivitySharedVM)
+        setGoalSection()
     }
 }

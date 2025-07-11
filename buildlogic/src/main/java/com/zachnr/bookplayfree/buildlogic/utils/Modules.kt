@@ -19,6 +19,7 @@ object Modules {
 
     object Features {
         const val DASHBOARD = ":feature:dashboard"
+        const val SET_GOAL = ":feature:setgoal"
         const val SPLASH_SCREEN = ":feature:splashscreen"
     }
 }
