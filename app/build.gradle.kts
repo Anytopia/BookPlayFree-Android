@@ -33,6 +33,7 @@ dependencies {
 
     implementation(project(Modules.Features.DASHBOARD))
     implementation(project(Modules.Features.SPLASH_SCREEN))
+    implementation(project(Modules.Features.SET_GOAL))
 
     implementation(libs.androidx.activity)
     implementation(libs.androidx.activity.compose)
