@@ -12,4 +12,5 @@
     <string name="setting_shake_to_next">Shake device to next the page</string>
     <string name="search">Search</string>
     <string name="setting_search">Search setting</string>
+    <string name="set_goal_need_help">Need help?</string>
 </resources>

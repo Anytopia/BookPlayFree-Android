@@ -64,6 +64,13 @@ abstract class BaseViewModel<State : ViewState, Event : ViewEvent, Effect : View
     }
 
     /**
+     * Navigates up in the navigation stack.
+     */
+    fun navigateUp() = viewModelScope.launch(Dispatchers.Main) {
+        navigator.navigateUp()
+    }
+
+    /**
      * Update UI states with corresponding effects action.
      *
      * @param updates Logic operation that manage how to update the new state.
