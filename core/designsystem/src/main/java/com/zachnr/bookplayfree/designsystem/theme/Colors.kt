@@ -5,6 +5,8 @@ import androidx.compose.ui.graphics.Color
 
 /**
  * Book Play Free colors.
+ *
+ * Refer hex transparency here: https://gist.github.com/lopspower/03fb1cc0ac9f32ef38f4
  */
 val Purple80 = Color(0xFFD0BCFF)
 val PurpleGrey80 = Color(0xFFCCC2DC)
@@ -29,3 +31,5 @@ val GreenForest = Color(0xFF388E3C)
 val CheckboxUncheckedGray = Color(0xFFBDBDBD)
 val CheckboxDisabledLightGray = Color(0xFFE0E0E0)
 val CheckboxDisabledUncheckedBorder = Color(0x61000000)
+
+val BlackOpacity33 = Color(0x54000000)

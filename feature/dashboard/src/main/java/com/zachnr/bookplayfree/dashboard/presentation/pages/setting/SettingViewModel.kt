@@ -3,14 +3,15 @@ package com.zachnr.bookplayfree.dashboard.presentation.pages.setting
 import android.util.Log
 import androidx.lifecycle.viewModelScope
 import com.zachnr.bookplayfree.dashboard.presentation.pages.setting.mapper.SettingMapper
+import com.zachnr.bookplayfree.dashboard.presentation.pages.setting.model.SettingEvent
 import com.zachnr.bookplayfree.dashboard.presentation.pages.setting.model.SettingOrderingState
 import com.zachnr.bookplayfree.dashboard.presentation.pages.setting.model.SettingState
 import com.zachnr.bookplayfree.domain.model.setting.SettingOrderingDomain
 import com.zachnr.bookplayfree.domain.repository.setting.SettingRepository
 import com.zachnr.bookplayfree.navigation.interfaces.Navigator
+import com.zachnr.bookplayfree.navigation.route.Destination
 import com.zachnr.bookplayfree.uicomponent.base.BaseViewModel
 import com.zachnr.bookplayfree.uicomponent.base.ViewEffect
-import com.zachnr.bookplayfree.uicomponent.base.ViewEvent
 import com.zachnr.bookplayfree.utils.utils.DispatcherProvider
 import com.zachnr.bookplayfree.utils.utils.FlowConst.DEFAULT_STOP_TIMEOUT
 import kotlinx.coroutines.flow.SharingStarted
@@ -26,7 +27,7 @@ class SettingViewModel(
     private val dispatcher: DispatcherProvider,
     private val settingRepository: SettingRepository,
     private val settingMapper: SettingMapper
-) : BaseViewModel<SettingState, ViewEvent, ViewEffect>(navigator) {
+) : BaseViewModel<SettingState, SettingEvent, ViewEffect>(navigator) {
 
     private val settingDomain: StateFlow<List<SettingOrderingDomain>> =
         settingRepository.settingData.stateIn(
@@ -37,6 +38,12 @@ class SettingViewModel(
 
     init {
         observeSettingData()
+    }
+
+    override fun handleEvents(event: SettingEvent) {
+        when (event) {
+            is SettingEvent.OnSetGoalMenuClicked -> navigate(Destination.SetGoalScreen)
+        }
     }
 
     override fun setInitialState(): SettingState = SettingState()

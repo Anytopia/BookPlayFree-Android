@@ -10,4 +10,6 @@ object BpfIcons {
     val settingFilled = R.drawable.ic_setting_filled
     val settingOutlined = R.drawable.ic_setting_outlined
     val warning = R.drawable.ic_warning
+    val chevronWhiteLeft = R.drawable.ic_chevron_white_left
+    val helpWhite = R.drawable.ic_help_white
 }

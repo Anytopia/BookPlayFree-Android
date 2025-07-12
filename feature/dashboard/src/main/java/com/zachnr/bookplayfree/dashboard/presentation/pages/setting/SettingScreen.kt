@@ -27,6 +27,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.zachnr.bookplayfree.dashboard.presentation.pages.setting.model.SettingEvent
 import com.zachnr.bookplayfree.dashboard.presentation.pages.setting.model.SettingOrderingGroupUI
 import com.zachnr.bookplayfree.dashboard.presentation.pages.setting.model.SettingOrderingItemUI
 import com.zachnr.bookplayfree.dashboard.presentation.pages.setting.model.SettingOrderingState
@@ -49,6 +50,7 @@ internal fun SettingScreen(
     SettingScreen(
         state = state,
         modifier = modifier,
+        navigationEvent = viewModel::sendEvent,
         setIsReadBookWhenLaunch = viewModel::setIsReadBookWhenLaunch,
         setIsShakeToNext = viewModel::setIsShakeToNext,
         setIsEffect3D = viewModel::setIsEffect3d
@@ -59,6 +61,7 @@ internal fun SettingScreen(
 internal fun SettingScreen(
     modifier: Modifier = Modifier,
     state: SettingState,
+    navigationEvent: (SettingEvent) -> Unit = {},
     setIsReadBookWhenLaunch: (Boolean) -> Unit = {},
     setIsShakeToNext: (Boolean) -> Unit = {},
     setIsEffect3D: (Boolean) -> Unit = {},
@@ -102,11 +105,19 @@ internal fun SettingScreen(
                         items(items = group.menus) { item ->
                             when (item.itemId) {
                                 // TODO: Separate the action no dedicated action
-                                SettingMenu.FILE_SYNC,
-                                SettingMenu.SET_GOALS -> {
+                                SettingMenu.FILE_SYNC -> {
                                     SettingItemOrderingBasic(
                                         modifier = Modifier.padding(horizontal = 14.dp),
                                         data = item
+                                    )
+                                }
+                                SettingMenu.SET_GOALS -> {
+                                    SettingItemOrderingBasic(
+                                        modifier = Modifier.padding(horizontal = 14.dp),
+                                        data = item,
+                                        onClick = {
+                                            navigationEvent(SettingEvent.OnSetGoalMenuClicked)
+                                        }
                                     )
                                 }
 
