@@ -4,6 +4,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -47,27 +48,20 @@ fun BubbleTextTailRight(
         ),
         verticalAlignment = Alignment.CenterVertically
     ) {
-        ConstraintLayout(
+        Box(
             modifier = Modifier
                 .height(32.dp)
                 .background(
                     color = BlackOpacity33,
                     shape = RoundedCornerShape(8.dp)
                 )
+                .padding(horizontal = 18.dp),
+            contentAlignment = Alignment.Center
         ) {
-            val textContainer = createRef()
             Text(
                 text = text,
                 style = MaterialTheme.typography.bodyMedium,
-                color = Color.White,
-                modifier = Modifier
-                    .padding(horizontal = 18.dp)
-                    .constrainAs(textContainer) {
-                        top.linkTo(parent.top)
-                        bottom.linkTo(parent.bottom)
-                        start.linkTo(parent.start)
-                        end.linkTo(parent.end)
-                    }
+                color = Color.White
             )
         }
         Image(

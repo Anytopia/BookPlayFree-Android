@@ -65,5 +65,5 @@ private fun CircularIconButtonPreview() {
 }
 
 private object CircularIconButtonConst {
-    const val SCALE_ICON = 0.33f
+    const val SCALE_ICON = 0.6f
 }
