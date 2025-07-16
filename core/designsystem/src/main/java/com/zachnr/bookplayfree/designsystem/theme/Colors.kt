@@ -33,3 +33,4 @@ val CheckboxDisabledLightGray = Color(0xFFE0E0E0)
 val CheckboxDisabledUncheckedBorder = Color(0x61000000)
 
 val BlackOpacity33 = Color(0x54000000)
+val GrayCharcoal = Color(0xFF2D2D2D)
