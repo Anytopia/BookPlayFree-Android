@@ -7,7 +7,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -82,7 +81,7 @@ internal fun SetGoalScreen(
                 )
                 Text(
                     text = state.title.spanSingleText(
-                        targetText = state.targetText.lowercase(),
+                        targetText = state.targetText,
                         targetColor = colorSpan
                     ),
                     modifier = Modifier.constrainAs(txtTitle) {
@@ -94,9 +93,7 @@ internal fun SetGoalScreen(
                     fontSize = 32.sp,
                     color = colorText,
                     fontWeight = FontWeight.Light,
-                    style = TextStyle(
-                        lineHeight = 42.sp
-                    )
+                    lineHeight = 42.sp
                 )
             }
         }

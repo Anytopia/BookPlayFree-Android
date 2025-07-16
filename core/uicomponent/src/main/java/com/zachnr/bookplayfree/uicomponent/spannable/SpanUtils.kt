@@ -1,7 +1,6 @@
 package com.zachnr.bookplayfree.uicomponent.spannable
 
 import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.SpanStyle
@@ -17,32 +16,35 @@ import androidx.compose.ui.text.font.FontWeight
  *
  * @param targetText The substring to apply the color to. Only the first occurrence will be styled.
  * @param targetColor The [Color] to apply to the [targetText].
+ * @param ignoreCase `true` to ignore case when searching for `targetText`. Defaults to `true`.
  * @return An [AnnotatedString] with the [targetText] styled using the specified [targetColor].
  *
  * @throws IllegalArgumentException if [targetText] is not found in the original string.
  *
  * @sample
- * val text = "How many pages will you read daily?".spanText("pages", Color.Red)
+ * val text = "How many pages will you read daily?".spanSingleText("pages", Color.Red)
  * Text(text = text)
  */
-@Composable
 fun String.spanSingleText(
     targetText: String,
-    targetColor: Color
+    targetColor: Color,
+    ignoreCase: Boolean = true
 ): AnnotatedString {
 
-    val startIndex = this@spanSingleText.indexOf(targetText)
+    val startIndex = this.indexOf(targetText, ignoreCase = ignoreCase)
+    check(startIndex != -1) {
+        "Target text \"$targetText\" not found in \"$this\""
+    }
     val endIndex = startIndex + targetText.length
-    val spannedText: AnnotatedString = buildAnnotatedString {
+    return buildAnnotatedString {
         append(this@spanSingleText)
         addStyle(
             style = SpanStyle(
                 color = targetColor,
                 fontWeight = FontWeight.Normal
             ),
-            start = this@spanSingleText.indexOf(targetText),
+            start = startIndex,
             end = endIndex,
         )
     }
-    return spannedText
 }
