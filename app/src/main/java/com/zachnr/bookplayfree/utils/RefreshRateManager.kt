@@ -36,9 +36,9 @@ class RefreshRateManager(
 
     /**
      * Cancels the current timeout job (if any) and launches a new coroutine that:
-     * - Immediately lowers the refresh rate.
+     * - Immediately sets the refresh rate to the lowest available.
      * - Waits for [USER_INTERACTION_TIMEOUT] duration.
-     * - Then increases the refresh rate again.
+     * - Then sets the refresh rate to the highest available.
      */
     private fun setTimeOutJob() {
         userInteractionTimeOut?.cancel()
@@ -60,13 +60,16 @@ class RefreshRateManager(
             if (display != null) {
                 val supportedModes = display.supportedModes
                 val highestMode = if (isLow) {
-                    supportedModes.minBy { it.refreshRate }
+                    supportedModes.minByOrNull { it.refreshRate }
                 } else {
-                    supportedModes.maxBy { it.refreshRate }
+                    supportedModes.maxByOrNull { it.refreshRate }
                 }
-                val layoutParams = activity.window.attributes
-                layoutParams.preferredDisplayModeId = highestMode.modeId
-                activity.window.attributes = layoutParams
+
+                highestMode?.let { mode ->
+                    val layoutParams = activity.window.attributes
+                    layoutParams.preferredDisplayModeId = mode.modeId
+                    activity.window.attributes = layoutParams
+                }
             }
         }
     }
