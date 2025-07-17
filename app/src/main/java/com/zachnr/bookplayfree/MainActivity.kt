@@ -9,13 +9,18 @@ import androidx.lifecycle.lifecycleScope
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig
 import com.zachnr.bookplayfree.designsystem.theme.BookPlayFreeTheme
 import com.zachnr.bookplayfree.navigation.AppNavigation
+import com.zachnr.bookplayfree.utils.RefreshRateManager
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 
+
 class MainActivity : ComponentActivity() {
 
     private val remoteConfig: FirebaseRemoteConfig by inject()
+    private val refreshRateManager: RefreshRateManager by lazy {
+        RefreshRateManager(this)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,6 +31,11 @@ class MainActivity : ComponentActivity() {
                 AppNavigation()
             }
         }
+    }
+
+    override fun onUserInteraction() {
+        super.onUserInteraction()
+        refreshRateManager.onInteractionDetected()
     }
 
     /**
