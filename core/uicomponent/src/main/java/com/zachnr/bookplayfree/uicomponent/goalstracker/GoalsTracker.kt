@@ -69,7 +69,7 @@ private val trackerPlaceholder: List<GoalTrackerUI> = listOf(
 )
 
 @Composable
-fun GoalsTrackerProgress(
+fun GoalsTrackerProgressComponent(
     modifier: Modifier = Modifier,
     data: List<GoalTrackerUI> = trackerPlaceholder
 ) {
@@ -117,7 +117,7 @@ fun GoalsTrackerProgress(
 }
 
 @Composable
-fun GoalTrackerCircularProgress(
+internal fun GoalTrackerCircularProgress(
     modifier: Modifier = Modifier,
     item: GoalTrackerUI = GoalTrackerUI()
 ) {
@@ -165,7 +165,7 @@ fun GoalTrackerCircularProgress(
 
 // TODO: Handle text size for small device
 @Composable
-fun GoalTrackerTextProgress(
+private fun GoalTrackerTextProgress(
     modifier: Modifier = Modifier,
     item: GoalTrackerUI
 ) {
@@ -235,7 +235,7 @@ fun GoalTrackerTextProgress(
 }
 
 @Composable
-fun DotLeadingCircle(
+private fun DotLeadingCircle(
     modifier: Modifier = Modifier,
     fillColor: Color,
     size: Int = 8
@@ -254,13 +254,13 @@ fun DotLeadingCircle(
 
 @Preview(showBackground = true, device = "spec:width=411dp,height=891dp")
 @Composable
-fun GoalsTrackerProgressPreview() {
-    GoalsTrackerProgress()
+private fun GoalsTrackerProgressPreview() {
+    GoalsTrackerProgressComponent()
 }
 
 @Preview(showBackground = true)
 @Composable
-fun GoalTrackerTextProgressPreview() {
+private fun GoalTrackerTextProgressPreview() {
     GoalTrackerTextProgress(
         item = GoalTrackerUI(
             currentProgress = 36f,
@@ -271,6 +271,6 @@ fun GoalTrackerTextProgressPreview() {
 
 @Composable
 @Preview(showBackground = true)
-fun DualDotPreview() {
+private fun DualDotPreview() {
     DotLeadingCircle(fillColor = RedCoral)
 }

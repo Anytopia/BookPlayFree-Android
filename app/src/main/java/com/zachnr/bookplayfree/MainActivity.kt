@@ -14,7 +14,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 
-
 class MainActivity : ComponentActivity() {
 
     private val remoteConfig: FirebaseRemoteConfig by inject()

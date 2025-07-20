@@ -36,7 +36,8 @@ internal suspend inline fun <reified T> HttpClient.safePostWrapped(
     block: HttpRequestBuilder.() -> Unit = {}
 ): ResponseWrapper<T> = try {
     post {
-        url(urlString); block()
+        url(urlString)
+        block()
     }.bodyWrapped<T>()
 } catch (e: Exception) {
     ResponseWrapper.Exception(throwable = e)
